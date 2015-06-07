@@ -5,26 +5,16 @@ import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MessageManager {
-	private static InetAddress localhost;
-	
-	static {
-		try {
-			localhost = InetAddress.getByName("localhost");
-		} catch (UnknownHostException e) {
-		}
-	}
-	
 	private Thread listenerThread;
 	private HashMap<Byte, ArrayList<MessageListener>> listeners;
 	private DatagramSocket serverSocket;
 	
 	public MessageManager(int port) throws SocketException {
-		listeners = new HashMap<Byte, ArrayList<MessageListener>>();
+		listeners = new HashMap<Byte, ArrayList<MessageListener>>(MessageType.values().length);
 		
 		for (MessageType msgtype : MessageType.values()) {
 			listeners.put(msgtype.getValue(), new ArrayList<MessageListener>());
@@ -47,7 +37,7 @@ public class MessageManager {
 	            	ArrayList<MessageListener> listenerList = listeners.get(receiveData[0]);
 	            	if (listenerList != null) {
 	            		for (MessageListener listener: listenerList) {
-	            			listener.messageReceived(receivePacket.getPort(), receiveData);
+	            			listener.messageReceived(receivePacket.getAddress(), receivePacket.getPort(), receiveData);
 	            		}
 	            	}
 	            }
@@ -55,12 +45,12 @@ public class MessageManager {
 		};
 	}
 	
-	public void sendMessage(int id, MessageType type, byte[] message) throws IOException {
+	public void sendMessage(InetAddress destIP, int destPort, MessageType type, byte[] message) throws IOException {
 		byte[] data = new byte[message.length+1];
 		data[0] = type.getValue();
 		System.arraycopy(message, 0, data, 1, message.length);
 		
-		DatagramPacket sendPacket = new DatagramPacket(data, data.length, localhost, id);
+		DatagramPacket sendPacket = new DatagramPacket(data, data.length, destIP, destPort);
         serverSocket.send(sendPacket);
 	}
 	
