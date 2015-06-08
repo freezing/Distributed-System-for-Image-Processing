@@ -37,6 +37,9 @@ public class BootstrapConnectRequestListener implements MessageListener {
 					.setPort(port)
 					.build();
 		
+		// Add receiver in the list
+		bootstrap.addNode(receiver);
+		
 		// Get K nodes
 		List<KademliaNode> others = bootstrap.getKRandomNodes();
 		
