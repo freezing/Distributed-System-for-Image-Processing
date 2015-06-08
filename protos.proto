@@ -1,0 +1,40 @@
+package tutorial;
+
+option java_package = "protos";
+option java_outer_classname = "KademliaProtos";
+
+message KademliaId {
+	optional bytes data = 1;
+}
+
+message KademliaNode {
+	optional KademliaId id = 1;
+	optional string address = 2;
+	optional int32 port = 3;
+}
+
+
+// Requests and Responses
+message MessageContainer {
+	optional int32 type = 1;
+	optional bytes data = 2;
+	optional KademliaNode sender = 3;
+}
+
+message BootstrapConnectRequest {
+	optional int32 port = 1;
+}
+
+message BootstrapConnectResponse {
+	optional KademliaNode you = 1;
+	repeated KademliaNode others = 2;
+}
+
+message FindNodeRequest {
+	optional KademliaId searchId = 1;
+}
+
+message FindNodeResponse {
+	optional KademliaId searchId = 1;
+	repeated KademliaNode results = 2;
+}

@@ -1,8 +1,9 @@
 package network;
 
-import java.net.InetAddress;
+import protos.KademliaProtos.KademliaNode;
+
 
 public interface MessageListener {
-	public void messageReceived(InetAddress sourceIP, int sourcePort, byte[] message);
+	public void messageReceived(String ip, KademliaNode sender, byte[] message);
 }
 
