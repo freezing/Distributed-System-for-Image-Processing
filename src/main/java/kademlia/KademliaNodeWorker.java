@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
@@ -70,6 +69,21 @@ public class KademliaNodeWorker {
 	}
 
 	public void run() {
+
+	}
+	
+	public void testStore() {
+		KademliaId key = KademliaUtils.generateId(6534);
+		HashTableValue value = HashTableValue.newBuilder().setTmp("This is a test string").build();
+		store(key, value);
+		System.out.println("Sent value: "+value.getTmp());
+	}
+	
+	public void testGet() {
+		KademliaId key = KademliaUtils.generateId(6534);
+		HashTableValue val = findValue(key);
+		if (val == null) System.out.println("NULL");
+		else System.out.println("Got value: "+val.getTmp());
 	}
 
 	public KademliaNode getNode() {
@@ -126,8 +140,6 @@ public class KademliaNodeWorker {
 			}
 			prevClosest = closest;
 
-			FindNodeRequest request = FindNodeRequestFactory.make(id);
-			MessageContainer message = MessageContainerFactory.make(this.node, request);
 			sendMessageToNodes(excludeNodesFromSet(closest, visited), message);
 			
 			try {
@@ -162,11 +174,11 @@ public class KademliaNodeWorker {
 	public void store(KademliaId key, HashTableValue value) {
 		List<KademliaNode> closest = findNode(key);
 		for (KademliaNode node : closest) {
-			store(node, key, value);
+			sendStoreRequest(node, key, value);
 		}
 	}
 	
-	public void store(KademliaNode receiver, KademliaId key, HashTableValue value) {
+	public void sendStoreRequest(KademliaNode receiver, KademliaId key, HashTableValue value) {
 		StoreRequest request = StoreRequestFactory.make(key, value);
 		MessageContainer message = MessageContainerFactory.make(getNode(), request);
 		sendMessage(receiver, message);
