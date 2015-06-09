@@ -64,7 +64,7 @@ public class BootstrapConnectRequestListener implements MessageListener {
 			.build();
 		
 		
-		List<KademliaNode> nodes = new ArrayList<KademliaNode>(bootstrap.getNodes());
+		/*List<KademliaNode> nodes = new ArrayList<KademliaNode>(bootstrap.getNodes());
 		final KademliaId cmp = KademliaUtils.generateId(6534); //receiver.getId(); 
 		Collections.sort(nodes, new Comparator<KademliaNode>() {
 
@@ -78,7 +78,7 @@ public class BootstrapConnectRequestListener implements MessageListener {
 		for (int i = 0; i < 5; i++) {
 			if (i < nodes.size())
 			System.out.println(nodes.get(i));
-		}
+		}*/
 		
 		bootstrap.sendResponse(receiver, response);
 	}
