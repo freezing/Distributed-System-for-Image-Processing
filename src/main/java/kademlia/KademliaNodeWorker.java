@@ -34,6 +34,7 @@ import protos.KademliaProtos.StoreRequest;
 import protos.KademliaProtos.TaskResult;
 import util.Constants;
 import utils.HashTableValueUtils;
+import utils.ImageProtoUtils;
 import utils.ImageTaskUtils;
 import utils.KademliaUtils;
 import utils.StatisticsUtils;
@@ -371,10 +372,13 @@ public class KademliaNodeWorker {
 			// Calculate number of pending tasks using children info
 			int pendingTasks = values[2 * id].getValidTasks()
 					+ values[2 * id + 1].getValidTasks();
+			
+			int totalTasks = values[2 * id].getTotalTasks()
+					+ values[2 * id + 1].getTotalTasks();
 
 			// Make HashTableValue
 			HashTableValue value = HashTableValueFactory.make(myId, parentId,
-					leftChildId, rightChildId, pendingTasks);
+					leftChildId, rightChildId, pendingTasks, totalTasks);
 
 			// Insert value in DHT
 			store(value.getSegmentTreeNode().getMyId(), value);
@@ -417,8 +421,20 @@ public class KademliaNodeWorker {
 		return findValue(SEGMENT_TREE_ROOT_ID);
 	}
 
-	public ImageProto assembleImage() {
-		// TODO Auto-generated method stub
-		return null;
+	public ImageProto assembleImage(int totalParts, int validParts) {
+		List<ImageProto> imageParts = new ArrayList<ImageProto>();
+		
+		// Iterate through ids of the tasks that are valid
+		for (int id = totalParts; id < totalParts + validParts; id++) {
+			KademliaId kademliaId = KademliaUtils.generateId(id);
+			HashTableValue value = findValue(kademliaId);
+			if (value.hasResult()) {
+				imageParts.add(value.getResult().getBluredImage());
+			} else {
+				throw new IllegalStateException("This state should not be possibled!");
+			}
+		}
+		
+		return ImageProtoUtils.assembleImage(imageParts);
 	}
 }

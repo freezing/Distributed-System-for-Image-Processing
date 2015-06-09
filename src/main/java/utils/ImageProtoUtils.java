@@ -1,5 +1,7 @@
 package utils;
 
+import java.util.List;
+
 import protos.KademliaProtos.BlurArea;
 import protos.KademliaProtos.ImageProto;
 import protos.KademliaProtos.ImageRow;
@@ -20,5 +22,10 @@ public class ImageProtoUtils {
 	public static ImageProto subImage(ImageProto subImage, BlurArea blurArea) {
 		return subImage(subImage, blurArea.getTop(), blurArea.getLeft(),
 				blurArea.getBottom(), blurArea.getRight());
+	}
+
+	public static ImageProto assembleImage(List<ImageProto> imageParts) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

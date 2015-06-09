@@ -64,6 +64,7 @@ message HashTableValue {
 	optional int64 lastTimeTaken = 4;
 	optional int32 finishedTasks = 5;
 	optional int32 validTasks = 6;
+	optional int32 totalTasks = 7;
 	optional string tmp = 10;
 }
 

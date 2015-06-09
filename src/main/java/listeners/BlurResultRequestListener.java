@@ -32,7 +32,7 @@ public class BlurResultRequestListener implements MessageListener {
 
 			if (StatisticsUtils.isAllFinished(rootValue)) {
 				// All is finished, get image
-				image = worker.assembleImage();
+				image = worker.assembleImage(rootValue.getTotalTasks(), rootValue.getValidTasks());
 			}
 
 			BlurResultResponse response = BlurResultResponseFactory.make(

@@ -14,17 +14,19 @@ public class HashTableValueFactory {
 		int validTasks = imageTask.getFake() ? 0 : 1;
 		return HashTableValue.newBuilder().setSegmentTreeNode(segmentTreeNode)
 				.setUnitTask(imageTask).setFinishedTasks(0)
-				.setValidTasks(validTasks).build();
+				.setValidTasks(validTasks)
+				.setTotalTasks(1).build();
 	}
 
 	public static HashTableValue make(KademliaId myId, KademliaId parentId,
-			KademliaId leftChildId, KademliaId rightChildId, int validTasks) {
+			KademliaId leftChildId, KademliaId rightChildId, int validTasks, int totalTasks) {
 		SegmentTreeNode segmentTreeNode = SegmentTreeNodeFactory.make(myId,
 				parentId, leftChildId, rightChildId);
 		return HashTableValue.newBuilder()
 			.setFinishedTasks(0)
 			.setLastTimeTaken(0)
 			.setValidTasks(validTasks)
+			.setTotalTasks(totalTasks)
 			.setSegmentTreeNode(segmentTreeNode)
 			.build();
 	}
