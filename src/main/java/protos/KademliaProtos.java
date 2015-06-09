@@ -7681,6 +7681,5098 @@ public final class KademliaProtos {
     // @@protoc_insertion_point(class_scope:tutorial.HashTableValue)
   }
 
+  public interface BlurImageRequestOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional .tutorial.ImageProto imageProto = 1;
+    /**
+     * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+     */
+    boolean hasImageProto();
+    /**
+     * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+     */
+    protos.KademliaProtos.ImageProto getImageProto();
+    /**
+     * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+     */
+    protos.KademliaProtos.ImageProtoOrBuilder getImageProtoOrBuilder();
+
+    // optional int32 radius = 2;
+    /**
+     * <code>optional int32 radius = 2;</code>
+     */
+    boolean hasRadius();
+    /**
+     * <code>optional int32 radius = 2;</code>
+     */
+    int getRadius();
+  }
+  /**
+   * Protobuf type {@code tutorial.BlurImageRequest}
+   */
+  public static final class BlurImageRequest extends
+      com.google.protobuf.GeneratedMessage
+      implements BlurImageRequestOrBuilder {
+    // Use BlurImageRequest.newBuilder() to construct.
+    private BlurImageRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private BlurImageRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final BlurImageRequest defaultInstance;
+    public static BlurImageRequest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public BlurImageRequest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BlurImageRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              protos.KademliaProtos.ImageProto.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = imageProto_.toBuilder();
+              }
+              imageProto_ = input.readMessage(protos.KademliaProtos.ImageProto.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(imageProto_);
+                imageProto_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              radius_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_BlurImageRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_BlurImageRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.BlurImageRequest.class, protos.KademliaProtos.BlurImageRequest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<BlurImageRequest> PARSER =
+        new com.google.protobuf.AbstractParser<BlurImageRequest>() {
+      public BlurImageRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BlurImageRequest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BlurImageRequest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional .tutorial.ImageProto imageProto = 1;
+    public static final int IMAGEPROTO_FIELD_NUMBER = 1;
+    private protos.KademliaProtos.ImageProto imageProto_;
+    /**
+     * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+     */
+    public boolean hasImageProto() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+     */
+    public protos.KademliaProtos.ImageProto getImageProto() {
+      return imageProto_;
+    }
+    /**
+     * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+     */
+    public protos.KademliaProtos.ImageProtoOrBuilder getImageProtoOrBuilder() {
+      return imageProto_;
+    }
+
+    // optional int32 radius = 2;
+    public static final int RADIUS_FIELD_NUMBER = 2;
+    private int radius_;
+    /**
+     * <code>optional int32 radius = 2;</code>
+     */
+    public boolean hasRadius() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int32 radius = 2;</code>
+     */
+    public int getRadius() {
+      return radius_;
+    }
+
+    private void initFields() {
+      imageProto_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+      radius_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, imageProto_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, radius_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, imageProto_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, radius_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.BlurImageRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.BlurImageRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurImageRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.BlurImageRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurImageRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.BlurImageRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurImageRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.BlurImageRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurImageRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.BlurImageRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.BlurImageRequest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.BlurImageRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.BlurImageRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_BlurImageRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_BlurImageRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.BlurImageRequest.class, protos.KademliaProtos.BlurImageRequest.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.BlurImageRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getImageProtoFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (imageProtoBuilder_ == null) {
+          imageProto_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+        } else {
+          imageProtoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        radius_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_BlurImageRequest_descriptor;
+      }
+
+      public protos.KademliaProtos.BlurImageRequest getDefaultInstanceForType() {
+        return protos.KademliaProtos.BlurImageRequest.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.BlurImageRequest build() {
+        protos.KademliaProtos.BlurImageRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.BlurImageRequest buildPartial() {
+        protos.KademliaProtos.BlurImageRequest result = new protos.KademliaProtos.BlurImageRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (imageProtoBuilder_ == null) {
+          result.imageProto_ = imageProto_;
+        } else {
+          result.imageProto_ = imageProtoBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.radius_ = radius_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.BlurImageRequest) {
+          return mergeFrom((protos.KademliaProtos.BlurImageRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.BlurImageRequest other) {
+        if (other == protos.KademliaProtos.BlurImageRequest.getDefaultInstance()) return this;
+        if (other.hasImageProto()) {
+          mergeImageProto(other.getImageProto());
+        }
+        if (other.hasRadius()) {
+          setRadius(other.getRadius());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.BlurImageRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.BlurImageRequest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional .tutorial.ImageProto imageProto = 1;
+      private protos.KademliaProtos.ImageProto imageProto_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder> imageProtoBuilder_;
+      /**
+       * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+       */
+      public boolean hasImageProto() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProto getImageProto() {
+        if (imageProtoBuilder_ == null) {
+          return imageProto_;
+        } else {
+          return imageProtoBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+       */
+      public Builder setImageProto(protos.KademliaProtos.ImageProto value) {
+        if (imageProtoBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          imageProto_ = value;
+          onChanged();
+        } else {
+          imageProtoBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+       */
+      public Builder setImageProto(
+          protos.KademliaProtos.ImageProto.Builder builderForValue) {
+        if (imageProtoBuilder_ == null) {
+          imageProto_ = builderForValue.build();
+          onChanged();
+        } else {
+          imageProtoBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+       */
+      public Builder mergeImageProto(protos.KademliaProtos.ImageProto value) {
+        if (imageProtoBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              imageProto_ != protos.KademliaProtos.ImageProto.getDefaultInstance()) {
+            imageProto_ =
+              protos.KademliaProtos.ImageProto.newBuilder(imageProto_).mergeFrom(value).buildPartial();
+          } else {
+            imageProto_ = value;
+          }
+          onChanged();
+        } else {
+          imageProtoBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+       */
+      public Builder clearImageProto() {
+        if (imageProtoBuilder_ == null) {
+          imageProto_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+          onChanged();
+        } else {
+          imageProtoBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProto.Builder getImageProtoBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getImageProtoFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProtoOrBuilder getImageProtoOrBuilder() {
+        if (imageProtoBuilder_ != null) {
+          return imageProtoBuilder_.getMessageOrBuilder();
+        } else {
+          return imageProto_;
+        }
+      }
+      /**
+       * <code>optional .tutorial.ImageProto imageProto = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder> 
+          getImageProtoFieldBuilder() {
+        if (imageProtoBuilder_ == null) {
+          imageProtoBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder>(
+                  imageProto_,
+                  getParentForChildren(),
+                  isClean());
+          imageProto_ = null;
+        }
+        return imageProtoBuilder_;
+      }
+
+      // optional int32 radius = 2;
+      private int radius_ ;
+      /**
+       * <code>optional int32 radius = 2;</code>
+       */
+      public boolean hasRadius() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int32 radius = 2;</code>
+       */
+      public int getRadius() {
+        return radius_;
+      }
+      /**
+       * <code>optional int32 radius = 2;</code>
+       */
+      public Builder setRadius(int value) {
+        bitField0_ |= 0x00000002;
+        radius_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 radius = 2;</code>
+       */
+      public Builder clearRadius() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        radius_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.BlurImageRequest)
+    }
+
+    static {
+      defaultInstance = new BlurImageRequest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.BlurImageRequest)
+  }
+
+  public interface BlurImageResponseOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional .tutorial.ImageProto image = 1;
+    /**
+     * <code>optional .tutorial.ImageProto image = 1;</code>
+     */
+    boolean hasImage();
+    /**
+     * <code>optional .tutorial.ImageProto image = 1;</code>
+     */
+    protos.KademliaProtos.ImageProto getImage();
+    /**
+     * <code>optional .tutorial.ImageProto image = 1;</code>
+     */
+    protos.KademliaProtos.ImageProtoOrBuilder getImageOrBuilder();
+  }
+  /**
+   * Protobuf type {@code tutorial.BlurImageResponse}
+   */
+  public static final class BlurImageResponse extends
+      com.google.protobuf.GeneratedMessage
+      implements BlurImageResponseOrBuilder {
+    // Use BlurImageResponse.newBuilder() to construct.
+    private BlurImageResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private BlurImageResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final BlurImageResponse defaultInstance;
+    public static BlurImageResponse getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public BlurImageResponse getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BlurImageResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              protos.KademliaProtos.ImageProto.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = image_.toBuilder();
+              }
+              image_ = input.readMessage(protos.KademliaProtos.ImageProto.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(image_);
+                image_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_BlurImageResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_BlurImageResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.BlurImageResponse.class, protos.KademliaProtos.BlurImageResponse.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<BlurImageResponse> PARSER =
+        new com.google.protobuf.AbstractParser<BlurImageResponse>() {
+      public BlurImageResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BlurImageResponse(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BlurImageResponse> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional .tutorial.ImageProto image = 1;
+    public static final int IMAGE_FIELD_NUMBER = 1;
+    private protos.KademliaProtos.ImageProto image_;
+    /**
+     * <code>optional .tutorial.ImageProto image = 1;</code>
+     */
+    public boolean hasImage() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .tutorial.ImageProto image = 1;</code>
+     */
+    public protos.KademliaProtos.ImageProto getImage() {
+      return image_;
+    }
+    /**
+     * <code>optional .tutorial.ImageProto image = 1;</code>
+     */
+    public protos.KademliaProtos.ImageProtoOrBuilder getImageOrBuilder() {
+      return image_;
+    }
+
+    private void initFields() {
+      image_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, image_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, image_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.BlurImageResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.BlurImageResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurImageResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.BlurImageResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurImageResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.BlurImageResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurImageResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.BlurImageResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurImageResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.BlurImageResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.BlurImageResponse prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.BlurImageResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.BlurImageResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_BlurImageResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_BlurImageResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.BlurImageResponse.class, protos.KademliaProtos.BlurImageResponse.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.BlurImageResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getImageFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (imageBuilder_ == null) {
+          image_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+        } else {
+          imageBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_BlurImageResponse_descriptor;
+      }
+
+      public protos.KademliaProtos.BlurImageResponse getDefaultInstanceForType() {
+        return protos.KademliaProtos.BlurImageResponse.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.BlurImageResponse build() {
+        protos.KademliaProtos.BlurImageResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.BlurImageResponse buildPartial() {
+        protos.KademliaProtos.BlurImageResponse result = new protos.KademliaProtos.BlurImageResponse(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (imageBuilder_ == null) {
+          result.image_ = image_;
+        } else {
+          result.image_ = imageBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.BlurImageResponse) {
+          return mergeFrom((protos.KademliaProtos.BlurImageResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.BlurImageResponse other) {
+        if (other == protos.KademliaProtos.BlurImageResponse.getDefaultInstance()) return this;
+        if (other.hasImage()) {
+          mergeImage(other.getImage());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.BlurImageResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.BlurImageResponse) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional .tutorial.ImageProto image = 1;
+      private protos.KademliaProtos.ImageProto image_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder> imageBuilder_;
+      /**
+       * <code>optional .tutorial.ImageProto image = 1;</code>
+       */
+      public boolean hasImage() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .tutorial.ImageProto image = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProto getImage() {
+        if (imageBuilder_ == null) {
+          return image_;
+        } else {
+          return imageBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .tutorial.ImageProto image = 1;</code>
+       */
+      public Builder setImage(protos.KademliaProtos.ImageProto value) {
+        if (imageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          image_ = value;
+          onChanged();
+        } else {
+          imageBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto image = 1;</code>
+       */
+      public Builder setImage(
+          protos.KademliaProtos.ImageProto.Builder builderForValue) {
+        if (imageBuilder_ == null) {
+          image_ = builderForValue.build();
+          onChanged();
+        } else {
+          imageBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto image = 1;</code>
+       */
+      public Builder mergeImage(protos.KademliaProtos.ImageProto value) {
+        if (imageBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              image_ != protos.KademliaProtos.ImageProto.getDefaultInstance()) {
+            image_ =
+              protos.KademliaProtos.ImageProto.newBuilder(image_).mergeFrom(value).buildPartial();
+          } else {
+            image_ = value;
+          }
+          onChanged();
+        } else {
+          imageBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto image = 1;</code>
+       */
+      public Builder clearImage() {
+        if (imageBuilder_ == null) {
+          image_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+          onChanged();
+        } else {
+          imageBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto image = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProto.Builder getImageBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getImageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .tutorial.ImageProto image = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProtoOrBuilder getImageOrBuilder() {
+        if (imageBuilder_ != null) {
+          return imageBuilder_.getMessageOrBuilder();
+        } else {
+          return image_;
+        }
+      }
+      /**
+       * <code>optional .tutorial.ImageProto image = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder> 
+          getImageFieldBuilder() {
+        if (imageBuilder_ == null) {
+          imageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder>(
+                  image_,
+                  getParentForChildren(),
+                  isClean());
+          image_ = null;
+        }
+        return imageBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.BlurImageResponse)
+    }
+
+    static {
+      defaultInstance = new BlurImageResponse(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.BlurImageResponse)
+  }
+
+  public interface PixelOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional int32 red = 1;
+    /**
+     * <code>optional int32 red = 1;</code>
+     */
+    boolean hasRed();
+    /**
+     * <code>optional int32 red = 1;</code>
+     */
+    int getRed();
+
+    // optional int32 green = 2;
+    /**
+     * <code>optional int32 green = 2;</code>
+     */
+    boolean hasGreen();
+    /**
+     * <code>optional int32 green = 2;</code>
+     */
+    int getGreen();
+
+    // optional int32 blue = 3;
+    /**
+     * <code>optional int32 blue = 3;</code>
+     */
+    boolean hasBlue();
+    /**
+     * <code>optional int32 blue = 3;</code>
+     */
+    int getBlue();
+  }
+  /**
+   * Protobuf type {@code tutorial.Pixel}
+   */
+  public static final class Pixel extends
+      com.google.protobuf.GeneratedMessage
+      implements PixelOrBuilder {
+    // Use Pixel.newBuilder() to construct.
+    private Pixel(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private Pixel(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final Pixel defaultInstance;
+    public static Pixel getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public Pixel getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Pixel(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              red_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              green_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              blue_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_Pixel_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_Pixel_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.Pixel.class, protos.KademliaProtos.Pixel.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Pixel> PARSER =
+        new com.google.protobuf.AbstractParser<Pixel>() {
+      public Pixel parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Pixel(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Pixel> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional int32 red = 1;
+    public static final int RED_FIELD_NUMBER = 1;
+    private int red_;
+    /**
+     * <code>optional int32 red = 1;</code>
+     */
+    public boolean hasRed() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional int32 red = 1;</code>
+     */
+    public int getRed() {
+      return red_;
+    }
+
+    // optional int32 green = 2;
+    public static final int GREEN_FIELD_NUMBER = 2;
+    private int green_;
+    /**
+     * <code>optional int32 green = 2;</code>
+     */
+    public boolean hasGreen() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int32 green = 2;</code>
+     */
+    public int getGreen() {
+      return green_;
+    }
+
+    // optional int32 blue = 3;
+    public static final int BLUE_FIELD_NUMBER = 3;
+    private int blue_;
+    /**
+     * <code>optional int32 blue = 3;</code>
+     */
+    public boolean hasBlue() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional int32 blue = 3;</code>
+     */
+    public int getBlue() {
+      return blue_;
+    }
+
+    private void initFields() {
+      red_ = 0;
+      green_ = 0;
+      blue_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, red_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, green_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, blue_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, red_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, green_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, blue_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.Pixel parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.Pixel parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.Pixel parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.Pixel parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.Pixel parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.Pixel parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.Pixel parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.Pixel parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.Pixel parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.Pixel parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.Pixel prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.Pixel}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.PixelOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_Pixel_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_Pixel_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.Pixel.class, protos.KademliaProtos.Pixel.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.Pixel.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        red_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        green_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        blue_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_Pixel_descriptor;
+      }
+
+      public protos.KademliaProtos.Pixel getDefaultInstanceForType() {
+        return protos.KademliaProtos.Pixel.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.Pixel build() {
+        protos.KademliaProtos.Pixel result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.Pixel buildPartial() {
+        protos.KademliaProtos.Pixel result = new protos.KademliaProtos.Pixel(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.red_ = red_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.green_ = green_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.blue_ = blue_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.Pixel) {
+          return mergeFrom((protos.KademliaProtos.Pixel)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.Pixel other) {
+        if (other == protos.KademliaProtos.Pixel.getDefaultInstance()) return this;
+        if (other.hasRed()) {
+          setRed(other.getRed());
+        }
+        if (other.hasGreen()) {
+          setGreen(other.getGreen());
+        }
+        if (other.hasBlue()) {
+          setBlue(other.getBlue());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.Pixel parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.Pixel) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional int32 red = 1;
+      private int red_ ;
+      /**
+       * <code>optional int32 red = 1;</code>
+       */
+      public boolean hasRed() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional int32 red = 1;</code>
+       */
+      public int getRed() {
+        return red_;
+      }
+      /**
+       * <code>optional int32 red = 1;</code>
+       */
+      public Builder setRed(int value) {
+        bitField0_ |= 0x00000001;
+        red_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 red = 1;</code>
+       */
+      public Builder clearRed() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        red_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 green = 2;
+      private int green_ ;
+      /**
+       * <code>optional int32 green = 2;</code>
+       */
+      public boolean hasGreen() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int32 green = 2;</code>
+       */
+      public int getGreen() {
+        return green_;
+      }
+      /**
+       * <code>optional int32 green = 2;</code>
+       */
+      public Builder setGreen(int value) {
+        bitField0_ |= 0x00000002;
+        green_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 green = 2;</code>
+       */
+      public Builder clearGreen() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        green_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 blue = 3;
+      private int blue_ ;
+      /**
+       * <code>optional int32 blue = 3;</code>
+       */
+      public boolean hasBlue() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional int32 blue = 3;</code>
+       */
+      public int getBlue() {
+        return blue_;
+      }
+      /**
+       * <code>optional int32 blue = 3;</code>
+       */
+      public Builder setBlue(int value) {
+        bitField0_ |= 0x00000004;
+        blue_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 blue = 3;</code>
+       */
+      public Builder clearBlue() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        blue_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.Pixel)
+    }
+
+    static {
+      defaultInstance = new Pixel(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.Pixel)
+  }
+
+  public interface ImageRowOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // repeated .tutorial.Pixel pixels = 1;
+    /**
+     * <code>repeated .tutorial.Pixel pixels = 1;</code>
+     */
+    java.util.List<protos.KademliaProtos.Pixel> 
+        getPixelsList();
+    /**
+     * <code>repeated .tutorial.Pixel pixels = 1;</code>
+     */
+    protos.KademliaProtos.Pixel getPixels(int index);
+    /**
+     * <code>repeated .tutorial.Pixel pixels = 1;</code>
+     */
+    int getPixelsCount();
+    /**
+     * <code>repeated .tutorial.Pixel pixels = 1;</code>
+     */
+    java.util.List<? extends protos.KademliaProtos.PixelOrBuilder> 
+        getPixelsOrBuilderList();
+    /**
+     * <code>repeated .tutorial.Pixel pixels = 1;</code>
+     */
+    protos.KademliaProtos.PixelOrBuilder getPixelsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code tutorial.ImageRow}
+   */
+  public static final class ImageRow extends
+      com.google.protobuf.GeneratedMessage
+      implements ImageRowOrBuilder {
+    // Use ImageRow.newBuilder() to construct.
+    private ImageRow(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private ImageRow(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final ImageRow defaultInstance;
+    public static ImageRow getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public ImageRow getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ImageRow(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                pixels_ = new java.util.ArrayList<protos.KademliaProtos.Pixel>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              pixels_.add(input.readMessage(protos.KademliaProtos.Pixel.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          pixels_ = java.util.Collections.unmodifiableList(pixels_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_ImageRow_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_ImageRow_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.ImageRow.class, protos.KademliaProtos.ImageRow.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<ImageRow> PARSER =
+        new com.google.protobuf.AbstractParser<ImageRow>() {
+      public ImageRow parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ImageRow(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ImageRow> getParserForType() {
+      return PARSER;
+    }
+
+    // repeated .tutorial.Pixel pixels = 1;
+    public static final int PIXELS_FIELD_NUMBER = 1;
+    private java.util.List<protos.KademliaProtos.Pixel> pixels_;
+    /**
+     * <code>repeated .tutorial.Pixel pixels = 1;</code>
+     */
+    public java.util.List<protos.KademliaProtos.Pixel> getPixelsList() {
+      return pixels_;
+    }
+    /**
+     * <code>repeated .tutorial.Pixel pixels = 1;</code>
+     */
+    public java.util.List<? extends protos.KademliaProtos.PixelOrBuilder> 
+        getPixelsOrBuilderList() {
+      return pixels_;
+    }
+    /**
+     * <code>repeated .tutorial.Pixel pixels = 1;</code>
+     */
+    public int getPixelsCount() {
+      return pixels_.size();
+    }
+    /**
+     * <code>repeated .tutorial.Pixel pixels = 1;</code>
+     */
+    public protos.KademliaProtos.Pixel getPixels(int index) {
+      return pixels_.get(index);
+    }
+    /**
+     * <code>repeated .tutorial.Pixel pixels = 1;</code>
+     */
+    public protos.KademliaProtos.PixelOrBuilder getPixelsOrBuilder(
+        int index) {
+      return pixels_.get(index);
+    }
+
+    private void initFields() {
+      pixels_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < pixels_.size(); i++) {
+        output.writeMessage(1, pixels_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < pixels_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, pixels_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.ImageRow parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.ImageRow parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageRow parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.ImageRow parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageRow parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.ImageRow parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageRow parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.ImageRow parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageRow parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.ImageRow parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.ImageRow prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.ImageRow}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.ImageRowOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_ImageRow_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_ImageRow_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.ImageRow.class, protos.KademliaProtos.ImageRow.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.ImageRow.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getPixelsFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (pixelsBuilder_ == null) {
+          pixels_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          pixelsBuilder_.clear();
+        }
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_ImageRow_descriptor;
+      }
+
+      public protos.KademliaProtos.ImageRow getDefaultInstanceForType() {
+        return protos.KademliaProtos.ImageRow.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.ImageRow build() {
+        protos.KademliaProtos.ImageRow result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.ImageRow buildPartial() {
+        protos.KademliaProtos.ImageRow result = new protos.KademliaProtos.ImageRow(this);
+        int from_bitField0_ = bitField0_;
+        if (pixelsBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            pixels_ = java.util.Collections.unmodifiableList(pixels_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.pixels_ = pixels_;
+        } else {
+          result.pixels_ = pixelsBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.ImageRow) {
+          return mergeFrom((protos.KademliaProtos.ImageRow)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.ImageRow other) {
+        if (other == protos.KademliaProtos.ImageRow.getDefaultInstance()) return this;
+        if (pixelsBuilder_ == null) {
+          if (!other.pixels_.isEmpty()) {
+            if (pixels_.isEmpty()) {
+              pixels_ = other.pixels_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensurePixelsIsMutable();
+              pixels_.addAll(other.pixels_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.pixels_.isEmpty()) {
+            if (pixelsBuilder_.isEmpty()) {
+              pixelsBuilder_.dispose();
+              pixelsBuilder_ = null;
+              pixels_ = other.pixels_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              pixelsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getPixelsFieldBuilder() : null;
+            } else {
+              pixelsBuilder_.addAllMessages(other.pixels_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.ImageRow parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.ImageRow) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // repeated .tutorial.Pixel pixels = 1;
+      private java.util.List<protos.KademliaProtos.Pixel> pixels_ =
+        java.util.Collections.emptyList();
+      private void ensurePixelsIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          pixels_ = new java.util.ArrayList<protos.KademliaProtos.Pixel>(pixels_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protos.KademliaProtos.Pixel, protos.KademliaProtos.Pixel.Builder, protos.KademliaProtos.PixelOrBuilder> pixelsBuilder_;
+
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public java.util.List<protos.KademliaProtos.Pixel> getPixelsList() {
+        if (pixelsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(pixels_);
+        } else {
+          return pixelsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public int getPixelsCount() {
+        if (pixelsBuilder_ == null) {
+          return pixels_.size();
+        } else {
+          return pixelsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public protos.KademliaProtos.Pixel getPixels(int index) {
+        if (pixelsBuilder_ == null) {
+          return pixels_.get(index);
+        } else {
+          return pixelsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public Builder setPixels(
+          int index, protos.KademliaProtos.Pixel value) {
+        if (pixelsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePixelsIsMutable();
+          pixels_.set(index, value);
+          onChanged();
+        } else {
+          pixelsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public Builder setPixels(
+          int index, protos.KademliaProtos.Pixel.Builder builderForValue) {
+        if (pixelsBuilder_ == null) {
+          ensurePixelsIsMutable();
+          pixels_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          pixelsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public Builder addPixels(protos.KademliaProtos.Pixel value) {
+        if (pixelsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePixelsIsMutable();
+          pixels_.add(value);
+          onChanged();
+        } else {
+          pixelsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public Builder addPixels(
+          int index, protos.KademliaProtos.Pixel value) {
+        if (pixelsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensurePixelsIsMutable();
+          pixels_.add(index, value);
+          onChanged();
+        } else {
+          pixelsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public Builder addPixels(
+          protos.KademliaProtos.Pixel.Builder builderForValue) {
+        if (pixelsBuilder_ == null) {
+          ensurePixelsIsMutable();
+          pixels_.add(builderForValue.build());
+          onChanged();
+        } else {
+          pixelsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public Builder addPixels(
+          int index, protos.KademliaProtos.Pixel.Builder builderForValue) {
+        if (pixelsBuilder_ == null) {
+          ensurePixelsIsMutable();
+          pixels_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          pixelsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public Builder addAllPixels(
+          java.lang.Iterable<? extends protos.KademliaProtos.Pixel> values) {
+        if (pixelsBuilder_ == null) {
+          ensurePixelsIsMutable();
+          super.addAll(values, pixels_);
+          onChanged();
+        } else {
+          pixelsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public Builder clearPixels() {
+        if (pixelsBuilder_ == null) {
+          pixels_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          pixelsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public Builder removePixels(int index) {
+        if (pixelsBuilder_ == null) {
+          ensurePixelsIsMutable();
+          pixels_.remove(index);
+          onChanged();
+        } else {
+          pixelsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public protos.KademliaProtos.Pixel.Builder getPixelsBuilder(
+          int index) {
+        return getPixelsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public protos.KademliaProtos.PixelOrBuilder getPixelsOrBuilder(
+          int index) {
+        if (pixelsBuilder_ == null) {
+          return pixels_.get(index);  } else {
+          return pixelsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public java.util.List<? extends protos.KademliaProtos.PixelOrBuilder> 
+           getPixelsOrBuilderList() {
+        if (pixelsBuilder_ != null) {
+          return pixelsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(pixels_);
+        }
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public protos.KademliaProtos.Pixel.Builder addPixelsBuilder() {
+        return getPixelsFieldBuilder().addBuilder(
+            protos.KademliaProtos.Pixel.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public protos.KademliaProtos.Pixel.Builder addPixelsBuilder(
+          int index) {
+        return getPixelsFieldBuilder().addBuilder(
+            index, protos.KademliaProtos.Pixel.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .tutorial.Pixel pixels = 1;</code>
+       */
+      public java.util.List<protos.KademliaProtos.Pixel.Builder> 
+           getPixelsBuilderList() {
+        return getPixelsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protos.KademliaProtos.Pixel, protos.KademliaProtos.Pixel.Builder, protos.KademliaProtos.PixelOrBuilder> 
+          getPixelsFieldBuilder() {
+        if (pixelsBuilder_ == null) {
+          pixelsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              protos.KademliaProtos.Pixel, protos.KademliaProtos.Pixel.Builder, protos.KademliaProtos.PixelOrBuilder>(
+                  pixels_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          pixels_ = null;
+        }
+        return pixelsBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.ImageRow)
+    }
+
+    static {
+      defaultInstance = new ImageRow(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.ImageRow)
+  }
+
+  public interface ImageProtoOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional int32 height = 1;
+    /**
+     * <code>optional int32 height = 1;</code>
+     */
+    boolean hasHeight();
+    /**
+     * <code>optional int32 height = 1;</code>
+     */
+    int getHeight();
+
+    // optional int32 width = 2;
+    /**
+     * <code>optional int32 width = 2;</code>
+     */
+    boolean hasWidth();
+    /**
+     * <code>optional int32 width = 2;</code>
+     */
+    int getWidth();
+
+    // repeated .tutorial.ImageRow rows = 3;
+    /**
+     * <code>repeated .tutorial.ImageRow rows = 3;</code>
+     */
+    java.util.List<protos.KademliaProtos.ImageRow> 
+        getRowsList();
+    /**
+     * <code>repeated .tutorial.ImageRow rows = 3;</code>
+     */
+    protos.KademliaProtos.ImageRow getRows(int index);
+    /**
+     * <code>repeated .tutorial.ImageRow rows = 3;</code>
+     */
+    int getRowsCount();
+    /**
+     * <code>repeated .tutorial.ImageRow rows = 3;</code>
+     */
+    java.util.List<? extends protos.KademliaProtos.ImageRowOrBuilder> 
+        getRowsOrBuilderList();
+    /**
+     * <code>repeated .tutorial.ImageRow rows = 3;</code>
+     */
+    protos.KademliaProtos.ImageRowOrBuilder getRowsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code tutorial.ImageProto}
+   */
+  public static final class ImageProto extends
+      com.google.protobuf.GeneratedMessage
+      implements ImageProtoOrBuilder {
+    // Use ImageProto.newBuilder() to construct.
+    private ImageProto(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private ImageProto(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final ImageProto defaultInstance;
+    public static ImageProto getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public ImageProto getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ImageProto(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              height_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              width_ = input.readInt32();
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                rows_ = new java.util.ArrayList<protos.KademliaProtos.ImageRow>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              rows_.add(input.readMessage(protos.KademliaProtos.ImageRow.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          rows_ = java.util.Collections.unmodifiableList(rows_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_ImageProto_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_ImageProto_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.ImageProto.class, protos.KademliaProtos.ImageProto.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<ImageProto> PARSER =
+        new com.google.protobuf.AbstractParser<ImageProto>() {
+      public ImageProto parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ImageProto(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ImageProto> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional int32 height = 1;
+    public static final int HEIGHT_FIELD_NUMBER = 1;
+    private int height_;
+    /**
+     * <code>optional int32 height = 1;</code>
+     */
+    public boolean hasHeight() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional int32 height = 1;</code>
+     */
+    public int getHeight() {
+      return height_;
+    }
+
+    // optional int32 width = 2;
+    public static final int WIDTH_FIELD_NUMBER = 2;
+    private int width_;
+    /**
+     * <code>optional int32 width = 2;</code>
+     */
+    public boolean hasWidth() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int32 width = 2;</code>
+     */
+    public int getWidth() {
+      return width_;
+    }
+
+    // repeated .tutorial.ImageRow rows = 3;
+    public static final int ROWS_FIELD_NUMBER = 3;
+    private java.util.List<protos.KademliaProtos.ImageRow> rows_;
+    /**
+     * <code>repeated .tutorial.ImageRow rows = 3;</code>
+     */
+    public java.util.List<protos.KademliaProtos.ImageRow> getRowsList() {
+      return rows_;
+    }
+    /**
+     * <code>repeated .tutorial.ImageRow rows = 3;</code>
+     */
+    public java.util.List<? extends protos.KademliaProtos.ImageRowOrBuilder> 
+        getRowsOrBuilderList() {
+      return rows_;
+    }
+    /**
+     * <code>repeated .tutorial.ImageRow rows = 3;</code>
+     */
+    public int getRowsCount() {
+      return rows_.size();
+    }
+    /**
+     * <code>repeated .tutorial.ImageRow rows = 3;</code>
+     */
+    public protos.KademliaProtos.ImageRow getRows(int index) {
+      return rows_.get(index);
+    }
+    /**
+     * <code>repeated .tutorial.ImageRow rows = 3;</code>
+     */
+    public protos.KademliaProtos.ImageRowOrBuilder getRowsOrBuilder(
+        int index) {
+      return rows_.get(index);
+    }
+
+    private void initFields() {
+      height_ = 0;
+      width_ = 0;
+      rows_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, height_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, width_);
+      }
+      for (int i = 0; i < rows_.size(); i++) {
+        output.writeMessage(3, rows_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, height_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, width_);
+      }
+      for (int i = 0; i < rows_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, rows_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.ImageProto parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.ImageProto parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageProto parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.ImageProto parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageProto parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.ImageProto parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageProto parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.ImageProto parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageProto parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.ImageProto parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.ImageProto prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.ImageProto}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.ImageProtoOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_ImageProto_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_ImageProto_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.ImageProto.class, protos.KademliaProtos.ImageProto.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.ImageProto.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getRowsFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        height_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        width_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (rowsBuilder_ == null) {
+          rows_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          rowsBuilder_.clear();
+        }
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_ImageProto_descriptor;
+      }
+
+      public protos.KademliaProtos.ImageProto getDefaultInstanceForType() {
+        return protos.KademliaProtos.ImageProto.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.ImageProto build() {
+        protos.KademliaProtos.ImageProto result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.ImageProto buildPartial() {
+        protos.KademliaProtos.ImageProto result = new protos.KademliaProtos.ImageProto(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.height_ = height_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.width_ = width_;
+        if (rowsBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            rows_ = java.util.Collections.unmodifiableList(rows_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.rows_ = rows_;
+        } else {
+          result.rows_ = rowsBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.ImageProto) {
+          return mergeFrom((protos.KademliaProtos.ImageProto)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.ImageProto other) {
+        if (other == protos.KademliaProtos.ImageProto.getDefaultInstance()) return this;
+        if (other.hasHeight()) {
+          setHeight(other.getHeight());
+        }
+        if (other.hasWidth()) {
+          setWidth(other.getWidth());
+        }
+        if (rowsBuilder_ == null) {
+          if (!other.rows_.isEmpty()) {
+            if (rows_.isEmpty()) {
+              rows_ = other.rows_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureRowsIsMutable();
+              rows_.addAll(other.rows_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.rows_.isEmpty()) {
+            if (rowsBuilder_.isEmpty()) {
+              rowsBuilder_.dispose();
+              rowsBuilder_ = null;
+              rows_ = other.rows_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              rowsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getRowsFieldBuilder() : null;
+            } else {
+              rowsBuilder_.addAllMessages(other.rows_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.ImageProto parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.ImageProto) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional int32 height = 1;
+      private int height_ ;
+      /**
+       * <code>optional int32 height = 1;</code>
+       */
+      public boolean hasHeight() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional int32 height = 1;</code>
+       */
+      public int getHeight() {
+        return height_;
+      }
+      /**
+       * <code>optional int32 height = 1;</code>
+       */
+      public Builder setHeight(int value) {
+        bitField0_ |= 0x00000001;
+        height_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 height = 1;</code>
+       */
+      public Builder clearHeight() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        height_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 width = 2;
+      private int width_ ;
+      /**
+       * <code>optional int32 width = 2;</code>
+       */
+      public boolean hasWidth() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int32 width = 2;</code>
+       */
+      public int getWidth() {
+        return width_;
+      }
+      /**
+       * <code>optional int32 width = 2;</code>
+       */
+      public Builder setWidth(int value) {
+        bitField0_ |= 0x00000002;
+        width_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 width = 2;</code>
+       */
+      public Builder clearWidth() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        width_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // repeated .tutorial.ImageRow rows = 3;
+      private java.util.List<protos.KademliaProtos.ImageRow> rows_ =
+        java.util.Collections.emptyList();
+      private void ensureRowsIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          rows_ = new java.util.ArrayList<protos.KademliaProtos.ImageRow>(rows_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protos.KademliaProtos.ImageRow, protos.KademliaProtos.ImageRow.Builder, protos.KademliaProtos.ImageRowOrBuilder> rowsBuilder_;
+
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public java.util.List<protos.KademliaProtos.ImageRow> getRowsList() {
+        if (rowsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(rows_);
+        } else {
+          return rowsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public int getRowsCount() {
+        if (rowsBuilder_ == null) {
+          return rows_.size();
+        } else {
+          return rowsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public protos.KademliaProtos.ImageRow getRows(int index) {
+        if (rowsBuilder_ == null) {
+          return rows_.get(index);
+        } else {
+          return rowsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public Builder setRows(
+          int index, protos.KademliaProtos.ImageRow value) {
+        if (rowsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRowsIsMutable();
+          rows_.set(index, value);
+          onChanged();
+        } else {
+          rowsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public Builder setRows(
+          int index, protos.KademliaProtos.ImageRow.Builder builderForValue) {
+        if (rowsBuilder_ == null) {
+          ensureRowsIsMutable();
+          rows_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          rowsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public Builder addRows(protos.KademliaProtos.ImageRow value) {
+        if (rowsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRowsIsMutable();
+          rows_.add(value);
+          onChanged();
+        } else {
+          rowsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public Builder addRows(
+          int index, protos.KademliaProtos.ImageRow value) {
+        if (rowsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureRowsIsMutable();
+          rows_.add(index, value);
+          onChanged();
+        } else {
+          rowsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public Builder addRows(
+          protos.KademliaProtos.ImageRow.Builder builderForValue) {
+        if (rowsBuilder_ == null) {
+          ensureRowsIsMutable();
+          rows_.add(builderForValue.build());
+          onChanged();
+        } else {
+          rowsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public Builder addRows(
+          int index, protos.KademliaProtos.ImageRow.Builder builderForValue) {
+        if (rowsBuilder_ == null) {
+          ensureRowsIsMutable();
+          rows_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          rowsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public Builder addAllRows(
+          java.lang.Iterable<? extends protos.KademliaProtos.ImageRow> values) {
+        if (rowsBuilder_ == null) {
+          ensureRowsIsMutable();
+          super.addAll(values, rows_);
+          onChanged();
+        } else {
+          rowsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public Builder clearRows() {
+        if (rowsBuilder_ == null) {
+          rows_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          rowsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public Builder removeRows(int index) {
+        if (rowsBuilder_ == null) {
+          ensureRowsIsMutable();
+          rows_.remove(index);
+          onChanged();
+        } else {
+          rowsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public protos.KademliaProtos.ImageRow.Builder getRowsBuilder(
+          int index) {
+        return getRowsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public protos.KademliaProtos.ImageRowOrBuilder getRowsOrBuilder(
+          int index) {
+        if (rowsBuilder_ == null) {
+          return rows_.get(index);  } else {
+          return rowsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public java.util.List<? extends protos.KademliaProtos.ImageRowOrBuilder> 
+           getRowsOrBuilderList() {
+        if (rowsBuilder_ != null) {
+          return rowsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(rows_);
+        }
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public protos.KademliaProtos.ImageRow.Builder addRowsBuilder() {
+        return getRowsFieldBuilder().addBuilder(
+            protos.KademliaProtos.ImageRow.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public protos.KademliaProtos.ImageRow.Builder addRowsBuilder(
+          int index) {
+        return getRowsFieldBuilder().addBuilder(
+            index, protos.KademliaProtos.ImageRow.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .tutorial.ImageRow rows = 3;</code>
+       */
+      public java.util.List<protos.KademliaProtos.ImageRow.Builder> 
+           getRowsBuilderList() {
+        return getRowsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protos.KademliaProtos.ImageRow, protos.KademliaProtos.ImageRow.Builder, protos.KademliaProtos.ImageRowOrBuilder> 
+          getRowsFieldBuilder() {
+        if (rowsBuilder_ == null) {
+          rowsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              protos.KademliaProtos.ImageRow, protos.KademliaProtos.ImageRow.Builder, protos.KademliaProtos.ImageRowOrBuilder>(
+                  rows_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          rows_ = null;
+        }
+        return rowsBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.ImageProto)
+    }
+
+    static {
+      defaultInstance = new ImageProto(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.ImageProto)
+  }
+
+  public interface BlurAreaOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional int32 top = 1;
+    /**
+     * <code>optional int32 top = 1;</code>
+     */
+    boolean hasTop();
+    /**
+     * <code>optional int32 top = 1;</code>
+     */
+    int getTop();
+
+    // optional int32 left = 2;
+    /**
+     * <code>optional int32 left = 2;</code>
+     */
+    boolean hasLeft();
+    /**
+     * <code>optional int32 left = 2;</code>
+     */
+    int getLeft();
+
+    // optional int32 bottom = 3;
+    /**
+     * <code>optional int32 bottom = 3;</code>
+     */
+    boolean hasBottom();
+    /**
+     * <code>optional int32 bottom = 3;</code>
+     */
+    int getBottom();
+
+    // optional int32 right = 4;
+    /**
+     * <code>optional int32 right = 4;</code>
+     */
+    boolean hasRight();
+    /**
+     * <code>optional int32 right = 4;</code>
+     */
+    int getRight();
+  }
+  /**
+   * Protobuf type {@code tutorial.BlurArea}
+   */
+  public static final class BlurArea extends
+      com.google.protobuf.GeneratedMessage
+      implements BlurAreaOrBuilder {
+    // Use BlurArea.newBuilder() to construct.
+    private BlurArea(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private BlurArea(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final BlurArea defaultInstance;
+    public static BlurArea getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public BlurArea getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private BlurArea(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 8: {
+              bitField0_ |= 0x00000001;
+              top_ = input.readInt32();
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              left_ = input.readInt32();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              bottom_ = input.readInt32();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              right_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_BlurArea_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_BlurArea_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.BlurArea.class, protos.KademliaProtos.BlurArea.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<BlurArea> PARSER =
+        new com.google.protobuf.AbstractParser<BlurArea>() {
+      public BlurArea parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new BlurArea(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<BlurArea> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional int32 top = 1;
+    public static final int TOP_FIELD_NUMBER = 1;
+    private int top_;
+    /**
+     * <code>optional int32 top = 1;</code>
+     */
+    public boolean hasTop() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional int32 top = 1;</code>
+     */
+    public int getTop() {
+      return top_;
+    }
+
+    // optional int32 left = 2;
+    public static final int LEFT_FIELD_NUMBER = 2;
+    private int left_;
+    /**
+     * <code>optional int32 left = 2;</code>
+     */
+    public boolean hasLeft() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional int32 left = 2;</code>
+     */
+    public int getLeft() {
+      return left_;
+    }
+
+    // optional int32 bottom = 3;
+    public static final int BOTTOM_FIELD_NUMBER = 3;
+    private int bottom_;
+    /**
+     * <code>optional int32 bottom = 3;</code>
+     */
+    public boolean hasBottom() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional int32 bottom = 3;</code>
+     */
+    public int getBottom() {
+      return bottom_;
+    }
+
+    // optional int32 right = 4;
+    public static final int RIGHT_FIELD_NUMBER = 4;
+    private int right_;
+    /**
+     * <code>optional int32 right = 4;</code>
+     */
+    public boolean hasRight() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional int32 right = 4;</code>
+     */
+    public int getRight() {
+      return right_;
+    }
+
+    private void initFields() {
+      top_ = 0;
+      left_ = 0;
+      bottom_ = 0;
+      right_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeInt32(1, top_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeInt32(2, left_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, bottom_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, right_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(1, top_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, left_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, bottom_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, right_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.BlurArea parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.BlurArea parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurArea parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.BlurArea parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurArea parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.BlurArea parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurArea parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.BlurArea parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.BlurArea parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.BlurArea parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.BlurArea prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.BlurArea}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.BlurAreaOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_BlurArea_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_BlurArea_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.BlurArea.class, protos.KademliaProtos.BlurArea.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.BlurArea.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        top_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000001);
+        left_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        bottom_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        right_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_BlurArea_descriptor;
+      }
+
+      public protos.KademliaProtos.BlurArea getDefaultInstanceForType() {
+        return protos.KademliaProtos.BlurArea.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.BlurArea build() {
+        protos.KademliaProtos.BlurArea result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.BlurArea buildPartial() {
+        protos.KademliaProtos.BlurArea result = new protos.KademliaProtos.BlurArea(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.top_ = top_;
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.left_ = left_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.bottom_ = bottom_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.right_ = right_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.BlurArea) {
+          return mergeFrom((protos.KademliaProtos.BlurArea)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.BlurArea other) {
+        if (other == protos.KademliaProtos.BlurArea.getDefaultInstance()) return this;
+        if (other.hasTop()) {
+          setTop(other.getTop());
+        }
+        if (other.hasLeft()) {
+          setLeft(other.getLeft());
+        }
+        if (other.hasBottom()) {
+          setBottom(other.getBottom());
+        }
+        if (other.hasRight()) {
+          setRight(other.getRight());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.BlurArea parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.BlurArea) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional int32 top = 1;
+      private int top_ ;
+      /**
+       * <code>optional int32 top = 1;</code>
+       */
+      public boolean hasTop() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional int32 top = 1;</code>
+       */
+      public int getTop() {
+        return top_;
+      }
+      /**
+       * <code>optional int32 top = 1;</code>
+       */
+      public Builder setTop(int value) {
+        bitField0_ |= 0x00000001;
+        top_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 top = 1;</code>
+       */
+      public Builder clearTop() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        top_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 left = 2;
+      private int left_ ;
+      /**
+       * <code>optional int32 left = 2;</code>
+       */
+      public boolean hasLeft() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional int32 left = 2;</code>
+       */
+      public int getLeft() {
+        return left_;
+      }
+      /**
+       * <code>optional int32 left = 2;</code>
+       */
+      public Builder setLeft(int value) {
+        bitField0_ |= 0x00000002;
+        left_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 left = 2;</code>
+       */
+      public Builder clearLeft() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        left_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 bottom = 3;
+      private int bottom_ ;
+      /**
+       * <code>optional int32 bottom = 3;</code>
+       */
+      public boolean hasBottom() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional int32 bottom = 3;</code>
+       */
+      public int getBottom() {
+        return bottom_;
+      }
+      /**
+       * <code>optional int32 bottom = 3;</code>
+       */
+      public Builder setBottom(int value) {
+        bitField0_ |= 0x00000004;
+        bottom_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 bottom = 3;</code>
+       */
+      public Builder clearBottom() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        bottom_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 right = 4;
+      private int right_ ;
+      /**
+       * <code>optional int32 right = 4;</code>
+       */
+      public boolean hasRight() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional int32 right = 4;</code>
+       */
+      public int getRight() {
+        return right_;
+      }
+      /**
+       * <code>optional int32 right = 4;</code>
+       */
+      public Builder setRight(int value) {
+        bitField0_ |= 0x00000008;
+        right_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 right = 4;</code>
+       */
+      public Builder clearRight() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        right_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.BlurArea)
+    }
+
+    static {
+      defaultInstance = new BlurArea(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.BlurArea)
+  }
+
+  public interface ImageTaskOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional .tutorial.ImageProto subImage = 1;
+    /**
+     * <code>optional .tutorial.ImageProto subImage = 1;</code>
+     */
+    boolean hasSubImage();
+    /**
+     * <code>optional .tutorial.ImageProto subImage = 1;</code>
+     */
+    protos.KademliaProtos.ImageProto getSubImage();
+    /**
+     * <code>optional .tutorial.ImageProto subImage = 1;</code>
+     */
+    protos.KademliaProtos.ImageProtoOrBuilder getSubImageOrBuilder();
+
+    // optional .tutorial.BlurArea blurArea = 2;
+    /**
+     * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+     */
+    boolean hasBlurArea();
+    /**
+     * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+     */
+    protos.KademliaProtos.BlurArea getBlurArea();
+    /**
+     * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+     */
+    protos.KademliaProtos.BlurAreaOrBuilder getBlurAreaOrBuilder();
+
+    // optional int32 radius = 3;
+    /**
+     * <code>optional int32 radius = 3;</code>
+     */
+    boolean hasRadius();
+    /**
+     * <code>optional int32 radius = 3;</code>
+     */
+    int getRadius();
+  }
+  /**
+   * Protobuf type {@code tutorial.ImageTask}
+   */
+  public static final class ImageTask extends
+      com.google.protobuf.GeneratedMessage
+      implements ImageTaskOrBuilder {
+    // Use ImageTask.newBuilder() to construct.
+    private ImageTask(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private ImageTask(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final ImageTask defaultInstance;
+    public static ImageTask getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public ImageTask getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private ImageTask(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              protos.KademliaProtos.ImageProto.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = subImage_.toBuilder();
+              }
+              subImage_ = input.readMessage(protos.KademliaProtos.ImageProto.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(subImage_);
+                subImage_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 18: {
+              protos.KademliaProtos.BlurArea.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = blurArea_.toBuilder();
+              }
+              blurArea_ = input.readMessage(protos.KademliaProtos.BlurArea.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(blurArea_);
+                blurArea_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              radius_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_ImageTask_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_ImageTask_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.ImageTask.class, protos.KademliaProtos.ImageTask.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<ImageTask> PARSER =
+        new com.google.protobuf.AbstractParser<ImageTask>() {
+      public ImageTask parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new ImageTask(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ImageTask> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional .tutorial.ImageProto subImage = 1;
+    public static final int SUBIMAGE_FIELD_NUMBER = 1;
+    private protos.KademliaProtos.ImageProto subImage_;
+    /**
+     * <code>optional .tutorial.ImageProto subImage = 1;</code>
+     */
+    public boolean hasSubImage() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .tutorial.ImageProto subImage = 1;</code>
+     */
+    public protos.KademliaProtos.ImageProto getSubImage() {
+      return subImage_;
+    }
+    /**
+     * <code>optional .tutorial.ImageProto subImage = 1;</code>
+     */
+    public protos.KademliaProtos.ImageProtoOrBuilder getSubImageOrBuilder() {
+      return subImage_;
+    }
+
+    // optional .tutorial.BlurArea blurArea = 2;
+    public static final int BLURAREA_FIELD_NUMBER = 2;
+    private protos.KademliaProtos.BlurArea blurArea_;
+    /**
+     * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+     */
+    public boolean hasBlurArea() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+     */
+    public protos.KademliaProtos.BlurArea getBlurArea() {
+      return blurArea_;
+    }
+    /**
+     * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+     */
+    public protos.KademliaProtos.BlurAreaOrBuilder getBlurAreaOrBuilder() {
+      return blurArea_;
+    }
+
+    // optional int32 radius = 3;
+    public static final int RADIUS_FIELD_NUMBER = 3;
+    private int radius_;
+    /**
+     * <code>optional int32 radius = 3;</code>
+     */
+    public boolean hasRadius() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional int32 radius = 3;</code>
+     */
+    public int getRadius() {
+      return radius_;
+    }
+
+    private void initFields() {
+      subImage_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+      blurArea_ = protos.KademliaProtos.BlurArea.getDefaultInstance();
+      radius_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, subImage_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, blurArea_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeInt32(3, radius_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, subImage_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, blurArea_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(3, radius_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.ImageTask parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.ImageTask parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageTask parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.ImageTask parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageTask parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.ImageTask parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageTask parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.ImageTask parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.ImageTask parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.ImageTask parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.ImageTask prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.ImageTask}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.ImageTaskOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_ImageTask_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_ImageTask_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.ImageTask.class, protos.KademliaProtos.ImageTask.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.ImageTask.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSubImageFieldBuilder();
+          getBlurAreaFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (subImageBuilder_ == null) {
+          subImage_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+        } else {
+          subImageBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (blurAreaBuilder_ == null) {
+          blurArea_ = protos.KademliaProtos.BlurArea.getDefaultInstance();
+        } else {
+          blurAreaBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        radius_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_ImageTask_descriptor;
+      }
+
+      public protos.KademliaProtos.ImageTask getDefaultInstanceForType() {
+        return protos.KademliaProtos.ImageTask.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.ImageTask build() {
+        protos.KademliaProtos.ImageTask result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.ImageTask buildPartial() {
+        protos.KademliaProtos.ImageTask result = new protos.KademliaProtos.ImageTask(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (subImageBuilder_ == null) {
+          result.subImage_ = subImage_;
+        } else {
+          result.subImage_ = subImageBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (blurAreaBuilder_ == null) {
+          result.blurArea_ = blurArea_;
+        } else {
+          result.blurArea_ = blurAreaBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.radius_ = radius_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.ImageTask) {
+          return mergeFrom((protos.KademliaProtos.ImageTask)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.ImageTask other) {
+        if (other == protos.KademliaProtos.ImageTask.getDefaultInstance()) return this;
+        if (other.hasSubImage()) {
+          mergeSubImage(other.getSubImage());
+        }
+        if (other.hasBlurArea()) {
+          mergeBlurArea(other.getBlurArea());
+        }
+        if (other.hasRadius()) {
+          setRadius(other.getRadius());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.ImageTask parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.ImageTask) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional .tutorial.ImageProto subImage = 1;
+      private protos.KademliaProtos.ImageProto subImage_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder> subImageBuilder_;
+      /**
+       * <code>optional .tutorial.ImageProto subImage = 1;</code>
+       */
+      public boolean hasSubImage() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .tutorial.ImageProto subImage = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProto getSubImage() {
+        if (subImageBuilder_ == null) {
+          return subImage_;
+        } else {
+          return subImageBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .tutorial.ImageProto subImage = 1;</code>
+       */
+      public Builder setSubImage(protos.KademliaProtos.ImageProto value) {
+        if (subImageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          subImage_ = value;
+          onChanged();
+        } else {
+          subImageBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto subImage = 1;</code>
+       */
+      public Builder setSubImage(
+          protos.KademliaProtos.ImageProto.Builder builderForValue) {
+        if (subImageBuilder_ == null) {
+          subImage_ = builderForValue.build();
+          onChanged();
+        } else {
+          subImageBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto subImage = 1;</code>
+       */
+      public Builder mergeSubImage(protos.KademliaProtos.ImageProto value) {
+        if (subImageBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              subImage_ != protos.KademliaProtos.ImageProto.getDefaultInstance()) {
+            subImage_ =
+              protos.KademliaProtos.ImageProto.newBuilder(subImage_).mergeFrom(value).buildPartial();
+          } else {
+            subImage_ = value;
+          }
+          onChanged();
+        } else {
+          subImageBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto subImage = 1;</code>
+       */
+      public Builder clearSubImage() {
+        if (subImageBuilder_ == null) {
+          subImage_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+          onChanged();
+        } else {
+          subImageBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto subImage = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProto.Builder getSubImageBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSubImageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .tutorial.ImageProto subImage = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProtoOrBuilder getSubImageOrBuilder() {
+        if (subImageBuilder_ != null) {
+          return subImageBuilder_.getMessageOrBuilder();
+        } else {
+          return subImage_;
+        }
+      }
+      /**
+       * <code>optional .tutorial.ImageProto subImage = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder> 
+          getSubImageFieldBuilder() {
+        if (subImageBuilder_ == null) {
+          subImageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder>(
+                  subImage_,
+                  getParentForChildren(),
+                  isClean());
+          subImage_ = null;
+        }
+        return subImageBuilder_;
+      }
+
+      // optional .tutorial.BlurArea blurArea = 2;
+      private protos.KademliaProtos.BlurArea blurArea_ = protos.KademliaProtos.BlurArea.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.BlurArea, protos.KademliaProtos.BlurArea.Builder, protos.KademliaProtos.BlurAreaOrBuilder> blurAreaBuilder_;
+      /**
+       * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+       */
+      public boolean hasBlurArea() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+       */
+      public protos.KademliaProtos.BlurArea getBlurArea() {
+        if (blurAreaBuilder_ == null) {
+          return blurArea_;
+        } else {
+          return blurAreaBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+       */
+      public Builder setBlurArea(protos.KademliaProtos.BlurArea value) {
+        if (blurAreaBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          blurArea_ = value;
+          onChanged();
+        } else {
+          blurAreaBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+       */
+      public Builder setBlurArea(
+          protos.KademliaProtos.BlurArea.Builder builderForValue) {
+        if (blurAreaBuilder_ == null) {
+          blurArea_ = builderForValue.build();
+          onChanged();
+        } else {
+          blurAreaBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+       */
+      public Builder mergeBlurArea(protos.KademliaProtos.BlurArea value) {
+        if (blurAreaBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              blurArea_ != protos.KademliaProtos.BlurArea.getDefaultInstance()) {
+            blurArea_ =
+              protos.KademliaProtos.BlurArea.newBuilder(blurArea_).mergeFrom(value).buildPartial();
+          } else {
+            blurArea_ = value;
+          }
+          onChanged();
+        } else {
+          blurAreaBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+       */
+      public Builder clearBlurArea() {
+        if (blurAreaBuilder_ == null) {
+          blurArea_ = protos.KademliaProtos.BlurArea.getDefaultInstance();
+          onChanged();
+        } else {
+          blurAreaBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+       */
+      public protos.KademliaProtos.BlurArea.Builder getBlurAreaBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getBlurAreaFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+       */
+      public protos.KademliaProtos.BlurAreaOrBuilder getBlurAreaOrBuilder() {
+        if (blurAreaBuilder_ != null) {
+          return blurAreaBuilder_.getMessageOrBuilder();
+        } else {
+          return blurArea_;
+        }
+      }
+      /**
+       * <code>optional .tutorial.BlurArea blurArea = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.BlurArea, protos.KademliaProtos.BlurArea.Builder, protos.KademliaProtos.BlurAreaOrBuilder> 
+          getBlurAreaFieldBuilder() {
+        if (blurAreaBuilder_ == null) {
+          blurAreaBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protos.KademliaProtos.BlurArea, protos.KademliaProtos.BlurArea.Builder, protos.KademliaProtos.BlurAreaOrBuilder>(
+                  blurArea_,
+                  getParentForChildren(),
+                  isClean());
+          blurArea_ = null;
+        }
+        return blurAreaBuilder_;
+      }
+
+      // optional int32 radius = 3;
+      private int radius_ ;
+      /**
+       * <code>optional int32 radius = 3;</code>
+       */
+      public boolean hasRadius() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional int32 radius = 3;</code>
+       */
+      public int getRadius() {
+        return radius_;
+      }
+      /**
+       * <code>optional int32 radius = 3;</code>
+       */
+      public Builder setRadius(int value) {
+        bitField0_ |= 0x00000004;
+        radius_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 radius = 3;</code>
+       */
+      public Builder clearRadius() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        radius_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.ImageTask)
+    }
+
+    static {
+      defaultInstance = new ImageTask(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.ImageTask)
+  }
+
+  public interface TaskResultOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional .tutorial.ImageProto bluredImage = 1;
+    /**
+     * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+     */
+    boolean hasBluredImage();
+    /**
+     * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+     */
+    protos.KademliaProtos.ImageProto getBluredImage();
+    /**
+     * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+     */
+    protos.KademliaProtos.ImageProtoOrBuilder getBluredImageOrBuilder();
+  }
+  /**
+   * Protobuf type {@code tutorial.TaskResult}
+   */
+  public static final class TaskResult extends
+      com.google.protobuf.GeneratedMessage
+      implements TaskResultOrBuilder {
+    // Use TaskResult.newBuilder() to construct.
+    private TaskResult(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private TaskResult(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final TaskResult defaultInstance;
+    public static TaskResult getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public TaskResult getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private TaskResult(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              protos.KademliaProtos.ImageProto.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = bluredImage_.toBuilder();
+              }
+              bluredImage_ = input.readMessage(protos.KademliaProtos.ImageProto.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(bluredImage_);
+                bluredImage_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_TaskResult_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_TaskResult_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.TaskResult.class, protos.KademliaProtos.TaskResult.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<TaskResult> PARSER =
+        new com.google.protobuf.AbstractParser<TaskResult>() {
+      public TaskResult parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TaskResult(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TaskResult> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional .tutorial.ImageProto bluredImage = 1;
+    public static final int BLUREDIMAGE_FIELD_NUMBER = 1;
+    private protos.KademliaProtos.ImageProto bluredImage_;
+    /**
+     * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+     */
+    public boolean hasBluredImage() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+     */
+    public protos.KademliaProtos.ImageProto getBluredImage() {
+      return bluredImage_;
+    }
+    /**
+     * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+     */
+    public protos.KademliaProtos.ImageProtoOrBuilder getBluredImageOrBuilder() {
+      return bluredImage_;
+    }
+
+    private void initFields() {
+      bluredImage_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, bluredImage_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, bluredImage_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.TaskResult parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.TaskResult parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.TaskResult parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.TaskResult parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.TaskResult parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.TaskResult parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.TaskResult parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.TaskResult parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.TaskResult parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.TaskResult parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.TaskResult prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.TaskResult}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.TaskResultOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_TaskResult_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_TaskResult_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.TaskResult.class, protos.KademliaProtos.TaskResult.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.TaskResult.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getBluredImageFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (bluredImageBuilder_ == null) {
+          bluredImage_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+        } else {
+          bluredImageBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_TaskResult_descriptor;
+      }
+
+      public protos.KademliaProtos.TaskResult getDefaultInstanceForType() {
+        return protos.KademliaProtos.TaskResult.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.TaskResult build() {
+        protos.KademliaProtos.TaskResult result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.TaskResult buildPartial() {
+        protos.KademliaProtos.TaskResult result = new protos.KademliaProtos.TaskResult(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (bluredImageBuilder_ == null) {
+          result.bluredImage_ = bluredImage_;
+        } else {
+          result.bluredImage_ = bluredImageBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.TaskResult) {
+          return mergeFrom((protos.KademliaProtos.TaskResult)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.TaskResult other) {
+        if (other == protos.KademliaProtos.TaskResult.getDefaultInstance()) return this;
+        if (other.hasBluredImage()) {
+          mergeBluredImage(other.getBluredImage());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.TaskResult parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.TaskResult) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional .tutorial.ImageProto bluredImage = 1;
+      private protos.KademliaProtos.ImageProto bluredImage_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder> bluredImageBuilder_;
+      /**
+       * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+       */
+      public boolean hasBluredImage() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProto getBluredImage() {
+        if (bluredImageBuilder_ == null) {
+          return bluredImage_;
+        } else {
+          return bluredImageBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+       */
+      public Builder setBluredImage(protos.KademliaProtos.ImageProto value) {
+        if (bluredImageBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          bluredImage_ = value;
+          onChanged();
+        } else {
+          bluredImageBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+       */
+      public Builder setBluredImage(
+          protos.KademliaProtos.ImageProto.Builder builderForValue) {
+        if (bluredImageBuilder_ == null) {
+          bluredImage_ = builderForValue.build();
+          onChanged();
+        } else {
+          bluredImageBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+       */
+      public Builder mergeBluredImage(protos.KademliaProtos.ImageProto value) {
+        if (bluredImageBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              bluredImage_ != protos.KademliaProtos.ImageProto.getDefaultInstance()) {
+            bluredImage_ =
+              protos.KademliaProtos.ImageProto.newBuilder(bluredImage_).mergeFrom(value).buildPartial();
+          } else {
+            bluredImage_ = value;
+          }
+          onChanged();
+        } else {
+          bluredImageBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+       */
+      public Builder clearBluredImage() {
+        if (bluredImageBuilder_ == null) {
+          bluredImage_ = protos.KademliaProtos.ImageProto.getDefaultInstance();
+          onChanged();
+        } else {
+          bluredImageBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProto.Builder getBluredImageBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getBluredImageFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+       */
+      public protos.KademliaProtos.ImageProtoOrBuilder getBluredImageOrBuilder() {
+        if (bluredImageBuilder_ != null) {
+          return bluredImageBuilder_.getMessageOrBuilder();
+        } else {
+          return bluredImage_;
+        }
+      }
+      /**
+       * <code>optional .tutorial.ImageProto bluredImage = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder> 
+          getBluredImageFieldBuilder() {
+        if (bluredImageBuilder_ == null) {
+          bluredImageBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protos.KademliaProtos.ImageProto, protos.KademliaProtos.ImageProto.Builder, protos.KademliaProtos.ImageProtoOrBuilder>(
+                  bluredImage_,
+                  getParentForChildren(),
+                  isClean());
+          bluredImage_ = null;
+        }
+        return bluredImageBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.TaskResult)
+    }
+
+    static {
+      defaultInstance = new TaskResult(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.TaskResult)
+  }
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_tutorial_KademliaId_descriptor;
   private static
@@ -7741,6 +12833,46 @@ public final class KademliaProtos {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_tutorial_HashTableValue_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_BlurImageRequest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_BlurImageRequest_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_BlurImageResponse_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_BlurImageResponse_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_Pixel_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_Pixel_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_ImageRow_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_ImageRow_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_ImageProto_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_ImageProto_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_BlurArea_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_BlurArea_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_ImageTask_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_ImageTask_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_TaskResult_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_TaskResult_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -7772,7 +12904,21 @@ public final class KademliaProtos {
       "\030\001 \001(\0132\024.tutorial.KademliaId\022\'\n\005value\030\002 ",
       "\001(\0132\030.tutorial.HashTableValue\"\037\n\rStoreRe" +
       "sponse\022\016\n\006status\030\001 \001(\t\"\035\n\016HashTableValue" +
-      "\022\013\n\003tmp\030\001 \001(\tB\030\n\006protosB\016KademliaProtos"
+      "\022\013\n\003tmp\030\001 \001(\t\"L\n\020BlurImageRequest\022(\n\nima" +
+      "geProto\030\001 \001(\0132\024.tutorial.ImageProto\022\016\n\006r" +
+      "adius\030\002 \001(\005\"8\n\021BlurImageResponse\022#\n\005imag" +
+      "e\030\001 \001(\0132\024.tutorial.ImageProto\"1\n\005Pixel\022\013" +
+      "\n\003red\030\001 \001(\005\022\r\n\005green\030\002 \001(\005\022\014\n\004blue\030\003 \001(\005" +
+      "\"+\n\010ImageRow\022\037\n\006pixels\030\001 \003(\0132\017.tutorial." +
+      "Pixel\"M\n\nImageProto\022\016\n\006height\030\001 \001(\005\022\r\n\005w" +
+      "idth\030\002 \001(\005\022 \n\004rows\030\003 \003(\0132\022.tutorial.Imag",
+      "eRow\"D\n\010BlurArea\022\013\n\003top\030\001 \001(\005\022\014\n\004left\030\002 " +
+      "\001(\005\022\016\n\006bottom\030\003 \001(\005\022\r\n\005right\030\004 \001(\005\"i\n\tIm" +
+      "ageTask\022&\n\010subImage\030\001 \001(\0132\024.tutorial.Ima" +
+      "geProto\022$\n\010blurArea\030\002 \001(\0132\022.tutorial.Blu" +
+      "rArea\022\016\n\006radius\030\003 \001(\005\"7\n\nTaskResult\022)\n\013b" +
+      "luredImage\030\001 \001(\0132\024.tutorial.ImageProtoB\030" +
+      "\n\006protosB\016KademliaProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -7851,6 +12997,54 @@ public final class KademliaProtos {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_tutorial_HashTableValue_descriptor,
               new java.lang.String[] { "Tmp", });
+          internal_static_tutorial_BlurImageRequest_descriptor =
+            getDescriptor().getMessageTypes().get(12);
+          internal_static_tutorial_BlurImageRequest_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_BlurImageRequest_descriptor,
+              new java.lang.String[] { "ImageProto", "Radius", });
+          internal_static_tutorial_BlurImageResponse_descriptor =
+            getDescriptor().getMessageTypes().get(13);
+          internal_static_tutorial_BlurImageResponse_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_BlurImageResponse_descriptor,
+              new java.lang.String[] { "Image", });
+          internal_static_tutorial_Pixel_descriptor =
+            getDescriptor().getMessageTypes().get(14);
+          internal_static_tutorial_Pixel_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_Pixel_descriptor,
+              new java.lang.String[] { "Red", "Green", "Blue", });
+          internal_static_tutorial_ImageRow_descriptor =
+            getDescriptor().getMessageTypes().get(15);
+          internal_static_tutorial_ImageRow_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_ImageRow_descriptor,
+              new java.lang.String[] { "Pixels", });
+          internal_static_tutorial_ImageProto_descriptor =
+            getDescriptor().getMessageTypes().get(16);
+          internal_static_tutorial_ImageProto_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_ImageProto_descriptor,
+              new java.lang.String[] { "Height", "Width", "Rows", });
+          internal_static_tutorial_BlurArea_descriptor =
+            getDescriptor().getMessageTypes().get(17);
+          internal_static_tutorial_BlurArea_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_BlurArea_descriptor,
+              new java.lang.String[] { "Top", "Left", "Bottom", "Right", });
+          internal_static_tutorial_ImageTask_descriptor =
+            getDescriptor().getMessageTypes().get(18);
+          internal_static_tutorial_ImageTask_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_ImageTask_descriptor,
+              new java.lang.String[] { "SubImage", "BlurArea", "Radius", });
+          internal_static_tutorial_TaskResult_descriptor =
+            getDescriptor().getMessageTypes().get(19);
+          internal_static_tutorial_TaskResult_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_TaskResult_descriptor,
+              new java.lang.String[] { "BluredImage", });
           return null;
         }
       };
