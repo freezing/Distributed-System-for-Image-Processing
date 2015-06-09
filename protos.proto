@@ -88,3 +88,7 @@ message ImageTask {
 	optional BlurArea blurArea = 2;
 	optional int32 radius = 3;
 }
+
+message TaskResult {
+	optional ImageProto bluredImage = 1;
+}
