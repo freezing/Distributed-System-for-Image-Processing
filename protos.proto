@@ -13,7 +13,6 @@ message KademliaNode {
 	optional int32 port = 3;
 }
 
-
 // Requests and Responses
 message MessageContainer {
 	optional int32 type = 1;
@@ -50,4 +49,42 @@ message StoreResponse {
 
 message HashTableValue {
 	optional string tmp = 1;
+}
+
+message BlurImageRequest {
+	optional ImageProto imageProto = 1;
+	optional int32 radius = 2;
+}
+
+message BlurImageResponse {
+	optional ImageProto image = 1;
+}
+
+message Pixel {
+	optional int32 red = 1;
+	optional int32 green = 2;
+	optional int32 blue = 3;
+}
+
+message ImageRow {
+	repeated Pixel pixels = 1;
+}
+
+message ImageProto {
+	optional int32 height = 1;
+	optional int32 width = 2;
+	repeated ImageRow rows = 3;
+}
+
+message BlurArea {
+	optional int32 top = 1;
+	optional int32 left = 2;
+	optional int32 bottom = 3;
+	optional int32 right = 4;
+}
+
+message ImageTask {
+	optional ImageProto subImage = 1;
+	optional BlurArea blurArea = 2;
+	optional int32 radius = 3;
 }

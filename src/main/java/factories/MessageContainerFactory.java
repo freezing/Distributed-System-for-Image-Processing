@@ -1,6 +1,8 @@
 package factories;
 
 import network.MessageType;
+import protos.KademliaProtos.BlurImageRequest;
+import protos.KademliaProtos.BlurImageResponse;
 import protos.KademliaProtos.BootstrapConnectRequest;
 import protos.KademliaProtos.FindNodeRequest;
 import protos.KademliaProtos.FindNodeResponse;
@@ -49,8 +51,15 @@ public class MessageContainerFactory {
 			StoreResponse response = (StoreResponse) obj;
 			builder.setType(MessageType.NODE_STORE_RESPONSE.getValue())
 				.setData(response.toByteString());
-		}
-		else {
+		} else if (obj instanceof BlurImageRequest) {
+			BlurImageRequest request = (BlurImageRequest) obj;
+			builder.setType(MessageType.BLUR_IMAGE_REQUEST.getValue())
+				.setData(request.toByteString());
+		} else if (obj instanceof BlurImageResponse) {
+			BlurImageResponse response = (BlurImageResponse) obj;
+			builder.setType(MessageType.BLUR_IMAGE_RESPONSE.getValue())
+				.setData(response.toByteString());
+		} else {
 			throw new IllegalArgumentException(obj.toString());
 		}
 		
