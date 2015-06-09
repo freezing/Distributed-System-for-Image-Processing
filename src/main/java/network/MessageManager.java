@@ -7,6 +7,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import protos.KademliaProtos.KademliaNode;
@@ -17,11 +18,11 @@ import com.google.protobuf.Message;
 
 public class MessageManager {
 	private Thread listenerThread;
-	private HashMap<Byte, ArrayList<MessageListener>> listeners;
+	private HashMap<Integer, ArrayList<MessageListener>> listeners;
 	private DatagramSocket serverSocket;
 
 	public MessageManager(int port) {
-		listeners = new HashMap<Byte, ArrayList<MessageListener>>(
+		listeners = new HashMap<Integer, ArrayList<MessageListener>>(
 				MessageType.values().length);
 
 		for (MessageType msgtype : MessageType.values()) {
@@ -40,27 +41,29 @@ public class MessageManager {
 				while (true) {
 					DatagramPacket receivePacket = new DatagramPacket(
 							receiveData, receiveData.length);
-
 					try {
 						serverSocket.receive(receivePacket);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					
+					byte[] receiveDataTrimmed = Arrays.copyOf(receiveData, receivePacket.getLength());
 
 					// Create MessageContainer
 					MessageContainer message = null;
 					try {
-						message = MessageContainer.parseFrom(receiveData);
+						message = MessageContainer.parseFrom(receiveDataTrimmed);
 					} catch (InvalidProtocolBufferException e) {
 						throw new RuntimeException(e);
 					}
-
+					
 					ArrayList<MessageListener> listenerList = listeners
 							.get(message.getType());
 					if (listenerList != null) {
 						for (MessageListener listener : listenerList) {
+							KademliaNode sender = message.hasSender() ? message.getSender() : null;
 							listener.messageReceived(receivePacket.getAddress()
-									.getHostAddress(), message.getSender(),
+									.getHostAddress(), sender,
 									message.getData().toByteArray());
 						}
 					}
@@ -69,7 +72,7 @@ public class MessageManager {
 		};
 	}
 	
-	public void sendMessage(KademliaNode receiver, Message message) {
+	public void sendMessage(KademliaNode receiver, MessageContainer message) {
 		InetAddress inetAddress = null;
 		try {
 			inetAddress = InetAddress.getByName(receiver.getAddress());
@@ -85,24 +88,13 @@ public class MessageManager {
 		}
 	}
 
-	public void sendMessage(InetAddress destIP, int destPort, MessageType type,
-			byte[] message) throws IOException {
-		byte[] data = new byte[message.length + 1];
-		data[0] = type.getValue();
-		System.arraycopy(message, 0, data, 1, message.length);
-
-		DatagramPacket sendPacket = new DatagramPacket(data, data.length,
-				destIP, destPort);
-		serverSocket.send(sendPacket);
-	}
-
 	public void registerListener(MessageType type, MessageListener listener) {
 		ArrayList<MessageListener> listenerList = listeners
 				.get(type.getValue());
 		if (listenerList != null) {
 			listenerList.add(listener);
 		} else {
-			// throw
+			System.out.println("not registered");
 		}
 	}
 

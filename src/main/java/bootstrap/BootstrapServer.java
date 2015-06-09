@@ -2,6 +2,7 @@ package bootstrap;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 import com.google.protobuf.ByteString;
@@ -31,16 +32,14 @@ public class BootstrapServer {
 	}
 
 	public KademliaId getNextId() {
-		byte[] bytes = Sha.getInstance().digest(nextId);
-		System.out.println("Sha length: " + bytes.length);
+		byte[] bytes = Sha.getInstance().digest(nextId++);
 		return KademliaId.newBuilder()
 				.setData(ByteString.copyFrom(bytes))
 				.build();
 	}
 	
 	public List<KademliaNode> getKRandomNodes() {
-		List<KademliaNode> tmp = new ArrayList<KademliaNode>();
-		Collections.copy(tmp, nodes);
+		List<KademliaNode> tmp = new ArrayList<KademliaNode>(nodes);
 		Collections.shuffle(tmp);
 		return tmp.subList(0, Math.min(Constants.K, tmp.size()));
 	}
@@ -51,5 +50,29 @@ public class BootstrapServer {
 	
 	public void sendResponse(KademliaNode receiver, MessageContainer response) {
 		messageManager.sendMessage(receiver, response);
+	}
+	
+	public void run() {
+		messageManager.startListening();
+	}
+	
+	public static void main(String[] args) {
+		BootstrapServer bs = new BootstrapServer(19803);
+		bs.run();
+	}
+
+	public void removeNodeByAddressAndPort(String address, int port) {
+		KademliaNode toRemove = null;
+		for (KademliaNode node: nodes) {
+			if (node.getAddress().equals(address) && node.getPort() == port) {
+				toRemove = node;
+				break;
+			}
+		}
+		nodes.remove(toRemove);
+	}
+	
+	public List<KademliaNode> getNodes() {
+		return nodes;
 	}
 }

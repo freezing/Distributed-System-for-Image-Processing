@@ -25,9 +25,8 @@ public class FindNodeResponseListener implements MessageListener {
 	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
 		FindNodeResponse response = parseResponse(message);
 		CountDownLatch latch = latchMap.get(response.getSearchId());
-		
-		worker.addAll(response.getResultsList());
-		
+		worker.addAllToKBuckets(response.getResultsList());
+		worker.addToKBuckets(sender);
 		latch.countDown();
 	}
 

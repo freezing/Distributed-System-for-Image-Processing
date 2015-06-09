@@ -12,12 +12,12 @@ public enum MessageType {
 	BOOTSTRAP_CONNECT_REQUEST(8),
 	BOOTSTRAP_CONNECT_RESPONSE(9);
 
-    private final byte value;
+    private final int value;
     private MessageType(int value) {
-        this.value = (byte)value;
+        this.value = value;
     }
 
-    public byte getValue() {
+    public int getValue() {
         return value;
     }
 }

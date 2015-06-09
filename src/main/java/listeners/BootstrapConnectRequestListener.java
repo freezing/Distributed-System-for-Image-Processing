@@ -1,14 +1,21 @@
 package listeners;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import network.MessageListener;
 import network.MessageType;
 import protos.KademliaProtos.BootstrapConnectRequest;
 import protos.KademliaProtos.BootstrapConnectResponse;
+import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
+import util.Constants;
+import utils.KademliaUtils;
 import bootstrap.BootstrapServer;
+import buckets.SingleKBucket;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
@@ -37,11 +44,13 @@ public class BootstrapConnectRequestListener implements MessageListener {
 					.setPort(port)
 					.build();
 		
-		// Add receiver in the list
-		bootstrap.addNode(receiver);
+		bootstrap.removeNodeByAddressAndPort(receiver.getAddress(), receiver.getPort());
 		
 		// Get K nodes
 		List<KademliaNode> others = bootstrap.getKRandomNodes();
+		
+		// Add receiver in the list
+		bootstrap.addNode(receiver);
 		
 		BootstrapConnectResponse bootstrapConnectResponse = BootstrapConnectResponse.newBuilder()
 				.setYou(receiver)
@@ -53,6 +62,23 @@ public class BootstrapConnectRequestListener implements MessageListener {
 			.setType(MessageType.BOOTSTRAP_CONNECT_RESPONSE.getValue())
 			.setData(bootstrapConnectResponse.toByteString())
 			.build();
+		
+		
+		List<KademliaNode> nodes = new ArrayList<KademliaNode>(bootstrap.getNodes());
+		final KademliaId cmp = receiver.getId(); 
+		Collections.sort(nodes, new Comparator<KademliaNode>() {
+
+			public int compare(KademliaNode a, KademliaNode b) {
+				KademliaId ax = KademliaUtils.XOR(a.getId(), cmp);
+				KademliaId bx = KademliaUtils.XOR(b.getId(), cmp);
+				return KademliaUtils.compare(ax, bx);
+			}
+			
+		});
+		for (int i = 0; i < 5; i++) {
+			if (i < nodes.size())
+			System.out.println(nodes.get(i));
+		}		
 		
 		bootstrap.sendResponse(receiver, response);
 	}

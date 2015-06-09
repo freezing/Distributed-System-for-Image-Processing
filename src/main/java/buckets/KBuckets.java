@@ -20,6 +20,7 @@ public class KBuckets {
 		for (int i = 0; i < buckets.length; i++) {
 			buckets[i] = new SingleKBucket();
 		}
+		addAll(nodes);
 	}
 	
 	public void addAll(List<KademliaNode> results) {
@@ -51,7 +52,7 @@ public class KBuckets {
 		return false;
 	}
 
-	public List<KademliaNode> getKClosest(KademliaNode node) {
+	public List<KademliaNode> getKClosest(final KademliaId id) {
 		List<KademliaNode> nodes = new ArrayList<KademliaNode>();
 		
 		for (SingleKBucket singleBucket : buckets) {
@@ -61,19 +62,12 @@ public class KBuckets {
 		Collections.sort(nodes, new Comparator<KademliaNode>() {
 
 			public int compare(KademliaNode a, KademliaNode b) {
-				byte[] first = a.getId().toByteArray();
-				byte[] second = b.getId().toByteArray();
-				for (int i = 0; i < first.length; i++) {
-					if (first[i] < second[i]) {
-						return -1;
-					} else if (first[i] > second[i]) {
-						return 1;
-					}
-				}
-				return 0;
+				KademliaId ax = KademliaUtils.XOR(a.getId(), id);
+				KademliaId bx = KademliaUtils.XOR(b.getId(), id);
+				return KademliaUtils.compare(ax, bx);
 			}
 			
 		});
-		return nodes.subList(0, Math.max(nodes.size(), Constants.K));
+		return nodes.subList(0, Math.min(nodes.size(), Constants.K));
 	}
 }

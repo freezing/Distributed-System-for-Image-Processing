@@ -33,4 +33,14 @@ public class KademliaUtils {
 		
 		return KademliaId.newBuilder().setData(ByteString.copyFrom(xor)).build();
 	}
+	
+	public static int compare(KademliaId a, KademliaId b) {
+		byte[] aBytes = a.toByteArray();
+		byte[] bBytes = b.toByteArray();
+		for (int i = 0; i < aBytes.length; i++) {
+			if (aBytes[i] > bBytes[i]) return 1;
+			else if (aBytes[i] < bBytes[i]) return -1;
+		}
+		return 0;
+	}
 }

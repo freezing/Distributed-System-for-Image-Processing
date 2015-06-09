@@ -14,6 +14,7 @@ import protos.KademliaProtos.BootstrapConnectResponse;
 import protos.KademliaProtos.FindNodeRequest;
 import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
+import protos.KademliaProtos.MessageContainer;
 import util.Constants;
 import buckets.KBuckets;
 import factories.FindNodeRequestFactory;
@@ -44,19 +45,20 @@ public class KademliaNodeWorker {
 	}
 
 	public void run() {
-		
 	}
 
 	public KademliaNode getNode() {
 		return node;
 	}
 
-	public void findNode(KademliaNode node) {
+	public List<KademliaNode> findNode(KademliaNode node) {
 		List<KademliaNode> prevClosest = null;
 		
 		Set<KademliaId> visited = new HashSet<KademliaId>();
-		while (true) {
-			List<KademliaNode> closest = kbuckets.getKClosest(node);
+		
+		int depth = 0; 
+		while (depth < Constants.MAX_FIND_DEPTH) {
+			List<KademliaNode> closest = kbuckets.getKClosest(node.getId());
 			CountDownLatch latch = new CountDownLatch(closest.size());
 			findNodeResponseListener.put(node.getId(), latch);
 			
@@ -81,10 +83,26 @@ public class KademliaNodeWorker {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			depth++;
 		}
+		System.out.println("took: "+depth);
+		return prevClosest;
 	}
 
-	public void addAll(List<KademliaNode> results) {
+	public void addAllToKBuckets(List<KademliaNode> results) {
 		kbuckets.addAll(results);
+	}
+	
+	public void addToKBuckets(KademliaNode node) {
+		kbuckets.add(node);
+	}
+	
+	public KBuckets getKbuckets() {
+		return kbuckets;
+	}
+	
+	public void sendMessage(KademliaNode receiver, MessageContainer message) {
+		messageManager.sendMessage(receiver, message);
 	}
 }

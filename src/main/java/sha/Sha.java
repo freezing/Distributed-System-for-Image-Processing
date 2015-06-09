@@ -32,7 +32,6 @@ public class Sha {
 		ByteBuffer buff = ByteBuffer.allocate(4);
 		buff.putInt(id);
 		sha.reset();
-		sha.update(buff);
-		return sha.digest();
+		return sha.digest(buff.array());
 	}
 	}
