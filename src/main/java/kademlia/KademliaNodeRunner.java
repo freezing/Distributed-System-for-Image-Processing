@@ -47,11 +47,11 @@ public class KademliaNodeRunner implements Runnable {
 		}
 		
 		KademliaNodeWorker worker = new KademliaNodeWorker(bootstrapResponse, messageManager);
-		List<KademliaNode> results = worker.findNode(worker.getNode().getId());
+		worker.findNode(worker.getNode().getId());
+		/*List<KademliaNode> results = worker.findNode(worker.getNode().getId());
 		for (KademliaNode result: results) {
 			KademliaId id = KademliaUtils.XOR(result.getId(), worker.getNode().getId());
-			System.out.println(result.getId());
-		}
+		}*/
 		worker.run();
 	}
 	

@@ -30,4 +30,9 @@ public class FindNodeResponseListener extends FindAnythingResponseListener {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	// FIND_NODE will never have a value
+	public boolean hasValue() {
+		return false;
+	}
 }
