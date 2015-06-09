@@ -20,7 +20,7 @@ public class BlurImageRequestListener implements MessageListener {
 	
 	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
 		BlurImageRequest request = BlurImageRequestFactory.parse(message);
-		
 		List<ImageTask> unitTasks = ImageTaskUtils.makeUnitTasks(request.getImageProto(), request.getRadius());
+		worker.setTasksReadyForDistribution(unitTasks);
 	}
 }

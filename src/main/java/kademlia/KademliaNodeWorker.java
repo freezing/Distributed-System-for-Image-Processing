@@ -18,14 +18,18 @@ import network.MessageType;
 import protos.KademliaProtos.BootstrapConnectResponse;
 import protos.KademliaProtos.FindNodeRequest;
 import protos.KademliaProtos.HashTableValue;
+import protos.KademliaProtos.ImageTask;
 import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
 import protos.KademliaProtos.StoreRequest;
 import util.Constants;
+import utils.ImageTaskUtils;
+import utils.KademliaUtils;
 import buckets.KBuckets;
 import factories.FindNodeRequestFactory;
 import factories.MessageContainerFactory;
+import factories.SegmentTreeNodeFactory;
 import factories.StoreRequestFactory;
 
 public class KademliaNodeWorker {
@@ -153,5 +157,20 @@ public class KademliaNodeWorker {
 	
 	public void findValue(KademliaId key) {
 		// TODO: Implement
+	}
+
+	public void setTasksReadyForDistribution(List<ImageTask> unitTasks) {
+		// First add fake tasks so that unitTasks has size of 2^A (where A is some integer)
+		ImageTaskUtils.extendSizeToPowerOfTwo(unitTasks);
+		
+		// Make segment tree
+		int id = 2 * unitTasks.size() - 1;
+		
+		// First create nodes that contain tasks
+		for (int i = unitTasks.size() - 1; i >= 0; i--) {
+			SegmentTreeNodeFactory.make(
+					unitTasks.get(i),
+					KademliaUtils.generateId(id));
+		}
 	}
 }

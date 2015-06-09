@@ -3,11 +3,11 @@ package utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import factories.BlurAreaFactory;
 import protos.KademliaProtos.BlurArea;
 import protos.KademliaProtos.ImageProto;
 import protos.KademliaProtos.ImageTask;
 import util.Constants;
+import factories.BlurAreaFactory;
 
 public class ImageTaskUtils {
 
@@ -38,6 +38,21 @@ public class ImageTaskUtils {
 			.setBlurArea(blurArea)
 			.setRadius(radius)
 			.setSubImage(subImage)
+			.setFake(false)
 			.build();
+	}
+
+	public static void extendSizeToPowerOfTwo(List<ImageTask> unitTasks) {
+		while (!isPowerOfTwo(unitTasks.size())) {
+			unitTasks.add(makeFakeUnitTask());
+		}
+	}
+
+	private static boolean isPowerOfTwo(int n) {
+		return (n & -n) == n;
+	}
+
+	private static ImageTask makeFakeUnitTask() {
+		return ImageTask.newBuilder().setFake(true).build();
 	}
 }

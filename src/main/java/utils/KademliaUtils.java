@@ -5,6 +5,7 @@ import java.util.BitSet;
 import com.google.protobuf.ByteString;
 
 import protos.KademliaProtos.KademliaId;
+import sha.Sha;
 
 public class KademliaUtils {
 	public static int xorDistance(KademliaId a, KademliaId b) {
@@ -42,5 +43,12 @@ public class KademliaUtils {
 			else if (aBytes[i] < bBytes[i]) return -1;
 		}
 		return 0;
+	}
+	
+	public static KademliaId generateId(int id) {
+		byte[] bytes = Sha.getInstance().digest(id);
+		return KademliaId.newBuilder()
+				.setData(ByteString.copyFrom(bytes))
+				.build();
 	}
 }
