@@ -29,18 +29,18 @@ import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
 import protos.KademliaProtos.StoreRequest;
-import sha.Sha;
+import protos.KademliaProtos.TaskResult;
 import util.Constants;
 import utils.HashTableValueUtils;
 import utils.ImageTaskUtils;
 import utils.KademliaUtils;
 import utils.StatisticsUtils;
+import algorithm.BlurAlgorithm;
 import buckets.KBuckets;
 import factories.FindNodeRequestFactory;
 import factories.FindValueRequestFactory;
 import factories.HashTableValueFactory;
 import factories.MessageContainerFactory;
-import factories.SegmentTreeNodeFactory;
 import factories.StoreRequestFactory;
 
 public class KademliaNodeWorker {
@@ -76,7 +76,7 @@ public class KademliaNodeWorker {
 		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE, findValueResponseListener);
 		messageManager.registerListener(MessageType.NODE_FIND_VALUE_REQUEST, new FindValueRequestListener(this));		
 		messageManager.registerListener(MessageType.NODE_STORE_REQUEST, storeRequestListener);
-		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener());
+		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener(this));
 		
 		messageManager.registerListener(MessageType.BLUR_IMAGE_REQUEST, new BlurImageRequestListener(this));
 	}
@@ -91,21 +91,32 @@ public class KademliaNodeWorker {
 				HashTableValue taskValue = getTask(nextRandomTaskId);
 				if (taskValue != null) {
 					// Create new HashTableValue with updated timestamp
-					HashTableValue.newBuilder(taskValue)
-						.setLastTimeTaken(System.currentTimeMillis())
-						.build();
+					HashTableValue.Builder taskValueBuilder = HashTableValue.newBuilder(taskValue)
+						.setLastTimeTaken(System.currentTimeMillis());
+					
 					// Store it in the 
-					store(taskValue.getSegmentTreeNode().getMyId(), taskValue);
+					store(taskValue.getSegmentTreeNode().getMyId(), taskValueBuilder.build());
 					updateSegmentTreeParent(taskValue.getSegmentTreeNode().getParentId());
 					
-					// TODO: Start work on the task and update when finished
+					// Start work on the task
+					TaskResult result = processTask(taskValue);
 					
+					// And update when finished
+					HashTableValue resultValue = taskValueBuilder
+						.setFinishedTasks(1)
+						.setResult(result)
+						.build();
+					store(resultValue.getSegmentTreeNode().getMyId(), resultValue);
 				}
 			}
 			Thread.yield();
 		}
 	}
 	
+	private TaskResult processTask(HashTableValue taskValue) {
+		return BlurAlgorithm.blurImageTask(taskValue.getUnitTask());
+	}
+
 	private void updateSegmentTreeParent(KademliaId parentId) {
 		KademliaId currentId = parentId;
 		

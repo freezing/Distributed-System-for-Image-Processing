@@ -102,12 +102,14 @@ message BlurArea {
 message ImageTask {
 	optional ImageProto subImage = 1;
 	optional BlurArea blurArea = 2;
-	optional int32 radius = 3;
-	optional bool fake = 4;
+	optional BlurArea wholeImageBlurArea = 3;
+	optional int32 radius = 4;
+	optional bool fake = 5;
 }
 
 message TaskResult {
 	optional ImageProto bluredImage = 1;
+	optional BlurArea wholeImageBlurArea = 2;
 }
 
 // Segment Tree

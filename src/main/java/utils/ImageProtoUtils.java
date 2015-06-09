@@ -1,5 +1,6 @@
 package utils;
 
+import protos.KademliaProtos.BlurArea;
 import protos.KademliaProtos.ImageProto;
 import protos.KademliaProtos.ImageRow;
 
@@ -14,5 +15,10 @@ public class ImageProtoUtils {
 			}
 		}
 		return builder.build();
+	}
+
+	public static ImageProto subImage(ImageProto subImage, BlurArea blurArea) {
+		return subImage(subImage, blurArea.getTop(), blurArea.getLeft(),
+				blurArea.getBottom(), blurArea.getRight());
 	}
 }
