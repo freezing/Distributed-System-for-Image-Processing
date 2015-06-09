@@ -18,23 +18,30 @@ public class ImageTaskUtils {
 				int bottom = Math.min(y + Constants.UNIT_TASK_IMAGE_HEIGHT, imageProto.getHeight());
 				int right = Math.min(x + Constants.UNIT_TASK_IMAGE_WIDTH, imageProto.getWidth());
 				
-				BlurArea blurArea = BlurAreaFactory.make(y, x, bottom, right);
-				ImageTask unitTask = makeUnitTask(imageProto, blurArea, radius);
+				BlurArea wholeImageBlurArea = BlurAreaFactory.make(y, x, bottom, right);
+				ImageTask unitTask = makeUnitTask(imageProto, wholeImageBlurArea, radius);
 				tasks.add(unitTask);
 			}
 		}
 		return tasks;
 	}
 
-	private static ImageTask makeUnitTask(ImageProto imageProto, BlurArea blurArea, int radius) {		
-		int top = Math.max(0, blurArea.getTop() - radius);
-		int left = Math.max(0, blurArea.getLeft() - radius);
-		int bottom = Math.min(imageProto.getHeight(), blurArea.getBottom() + radius);
-		int right = Math.min(imageProto.getWidth(), blurArea.getRight() + radius);
+	private static ImageTask makeUnitTask(ImageProto imageProto, BlurArea wholeImageBlurArea, int radius) {		
+		int top = Math.max(0, wholeImageBlurArea.getTop() - radius);
+		int left = Math.max(0, wholeImageBlurArea.getLeft() - radius);
+		int bottom = Math.min(imageProto.getHeight(), wholeImageBlurArea.getBottom() + radius);
+		int right = Math.min(imageProto.getWidth(), wholeImageBlurArea.getRight() + radius);
 		
 		ImageProto subImage = ImageProtoUtils.subImage(imageProto, top, left, bottom, right);
 		
+		BlurArea blurArea = BlurAreaFactory
+				.make(wholeImageBlurArea.getTop() - top,
+						wholeImageBlurArea.getLeft() - left,
+						wholeImageBlurArea.getBottom() - top,
+						wholeImageBlurArea.getRight() - left);
+		
 		return ImageTask.newBuilder()
+			.setWholeImageBlurArea(wholeImageBlurArea)
 			.setBlurArea(blurArea)
 			.setRadius(radius)
 			.setSubImage(subImage)

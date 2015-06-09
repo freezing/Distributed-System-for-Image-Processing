@@ -12,7 +12,8 @@ public enum MessageType {
 	BOOTSTRAP_CONNECT_REQUEST(8),
 	BOOTSTRAP_CONNECT_RESPONSE(9),
 	BLUR_IMAGE_REQUEST(10),
-	BLUR_IMAGE_RESPONSE(11);
+	BLUR_RESULT_REQUEST(11),
+	BLUR_RESULT_RESPONSE(12);
 
     private final int value;
     private MessageType(int value) {

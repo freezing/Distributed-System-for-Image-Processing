@@ -7,7 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-import listeners.BlurImageResponseListener;
+import listeners.BlurResultResponseListener;
 import network.MessageManager;
 import network.MessageType;
 import protos.KademliaProtos.BlurImageRequest;
@@ -30,7 +30,7 @@ public class Client {
 	
 	public Client(String imagePath, int radius, int port, KademliaNode receiver) throws IOException {
 		messageManager = new MessageManager(port);
-		messageManager.registerListener(MessageType.BLUR_IMAGE_RESPONSE, new BlurImageResponseListener(this));
+		messageManager.registerListener(MessageType.BLUR_RESULT_RESPONSE, new BlurResultResponseListener(this));
 		
 		this.imageFile = new File(imagePath);
 		this.radius = radius;
@@ -73,5 +73,9 @@ public class Client {
 
 	public static void main(String[] args) {
 		
+	}
+
+	public void setPercentageDone(float percentage) {
+		System.out.println("Percentage done: " + percentage);
 	}
 }
