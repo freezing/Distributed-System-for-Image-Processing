@@ -58,6 +58,7 @@ public class KademliaNodeWorker {
 
 	private void registerListeners() {
 		findNodeResponseListener = new FindNodeResponseListener(this);
+		findValueResponseListener = new FindValueResponseListener(this);
 		storeRequestListener = new StoreRequestListener(this);
 		
 		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST, new FindNodeRequestListener(this));
