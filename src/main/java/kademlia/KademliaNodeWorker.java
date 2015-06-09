@@ -28,25 +28,27 @@ import utils.ImageTaskUtils;
 import utils.KademliaUtils;
 import buckets.KBuckets;
 import factories.FindNodeRequestFactory;
+import factories.HashTableValueFactory;
 import factories.MessageContainerFactory;
-import factories.SegmentTreeNodeFactory;
 import factories.StoreRequestFactory;
 
 public class KademliaNodeWorker {
 	private MessageManager messageManager;
 	private KademliaNode node;
-	
+
 	private KBuckets kbuckets;
 	private ConcurrentHashMap<KademliaId, HashTableValue> localHashMap;
-	
+
 	// Listeners
 	private FindNodeResponseListener findNodeResponseListener;
 	private FindValueResponseListener findValueResponseListener;
 	private StoreRequestListener storeRequestListener;
-	
-	public KademliaNodeWorker(BootstrapConnectResponse bootstrapResponse, MessageManager messageManager) {
+
+	public KademliaNodeWorker(BootstrapConnectResponse bootstrapResponse,
+			MessageManager messageManager) {
 		this.node = bootstrapResponse.getYou();
-		this.kbuckets = new KBuckets(node.getId(), bootstrapResponse.getOthersList());
+		this.kbuckets = new KBuckets(node.getId(),
+				bootstrapResponse.getOthersList());
 		this.messageManager = messageManager;
 		this.localHashMap = new ConcurrentHashMap<KademliaId, HashTableValue>();
 		registerListeners();
@@ -55,13 +57,18 @@ public class KademliaNodeWorker {
 	private void registerListeners() {
 		findNodeResponseListener = new FindNodeResponseListener(this);
 		storeRequestListener = new StoreRequestListener(this);
-		
-		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST, new FindNodeRequestListener(this));
-		messageManager.registerListener(MessageType.NODE_FIND_NODE_RESPONSE, findNodeResponseListener);
-		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE, findValueResponseListener);
-		
-		messageManager.registerListener(MessageType.NODE_STORE_REQUEST, storeRequestListener);
-		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener());
+
+		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST,
+				new FindNodeRequestListener(this));
+		messageManager.registerListener(MessageType.NODE_FIND_NODE_RESPONSE,
+				findNodeResponseListener);
+		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE,
+				findValueResponseListener);
+
+		messageManager.registerListener(MessageType.NODE_STORE_REQUEST,
+				storeRequestListener);
+		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE,
+				new StoreResponseListener());
 	}
 
 	public void run() {
@@ -70,15 +77,18 @@ public class KademliaNodeWorker {
 	public KademliaNode getNode() {
 		return node;
 	}
-	
-	private void sendMessageToNodes(List<KademliaNode> nodes, MessageContainer message) {
+
+	private void sendMessageToNodes(List<KademliaNode> nodes,
+			MessageContainer message) {
 		for (KademliaNode receiver : nodes) {
 			messageManager.sendMessage(receiver, message);
 		}
 	}
-	
-	private List<KademliaNode> excludeNodesFromSet(List<KademliaNode> nodes, Set<KademliaId> excludeNodes) {
-		ArrayList<KademliaNode> result = new ArrayList<KademliaNode>(nodes.size());
+
+	private List<KademliaNode> excludeNodesFromSet(List<KademliaNode> nodes,
+			Set<KademliaId> excludeNodes) {
+		ArrayList<KademliaNode> result = new ArrayList<KademliaNode>(
+				nodes.size());
 		for (KademliaNode node : nodes) {
 			if (!excludeNodes.contains(node.getId())) {
 				result.add(node);
@@ -89,30 +99,31 @@ public class KademliaNodeWorker {
 
 	public List<KademliaNode> findNode(KademliaId id) {
 		List<KademliaNode> prevClosest = null;
-		
+
 		Set<KademliaId> visited = new HashSet<KademliaId>();
-	
-		int depth = 0; 
+
+		int depth = 0;
 		while (depth < Constants.MAX_FIND_DEPTH) {
 			List<KademliaNode> closest = kbuckets.getKClosest(id);
 			CountDownLatch latch = new CountDownLatch(closest.size());
 			findNodeResponseListener.put(id, latch);
-			
+
 			if (prevClosest != null && prevClosest.equals(closest)) {
 				break;
 			}
 			prevClosest = closest;
 
 			FindNodeRequest request = FindNodeRequestFactory.make(id);
-			MessageContainer message = MessageContainerFactory.make(this.node, request);
+			MessageContainer message = MessageContainerFactory.make(this.node,
+					request);
 			sendMessageToNodes(excludeNodesFromSet(closest, visited), message);
-			
+
 			try {
 				latch.await(Constants.LATCH_TIMEOUT, TimeUnit.SECONDS);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			
+
 			depth++;
 		}
 		return prevClosest;
@@ -121,56 +132,119 @@ public class KademliaNodeWorker {
 	public void addAllToKBuckets(List<KademliaNode> results) {
 		kbuckets.addAll(results);
 	}
-	
+
 	public void addToKBuckets(KademliaNode node) {
 		kbuckets.add(node);
 	}
-	
+
 	public KBuckets getKbuckets() {
 		return kbuckets;
 	}
-	
+
 	public void sendMessage(KademliaNode receiver, MessageContainer message) {
 		messageManager.sendMessage(receiver, message);
 	}
-	
+
 	public void store(KademliaId key, HashTableValue value) {
 		List<KademliaNode> closest = findNode(key);
 		for (KademliaNode node : closest) {
 			store(node, key, value);
 		}
 	}
-	
-	public void store(KademliaNode receiver, KademliaId key, HashTableValue value) {
+
+	public void store(KademliaNode receiver, KademliaId key,
+			HashTableValue value) {
 		StoreRequest request = StoreRequestFactory.make(key, value);
-		MessageContainer message = MessageContainerFactory.make(getNode(), request);
+		MessageContainer message = MessageContainerFactory.make(getNode(),
+				request);
 		sendMessage(receiver, message);
 	}
 
 	public void putToLocalHashMap(KademliaId key, HashTableValue value) {
 		localHashMap.put(key, value);
 	}
-	
+
 	public HashTableValue getFromLocalHashMap(KademliaId key) {
 		return localHashMap.get(key);
 	}
-	
+
 	public void findValue(KademliaId key) {
 		// TODO: Implement
 	}
 
 	public void setTasksReadyForDistribution(List<ImageTask> unitTasks) {
-		// First add fake tasks so that unitTasks has size of 2^A (where A is some integer)
+		// First add fake tasks so that unitTasks has size of 2^A (where A is
+		// some integer)
 		ImageTaskUtils.extendSizeToPowerOfTwo(unitTasks);
-		
+
 		// Make segment tree
 		int id = 2 * unitTasks.size() - 1;
-		
+
+		// Temporarily store all the values (id is initially set to the size of
+		// nodes in the segment tree)
+		HashTableValue values[] = new HashTableValue[id];
+
 		// First create nodes that contain tasks
-		for (int i = unitTasks.size() - 1; i >= 0; i--) {
-			SegmentTreeNodeFactory.make(
-					unitTasks.get(i),
-					KademliaUtils.generateId(id));
+		id = createTaskNodes(unitTasks, id, values);
+
+		// Then create parent nodes
+		createParentNodes(id, values);
+	}
+
+	private void createParentNodes(int id, HashTableValue[] values) {
+		while (id > 0) {
+			// Calculate ids
+			KademliaId myId = KademliaUtils.generateId(id);
+			// If parent is root then his parent is null
+			KademliaId parentId = id > 1 ? KademliaUtils.generateId(id / 2)
+					: null;
+			// Left child is calculated using formula: 2 * id
+			KademliaId leftChildId = KademliaUtils.generateId(2 * id);
+			// Right child is calculated using formula: 2 * id + 1
+			KademliaId rightChildId = KademliaUtils.generateId(2 * id + 1);
+
+			// Calculate number of pending tasks using children info
+			int pendingTasks = values[2 * id].getPendingTasks()
+					+ values[2 * id + 1].getPendingTasks();
+
+			// Make HashTableValue
+			HashTableValue value = HashTableValueFactory.make(myId, parentId,
+					leftChildId, rightChildId, pendingTasks);
+
+			// Insert value in DHT
+			store(value.getSegmentTreeNode().getMyId(), value);
+			
+			// Update next id
+			id--;
 		}
+	}
+
+	/**
+	 * 
+	 * @param unitTasks
+	 * @param id
+	 * @return Next id.
+	 */
+	private int createTaskNodes(List<ImageTask> unitTasks, int id,
+			HashTableValue values[]) {
+		for (int i = unitTasks.size() - 1; i >= 0; i--) {
+			// Calculate parent id
+			int parentId = id / 2;
+
+			// Make HashTableValue
+			HashTableValue value = HashTableValueFactory.make(unitTasks.get(i),
+					KademliaUtils.generateId(id),
+					KademliaUtils.generateId(parentId));
+
+			// Insert value in DHT
+			store(value.getSegmentTreeNode().getMyId(), value);
+
+			// And store in the values array
+			values[id] = value;
+
+			// Update next id value
+			id--;
+		}
+		return id;
 	}
 }
