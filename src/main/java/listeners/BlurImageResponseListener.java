@@ -2,7 +2,6 @@ package listeners;
 
 import network.MessageListener;
 import protos.KademliaProtos.BlurImageResponse;
-import protos.KademliaProtos.ImageProto;
 import protos.KademliaProtos.KademliaNode;
 import client.Client;
 import factories.BlurImageResponseFactory;
