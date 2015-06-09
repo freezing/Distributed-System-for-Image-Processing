@@ -11,19 +11,20 @@ public class HashTableValueFactory {
 			KademliaId parentId) {
 		SegmentTreeNode segmentTreeNode = SegmentTreeNodeFactory.make(myId,
 				parentId);
-		int pendingTasks = imageTask.getFake() ? 0 : 1;
+		int validTasks = imageTask.getFake() ? 0 : 1;
 		return HashTableValue.newBuilder().setSegmentTreeNode(segmentTreeNode)
 				.setUnitTask(imageTask).setFinishedTasks(0)
-				.setPendingTasks(pendingTasks).build();
+				.setValidTasks(validTasks).build();
 	}
 
 	public static HashTableValue make(KademliaId myId, KademliaId parentId,
-			KademliaId leftChildId, KademliaId rightChildId, int pendingTasks) {
+			KademliaId leftChildId, KademliaId rightChildId, int validTasks) {
 		SegmentTreeNode segmentTreeNode = SegmentTreeNodeFactory.make(myId,
 				parentId, leftChildId, rightChildId);
 		return HashTableValue.newBuilder()
 			.setFinishedTasks(0)
-			.setPendingTasks(pendingTasks)
+			.setLastTimeTaken(0)
+			.setValidTasks(validTasks)
 			.setSegmentTreeNode(segmentTreeNode)
 			.build();
 	}

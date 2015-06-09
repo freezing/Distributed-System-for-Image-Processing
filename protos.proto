@@ -63,7 +63,7 @@ message HashTableValue {
 	optional TaskResult result = 3;
 	optional int64 lastTimeTaken = 4;
 	optional int32 finishedTasks = 5;
-	optional int32 pendingTasks = 6;
+	optional int32 validTasks = 6;
 	optional string tmp = 10;
 }
 
