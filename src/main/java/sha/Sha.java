@@ -34,4 +34,4 @@ public class Sha {
 		sha.reset();
 		return sha.digest(buff.array());
 	}
-	}
+}

@@ -2,10 +2,7 @@ package bootstrap;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-
-import com.google.protobuf.ByteString;
 
 import listeners.BootstrapConnectRequestListener;
 import network.MessageManager;
@@ -13,13 +10,13 @@ import network.MessageType;
 import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
-import sha.Sha;
 import util.Constants;
+import utils.KademliaUtils;
 
 public class BootstrapServer {
 	private List<KademliaNode> nodes;
 	private MessageManager messageManager;
-	private int nextId = 0;
+	private int nextId = 1;
 	
 	public BootstrapServer(int port) {
 		messageManager = new MessageManager(port);
@@ -32,10 +29,7 @@ public class BootstrapServer {
 	}
 
 	public KademliaId getNextId() {
-		byte[] bytes = Sha.getInstance().digest(nextId++);
-		return KademliaId.newBuilder()
-				.setData(ByteString.copyFrom(bytes))
-				.build();
+		return KademliaUtils.generateId(nextId++);
 	}
 	
 	public List<KademliaNode> getKRandomNodes() {

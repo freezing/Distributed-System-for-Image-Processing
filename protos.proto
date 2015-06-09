@@ -58,7 +58,11 @@ message StoreResponse {
 }
 
 message HashTableValue {
-	optional string tmp = 1;
+	optional ImageTask unitTask = 1;
+	optional TaskResult result = 2;
+	optional int64 lastTimeTaken = 3;
+	optional SegmentTreeNode segmentTreeNode = 4;
+	optional string tmp = 10;
 }
 
 message BlurImageRequest {
@@ -97,8 +101,16 @@ message ImageTask {
 	optional ImageProto subImage = 1;
 	optional BlurArea blurArea = 2;
 	optional int32 radius = 3;
+	optional bool fake = 4;
 }
 
 message TaskResult {
 	optional ImageProto bluredImage = 1;
+}
+
+// Segment Tree
+message SegmentTreeNode {
+	optional KademliaId leftChildId = 1;
+	optional KademliaId rightChildId = 2;
+	optional KademliaId parentId = 3;
 }
