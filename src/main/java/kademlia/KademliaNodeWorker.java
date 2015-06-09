@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
@@ -32,6 +33,7 @@ import utils.KademliaUtils;
 import buckets.KBuckets;
 import factories.FindNodeRequestFactory;
 import factories.FindValueRequestFactory;
+import factories.HashTableValueFactory;
 import factories.MessageContainerFactory;
 import factories.SegmentTreeNodeFactory;
 import factories.StoreRequestFactory;
@@ -192,19 +194,80 @@ public class KademliaNodeWorker {
 	public HashTableValue getFromLocalHashMap(KademliaId key) {
 		return localHashMap.get(key);
 	}
-	
+
 	public void setTasksReadyForDistribution(List<ImageTask> unitTasks) {
-		// First add fake tasks so that unitTasks has size of 2^A (where A is some integer)
+		// First add fake tasks so that unitTasks has size of 2^A (where A is
+		// some integer)
 		ImageTaskUtils.extendSizeToPowerOfTwo(unitTasks);
-		
+
 		// Make segment tree
 		int id = 2 * unitTasks.size() - 1;
-		
+
+		// Temporarily store all the values (id is initially set to the size of
+		// nodes in the segment tree)
+		HashTableValue values[] = new HashTableValue[id];
+
 		// First create nodes that contain tasks
-		for (int i = unitTasks.size() - 1; i >= 0; i--) {
-			SegmentTreeNodeFactory.make(
-					unitTasks.get(i),
-					KademliaUtils.generateId(id));
+		id = createTaskNodes(unitTasks, id, values);
+
+		// Then create parent nodes
+		createParentNodes(id, values);
+	}
+
+	private void createParentNodes(int id, HashTableValue[] values) {
+		while (id > 0) {
+			// Calculate ids
+			KademliaId myId = KademliaUtils.generateId(id);
+			// If parent is root then his parent is null
+			KademliaId parentId = id > 1 ? KademliaUtils.generateId(id / 2)
+					: null;
+			// Left child is calculated using formula: 2 * id
+			KademliaId leftChildId = KademliaUtils.generateId(2 * id);
+			// Right child is calculated using formula: 2 * id + 1
+			KademliaId rightChildId = KademliaUtils.generateId(2 * id + 1);
+
+			// Calculate number of pending tasks using children info
+			int pendingTasks = values[2 * id].getPendingTasks()
+					+ values[2 * id + 1].getPendingTasks();
+
+			// Make HashTableValue
+			HashTableValue value = HashTableValueFactory.make(myId, parentId,
+					leftChildId, rightChildId, pendingTasks);
+
+			// Insert value in DHT
+			store(value.getSegmentTreeNode().getMyId(), value);
+			
+			// Update next id
+			id--;
 		}
+	}
+
+	/**
+	 * 
+	 * @param unitTasks
+	 * @param id
+	 * @return Next id.
+	 */
+	private int createTaskNodes(List<ImageTask> unitTasks, int id,
+			HashTableValue values[]) {
+		for (int i = unitTasks.size() - 1; i >= 0; i--) {
+			// Calculate parent id
+			int parentId = id / 2;
+
+			// Make HashTableValue
+			HashTableValue value = HashTableValueFactory.make(unitTasks.get(i),
+					KademliaUtils.generateId(id),
+					KademliaUtils.generateId(parentId));
+
+			// Insert value in DHT
+			store(value.getSegmentTreeNode().getMyId(), value);
+
+			// And store in the values array
+			values[id] = value;
+
+			// Update next id value
+			id--;
+		}
+		return id;
 	}
 }

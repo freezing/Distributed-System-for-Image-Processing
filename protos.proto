@@ -58,10 +58,12 @@ message StoreResponse {
 }
 
 message HashTableValue {
-	optional ImageTask unitTask = 1;
-	optional TaskResult result = 2;
-	optional int64 lastTimeTaken = 3;
-	optional SegmentTreeNode segmentTreeNode = 4;
+	optional SegmentTreeNode segmentTreeNode = 1;
+	optional ImageTask unitTask = 2;
+	optional TaskResult result = 3;
+	optional int64 lastTimeTaken = 4;
+	optional int32 finishedTasks = 5;
+	optional int32 pendingTasks = 6;
 	optional string tmp = 10;
 }
 
@@ -113,4 +115,5 @@ message SegmentTreeNode {
 	optional KademliaId leftChildId = 1;
 	optional KademliaId rightChildId = 2;
 	optional KademliaId parentId = 3;
+	optional KademliaId myId = 4;
 }

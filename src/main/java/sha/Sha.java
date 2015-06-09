@@ -3,9 +3,6 @@ package sha;
 import java.nio.ByteBuffer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-
-import com.google.protobuf.ByteString;
 
 public class Sha {
 	
