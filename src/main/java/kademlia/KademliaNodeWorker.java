@@ -1,7 +1,8 @@
 package kademlia;
 
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -11,6 +12,7 @@ import network.MessageManager;
 import network.MessageType;
 import protos.KademliaProtos.BootstrapConnectResponse;
 import protos.KademliaProtos.FindNodeRequest;
+import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import util.Constants;
 import buckets.KBuckets;
@@ -50,20 +52,35 @@ public class KademliaNodeWorker {
 	}
 
 	public void findNode(KademliaNode node) {
-		CountDownLatch latch = new CountDownLatch(Constants.K * Constants.K);
-		findNodeResponseListener.put(node.getId(), latch);
+		List<KademliaNode> prevClosest = null;
 		
-		Collection<KademliaNode> closest = kbuckets.getKClosest(node);
-		for (KademliaNode receiver : closest) {
-			FindNodeRequest request = FindNodeRequestFactory.make(node.getId());
-			messageManager.sendMessage(receiver, MessageContainerFactory.make(this.node, request));
-		}
-		
-		try {
-			latch.await(Constants.LATCH_TIMEOUT, TimeUnit.SECONDS);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		Set<KademliaId> visited = new HashSet<KademliaId>();
+		while (true) {
+			List<KademliaNode> closest = kbuckets.getKClosest(node);
+			CountDownLatch latch = new CountDownLatch(closest.size());
+			findNodeResponseListener.put(node.getId(), latch);
+			
+			if (prevClosest != null && prevClosest.equals(closest)) {
+				break;
+			}
+			prevClosest = closest;
+			
+			for (KademliaNode receiver : closest) {
+				if (!visited.contains(receiver.getId())) {
+					visited.add(receiver.getId());
+					FindNodeRequest request = FindNodeRequestFactory.make(node.getId());
+					messageManager.sendMessage(receiver, MessageContainerFactory.make(this.node, request));
+				} else {
+					latch.countDown();
+				}
+			}
+			
+			try {
+				latch.await(Constants.LATCH_TIMEOUT, TimeUnit.SECONDS);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 
