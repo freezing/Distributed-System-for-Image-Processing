@@ -8,23 +8,28 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
+import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
 import listeners.FindValueResponseListener;
+import listeners.FindValueResponseListener.NonConsistentValueException;
 import listeners.StoreRequestListener;
 import listeners.StoreResponseListener;
 import network.MessageManager;
 import network.MessageType;
 import protos.KademliaProtos.BootstrapConnectResponse;
 import protos.KademliaProtos.FindNodeRequest;
+import protos.KademliaProtos.FindValueRequest;
 import protos.KademliaProtos.HashTableValue;
 import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
 import protos.KademliaProtos.StoreRequest;
+import sha.Sha;
 import util.Constants;
 import buckets.KBuckets;
 import factories.FindNodeRequestFactory;
+import factories.FindValueRequestFactory;
 import factories.MessageContainerFactory;
 import factories.StoreRequestFactory;
 
@@ -61,6 +66,7 @@ public class KademliaNodeWorker {
 	}
 
 	public void run() {
+
 	}
 
 	public KademliaNode getNode() {
@@ -82,25 +88,41 @@ public class KademliaNodeWorker {
 		}
 		return result;
 	}
-
+	
 	public List<KademliaNode> findNode(KademliaId id) {
+		FindNodeRequest request = FindNodeRequestFactory.make(id);
+		MessageContainer message = MessageContainerFactory.make(this.node, request);
+		return findNodeOrValue(id, findNodeResponseListener, message);
+	}
+	
+	public HashTableValue findValue(KademliaId id) {
+		FindValueRequest request = FindValueRequestFactory.make(id);
+		MessageContainer message = MessageContainerFactory.make(this.node, request);
+		findValueResponseListener.resetValue();
+		findNodeOrValue(id, findValueResponseListener, message);
+		try {
+			return findValueResponseListener.getValue();
+		} catch (NonConsistentValueException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private List<KademliaNode> findNodeOrValue(KademliaId id, FindAnythingResponseListener listener, MessageContainer message) {
 		List<KademliaNode> prevClosest = null;
 		
 		Set<KademliaId> visited = new HashSet<KademliaId>();
-	
+
 		int depth = 0; 
 		while (depth < Constants.MAX_FIND_DEPTH) {
 			List<KademliaNode> closest = kbuckets.getKClosest(id);
 			CountDownLatch latch = new CountDownLatch(closest.size());
-			findNodeResponseListener.put(id, latch);
+			listener.put(id, latch);
 			
 			if (prevClosest != null && prevClosest.equals(closest)) {
 				break;
 			}
 			prevClosest = closest;
 
-			FindNodeRequest request = FindNodeRequestFactory.make(id);
-			MessageContainer message = MessageContainerFactory.make(this.node, request);
 			sendMessageToNodes(excludeNodesFromSet(closest, visited), message);
 			
 			try {
@@ -108,6 +130,8 @@ public class KademliaNodeWorker {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			
+			if (listener.hasValue()) break;
 			
 			depth++;
 		}
@@ -149,9 +173,5 @@ public class KademliaNodeWorker {
 	
 	public HashTableValue getFromLocalHashMap(KademliaId key) {
 		return localHashMap.get(key);
-	}
-	
-	public void findValue(KademliaId key) {
-		// TODO: Implement
 	}
 }
