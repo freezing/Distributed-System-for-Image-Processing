@@ -465,14 +465,14 @@ public class KademliaNodeWorker {
 	}
 
 	public ImageProto assembleImage(int totalParts, int validParts) {
-		List<ImageProto> imageParts = new ArrayList<ImageProto>();
+		List<TaskResult> imageParts = new ArrayList<TaskResult>();
 		
 		// Iterate through ids of the tasks that are valid
 		for (int id = totalParts; id < totalParts + validParts; id++) {
 			KademliaId kademliaId = KademliaUtils.generateId(id);
 			HashTableValue value = findValue(kademliaId);
 			if (value.hasResult()) {
-				imageParts.add(value.getResult().getBluredImage());
+				imageParts.add(value.getResult());
 			} else {
 				throw new IllegalStateException("This state should not be possibled!");
 			}
