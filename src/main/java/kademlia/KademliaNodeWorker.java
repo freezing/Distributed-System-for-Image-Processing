@@ -107,6 +107,7 @@ public class KademliaNodeWorker {
 						.setResult(result)
 						.build();
 					store(resultValue.getSegmentTreeNode().getMyId(), resultValue);
+					updateSegmentTreeParent(resultValue.getSegmentTreeNode().getParentId());
 				}
 			}
 			Thread.yield();
