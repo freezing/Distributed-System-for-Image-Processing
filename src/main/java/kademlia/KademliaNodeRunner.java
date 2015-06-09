@@ -53,17 +53,25 @@ public class KademliaNodeRunner implements Runnable {
 		for (KademliaNode result: results) {
 			KademliaId id = KademliaUtils.XOR(result.getId(), worker.getNode().getId());
 		}*/
-		worker.run();
+		//worker.run();
 	}
 	
 	public void testStore() {
 		run();
-		worker.testStore();
+		worker.testStore(10, "ABC");
+		worker.testStore(100, "DADSD");
+		worker.testStore(4545, "adsdasd");
+		worker.testStore(5766, "sdsdsad");
+		worker.testStore(21323, "zcxczx");
 	}
 	
 	public void testGet() {
 		run();
-		worker.testGet();
+		worker.testGet(10);
+		worker.testGet(100);
+		worker.testGet(4545);
+		worker.testGet(5766);
+		worker.testGet(21323);
 	}
 	
 	public void setBootstrapResponse(BootstrapConnectResponse bootstrapResponse) {

@@ -1,8 +1,10 @@
 package kademlia;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -29,7 +31,6 @@ import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
 import protos.KademliaProtos.StoreRequest;
-import sha.Sha;
 import util.Constants;
 import utils.HashTableValueUtils;
 import utils.ImageTaskUtils;
@@ -40,7 +41,6 @@ import factories.FindNodeRequestFactory;
 import factories.FindValueRequestFactory;
 import factories.HashTableValueFactory;
 import factories.MessageContainerFactory;
-import factories.SegmentTreeNodeFactory;
 import factories.StoreRequestFactory;
 
 public class KademliaNodeWorker {
@@ -51,7 +51,7 @@ public class KademliaNodeWorker {
 	private KademliaNode node;
 	
 	private KBuckets kbuckets;
-	private ConcurrentHashMap<KademliaId, HashTableValue> localHashMap;
+	private ConcurrentHashMap<KademliaId, HashTableValueWrapper> localHashMap;
 	
 	// Listeners
 	private FindNodeResponseListener findNodeResponseListener;
@@ -62,7 +62,7 @@ public class KademliaNodeWorker {
 		this.node = bootstrapResponse.getYou();
 		this.kbuckets = new KBuckets(node.getId(), bootstrapResponse.getOthersList());
 		this.messageManager = messageManager;
-		this.localHashMap = new ConcurrentHashMap<KademliaId, HashTableValue>();
+		this.localHashMap = new ConcurrentHashMap<KademliaId, HashTableValueWrapper>();
 		registerListeners();
 	}
 
@@ -76,7 +76,7 @@ public class KademliaNodeWorker {
 		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE, findValueResponseListener);
 		messageManager.registerListener(MessageType.NODE_FIND_VALUE_REQUEST, new FindValueRequestListener(this));		
 		messageManager.registerListener(MessageType.NODE_STORE_REQUEST, storeRequestListener);
-		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener());
+		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener(this));
 		
 		messageManager.registerListener(MessageType.BLUR_IMAGE_REQUEST, new BlurImageRequestListener(this));
 	}
@@ -194,17 +194,18 @@ public class KademliaNodeWorker {
 		}
 	}
 
-	public void testStore() {
-		KademliaId key = KademliaUtils.generateId(6534);
-		HashTableValue value = HashTableValue.newBuilder().setTmp("This is a test string").build();
+	public void testStore(int id, String val) {
+		KademliaId key = KademliaUtils.generateId(id);
+		HashTableValue value = HashTableValue.newBuilder().setTmp(val).build();
+		putToLocalHashMap(key, value);
 		store(key, value);
 		System.out.println("Sent value: "+value.getTmp());
 	}
 	
-	public void testGet() {
-		KademliaId key = KademliaUtils.generateId(6534);
+	public void testGet(int id) {
+		KademliaId key = KademliaUtils.generateId(id);
 		HashTableValue val = findValue(key);
-		if (val == null) System.out.println("NULL");
+		if (val == null) System.out.println("Got NULL");
 		else System.out.println("Got value: "+val.getTmp());		
 	}
 
@@ -279,11 +280,14 @@ public class KademliaNodeWorker {
 	}
 
 	public void addAllToKBuckets(List<KademliaNode> results) {
-		kbuckets.addAll(results);
+		for (KademliaNode result: results) {
+			addToKBuckets(result);
+		}
 	}
 	
 	public void addToKBuckets(KademliaNode node) {
 		kbuckets.add(node);
+		sendAllValuesToNode(node);
 	}
 	
 	public KBuckets getKbuckets() {
@@ -303,22 +307,59 @@ public class KademliaNodeWorker {
 	}
 	
 	public void sendStoreRequest(KademliaNode receiver, KademliaId key, HashTableValue value) {
-		StoreRequest request = StoreRequestFactory.make(key, value);
-		MessageContainer message = MessageContainerFactory.make(getNode(), request);
-		sendMessage(receiver, message);
+		KademliaId distanceFromMe = KademliaUtils.XOR(node.getId(), key);
+		KademliaId distanceFromReceiver = KademliaUtils.XOR(receiver.getId(), key);
+		if (KademliaUtils.compare(distanceFromMe, distanceFromReceiver) != -1) {
+			StoreRequest request = StoreRequestFactory.make(key, value);
+			MessageContainer message = MessageContainerFactory.make(getNode(), request);
+			sendMessage(receiver, message);
+		}
+	}
+	
+	public void sendAllValuesToNode(KademliaNode target) {
+		for (Entry<KademliaId, HashTableValueWrapper> tableEntry: getAllLocalHashMapItems()) {
+			sendStoreRequest(target, tableEntry.getKey(), tableEntry.getValue().getValue());
+		}
+	}
+	
+	public void republishAllValues() {
+		ArrayList<Entry<KademliaId, HashTableValueWrapper>> rottenValues = new ArrayList<Entry<KademliaId, HashTableValueWrapper>>(); 
+		for (Entry<KademliaId, HashTableValueWrapper> tableEntry: getAllLocalHashMapItems()) {
+			if (!tableEntry.getValue().isFresh()) {
+				rottenValues.add(tableEntry);
+			}
+		}
+		
+		for (Entry<KademliaId, HashTableValueWrapper> tableEntry: rottenValues) {
+			findNode(tableEntry.getKey());
+		}
+		
+		for (Entry<KademliaId, HashTableValueWrapper> tableEntry: rottenValues) {
+			List<KademliaNode> closest = kbuckets.getKClosest(tableEntry.getKey());
+			for (KademliaNode target: closest) {
+				sendStoreRequest(target, tableEntry.getKey(), tableEntry.getValue().getValue()); 
+			}
+		}
+	}
+	
+	public void refreshBuckets() {
+		for (KademliaId idToRefresh: kbuckets.getRottenBucketMembers()) {
+			findNode(idToRefresh);
+		}
 	}
 
 	public void putToLocalHashMap(KademliaId key, HashTableValue value) {
-		System.out.println("put "+value.getTmp());
-		localHashMap.put(key, value);
+		localHashMap.put(key, new HashTableValueWrapper(value));
 	}
 	
 	public HashTableValue getFromLocalHashMap(KademliaId key) {
-		HashTableValue val = localHashMap.get(key);
-		if (val != null) {
-			System.out.println("get "+val.getTmp());
-		}
-		return val;
+		HashTableValueWrapper value = localHashMap.get(key);
+		if (value != null) return value.getValue();
+		return null;
+	}
+	
+	public Collection<Entry<KademliaId, HashTableValueWrapper>> getAllLocalHashMapItems() {
+		return localHashMap.entrySet();
 	}
 
 	public void setTasksReadyForDistribution(List<ImageTask> unitTasks) {

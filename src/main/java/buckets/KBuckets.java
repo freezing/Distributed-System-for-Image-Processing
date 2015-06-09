@@ -20,17 +20,14 @@ public class KBuckets {
 		for (int i = 0; i < buckets.length; i++) {
 			buckets[i] = new SingleKBucket();
 		}
-		addAll(nodes);
-	}
-	
-	public void addAll(List<KademliaNode> results) {
-		for (KademliaNode node : results) {
+		for (KademliaNode node : nodes) {
 			add(node);
 		}
 	}
-
+	
 	public synchronized void add(KademliaNode node) {
 		int idx = KademliaUtils.xorDistance(id, node.getId());
+		buckets[idx].updateLastModified();
 		
 		if (contains(node, buckets[idx].getNodes())) {
 			buckets[idx].getNodes().remove(node);
@@ -69,5 +66,15 @@ public class KBuckets {
 			
 		});
 		return nodes.subList(0, Math.min(nodes.size(), Constants.K));
+	}
+	
+	public List<KademliaId> getRottenBucketMembers() {
+		ArrayList<KademliaId> result = new ArrayList<KademliaId>();
+		for (SingleKBucket singleBucket : buckets) {
+			if (!singleBucket.isFresh()) {
+				result.add(singleBucket.getRandomNode().getId());
+			}
+		}
+		return result;
 	}
 }
