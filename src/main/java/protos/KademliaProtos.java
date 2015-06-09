@@ -4472,6 +4472,1574 @@ public final class KademliaProtos {
     // @@protoc_insertion_point(class_scope:tutorial.FindNodeResponse)
   }
 
+  public interface FindValueRequestOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional .tutorial.KademliaId searchId = 1;
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    boolean hasSearchId();
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    protos.KademliaProtos.KademliaId getSearchId();
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    protos.KademliaProtos.KademliaIdOrBuilder getSearchIdOrBuilder();
+  }
+  /**
+   * Protobuf type {@code tutorial.FindValueRequest}
+   */
+  public static final class FindValueRequest extends
+      com.google.protobuf.GeneratedMessage
+      implements FindValueRequestOrBuilder {
+    // Use FindValueRequest.newBuilder() to construct.
+    private FindValueRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private FindValueRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final FindValueRequest defaultInstance;
+    public static FindValueRequest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public FindValueRequest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private FindValueRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              protos.KademliaProtos.KademliaId.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = searchId_.toBuilder();
+              }
+              searchId_ = input.readMessage(protos.KademliaProtos.KademliaId.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(searchId_);
+                searchId_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_FindValueRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_FindValueRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.FindValueRequest.class, protos.KademliaProtos.FindValueRequest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<FindValueRequest> PARSER =
+        new com.google.protobuf.AbstractParser<FindValueRequest>() {
+      public FindValueRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FindValueRequest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FindValueRequest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional .tutorial.KademliaId searchId = 1;
+    public static final int SEARCHID_FIELD_NUMBER = 1;
+    private protos.KademliaProtos.KademliaId searchId_;
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    public boolean hasSearchId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    public protos.KademliaProtos.KademliaId getSearchId() {
+      return searchId_;
+    }
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    public protos.KademliaProtos.KademliaIdOrBuilder getSearchIdOrBuilder() {
+      return searchId_;
+    }
+
+    private void initFields() {
+      searchId_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, searchId_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, searchId_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.FindValueRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.FindValueRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.FindValueRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.FindValueRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.FindValueRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.FindValueRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.FindValueRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.FindValueRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.FindValueRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.FindValueRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.FindValueRequest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.FindValueRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.FindValueRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_FindValueRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_FindValueRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.FindValueRequest.class, protos.KademliaProtos.FindValueRequest.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.FindValueRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSearchIdFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (searchIdBuilder_ == null) {
+          searchId_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+        } else {
+          searchIdBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_FindValueRequest_descriptor;
+      }
+
+      public protos.KademliaProtos.FindValueRequest getDefaultInstanceForType() {
+        return protos.KademliaProtos.FindValueRequest.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.FindValueRequest build() {
+        protos.KademliaProtos.FindValueRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.FindValueRequest buildPartial() {
+        protos.KademliaProtos.FindValueRequest result = new protos.KademliaProtos.FindValueRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (searchIdBuilder_ == null) {
+          result.searchId_ = searchId_;
+        } else {
+          result.searchId_ = searchIdBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.FindValueRequest) {
+          return mergeFrom((protos.KademliaProtos.FindValueRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.FindValueRequest other) {
+        if (other == protos.KademliaProtos.FindValueRequest.getDefaultInstance()) return this;
+        if (other.hasSearchId()) {
+          mergeSearchId(other.getSearchId());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.FindValueRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.FindValueRequest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional .tutorial.KademliaId searchId = 1;
+      private protos.KademliaProtos.KademliaId searchId_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.KademliaId, protos.KademliaProtos.KademliaId.Builder, protos.KademliaProtos.KademliaIdOrBuilder> searchIdBuilder_;
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public boolean hasSearchId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public protos.KademliaProtos.KademliaId getSearchId() {
+        if (searchIdBuilder_ == null) {
+          return searchId_;
+        } else {
+          return searchIdBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public Builder setSearchId(protos.KademliaProtos.KademliaId value) {
+        if (searchIdBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          searchId_ = value;
+          onChanged();
+        } else {
+          searchIdBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public Builder setSearchId(
+          protos.KademliaProtos.KademliaId.Builder builderForValue) {
+        if (searchIdBuilder_ == null) {
+          searchId_ = builderForValue.build();
+          onChanged();
+        } else {
+          searchIdBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public Builder mergeSearchId(protos.KademliaProtos.KademliaId value) {
+        if (searchIdBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              searchId_ != protos.KademliaProtos.KademliaId.getDefaultInstance()) {
+            searchId_ =
+              protos.KademliaProtos.KademliaId.newBuilder(searchId_).mergeFrom(value).buildPartial();
+          } else {
+            searchId_ = value;
+          }
+          onChanged();
+        } else {
+          searchIdBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public Builder clearSearchId() {
+        if (searchIdBuilder_ == null) {
+          searchId_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+          onChanged();
+        } else {
+          searchIdBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public protos.KademliaProtos.KademliaId.Builder getSearchIdBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSearchIdFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public protos.KademliaProtos.KademliaIdOrBuilder getSearchIdOrBuilder() {
+        if (searchIdBuilder_ != null) {
+          return searchIdBuilder_.getMessageOrBuilder();
+        } else {
+          return searchId_;
+        }
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.KademliaId, protos.KademliaProtos.KademliaId.Builder, protos.KademliaProtos.KademliaIdOrBuilder> 
+          getSearchIdFieldBuilder() {
+        if (searchIdBuilder_ == null) {
+          searchIdBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protos.KademliaProtos.KademliaId, protos.KademliaProtos.KademliaId.Builder, protos.KademliaProtos.KademliaIdOrBuilder>(
+                  searchId_,
+                  getParentForChildren(),
+                  isClean());
+          searchId_ = null;
+        }
+        return searchIdBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.FindValueRequest)
+    }
+
+    static {
+      defaultInstance = new FindValueRequest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.FindValueRequest)
+  }
+
+  public interface FindValueResponseOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional .tutorial.KademliaId searchId = 1;
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    boolean hasSearchId();
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    protos.KademliaProtos.KademliaId getSearchId();
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    protos.KademliaProtos.KademliaIdOrBuilder getSearchIdOrBuilder();
+
+    // optional .tutorial.HashTableValue valueResult = 2;
+    /**
+     * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+     */
+    boolean hasValueResult();
+    /**
+     * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+     */
+    protos.KademliaProtos.HashTableValue getValueResult();
+    /**
+     * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+     */
+    protos.KademliaProtos.HashTableValueOrBuilder getValueResultOrBuilder();
+
+    // repeated .tutorial.KademliaNode results = 3;
+    /**
+     * <code>repeated .tutorial.KademliaNode results = 3;</code>
+     */
+    java.util.List<protos.KademliaProtos.KademliaNode> 
+        getResultsList();
+    /**
+     * <code>repeated .tutorial.KademliaNode results = 3;</code>
+     */
+    protos.KademliaProtos.KademliaNode getResults(int index);
+    /**
+     * <code>repeated .tutorial.KademliaNode results = 3;</code>
+     */
+    int getResultsCount();
+    /**
+     * <code>repeated .tutorial.KademliaNode results = 3;</code>
+     */
+    java.util.List<? extends protos.KademliaProtos.KademliaNodeOrBuilder> 
+        getResultsOrBuilderList();
+    /**
+     * <code>repeated .tutorial.KademliaNode results = 3;</code>
+     */
+    protos.KademliaProtos.KademliaNodeOrBuilder getResultsOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code tutorial.FindValueResponse}
+   */
+  public static final class FindValueResponse extends
+      com.google.protobuf.GeneratedMessage
+      implements FindValueResponseOrBuilder {
+    // Use FindValueResponse.newBuilder() to construct.
+    private FindValueResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private FindValueResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final FindValueResponse defaultInstance;
+    public static FindValueResponse getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public FindValueResponse getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private FindValueResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              protos.KademliaProtos.KademliaId.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = searchId_.toBuilder();
+              }
+              searchId_ = input.readMessage(protos.KademliaProtos.KademliaId.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(searchId_);
+                searchId_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 18: {
+              protos.KademliaProtos.HashTableValue.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = valueResult_.toBuilder();
+              }
+              valueResult_ = input.readMessage(protos.KademliaProtos.HashTableValue.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(valueResult_);
+                valueResult_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+            case 26: {
+              if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                results_ = new java.util.ArrayList<protos.KademliaProtos.KademliaNode>();
+                mutable_bitField0_ |= 0x00000004;
+              }
+              results_.add(input.readMessage(protos.KademliaProtos.KademliaNode.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+          results_ = java.util.Collections.unmodifiableList(results_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_FindValueResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_FindValueResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.FindValueResponse.class, protos.KademliaProtos.FindValueResponse.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<FindValueResponse> PARSER =
+        new com.google.protobuf.AbstractParser<FindValueResponse>() {
+      public FindValueResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new FindValueResponse(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FindValueResponse> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional .tutorial.KademliaId searchId = 1;
+    public static final int SEARCHID_FIELD_NUMBER = 1;
+    private protos.KademliaProtos.KademliaId searchId_;
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    public boolean hasSearchId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    public protos.KademliaProtos.KademliaId getSearchId() {
+      return searchId_;
+    }
+    /**
+     * <code>optional .tutorial.KademliaId searchId = 1;</code>
+     */
+    public protos.KademliaProtos.KademliaIdOrBuilder getSearchIdOrBuilder() {
+      return searchId_;
+    }
+
+    // optional .tutorial.HashTableValue valueResult = 2;
+    public static final int VALUERESULT_FIELD_NUMBER = 2;
+    private protos.KademliaProtos.HashTableValue valueResult_;
+    /**
+     * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+     */
+    public boolean hasValueResult() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+     */
+    public protos.KademliaProtos.HashTableValue getValueResult() {
+      return valueResult_;
+    }
+    /**
+     * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+     */
+    public protos.KademliaProtos.HashTableValueOrBuilder getValueResultOrBuilder() {
+      return valueResult_;
+    }
+
+    // repeated .tutorial.KademliaNode results = 3;
+    public static final int RESULTS_FIELD_NUMBER = 3;
+    private java.util.List<protos.KademliaProtos.KademliaNode> results_;
+    /**
+     * <code>repeated .tutorial.KademliaNode results = 3;</code>
+     */
+    public java.util.List<protos.KademliaProtos.KademliaNode> getResultsList() {
+      return results_;
+    }
+    /**
+     * <code>repeated .tutorial.KademliaNode results = 3;</code>
+     */
+    public java.util.List<? extends protos.KademliaProtos.KademliaNodeOrBuilder> 
+        getResultsOrBuilderList() {
+      return results_;
+    }
+    /**
+     * <code>repeated .tutorial.KademliaNode results = 3;</code>
+     */
+    public int getResultsCount() {
+      return results_.size();
+    }
+    /**
+     * <code>repeated .tutorial.KademliaNode results = 3;</code>
+     */
+    public protos.KademliaProtos.KademliaNode getResults(int index) {
+      return results_.get(index);
+    }
+    /**
+     * <code>repeated .tutorial.KademliaNode results = 3;</code>
+     */
+    public protos.KademliaProtos.KademliaNodeOrBuilder getResultsOrBuilder(
+        int index) {
+      return results_.get(index);
+    }
+
+    private void initFields() {
+      searchId_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+      valueResult_ = protos.KademliaProtos.HashTableValue.getDefaultInstance();
+      results_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, searchId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, valueResult_);
+      }
+      for (int i = 0; i < results_.size(); i++) {
+        output.writeMessage(3, results_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, searchId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, valueResult_);
+      }
+      for (int i = 0; i < results_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, results_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.FindValueResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.FindValueResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.FindValueResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.FindValueResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.FindValueResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.FindValueResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.FindValueResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.FindValueResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.FindValueResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.FindValueResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.FindValueResponse prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.FindValueResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.FindValueResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_FindValueResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_FindValueResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.FindValueResponse.class, protos.KademliaProtos.FindValueResponse.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.FindValueResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getSearchIdFieldBuilder();
+          getValueResultFieldBuilder();
+          getResultsFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (searchIdBuilder_ == null) {
+          searchId_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+        } else {
+          searchIdBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (valueResultBuilder_ == null) {
+          valueResult_ = protos.KademliaProtos.HashTableValue.getDefaultInstance();
+        } else {
+          valueResultBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        if (resultsBuilder_ == null) {
+          results_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+        } else {
+          resultsBuilder_.clear();
+        }
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_FindValueResponse_descriptor;
+      }
+
+      public protos.KademliaProtos.FindValueResponse getDefaultInstanceForType() {
+        return protos.KademliaProtos.FindValueResponse.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.FindValueResponse build() {
+        protos.KademliaProtos.FindValueResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.FindValueResponse buildPartial() {
+        protos.KademliaProtos.FindValueResponse result = new protos.KademliaProtos.FindValueResponse(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (searchIdBuilder_ == null) {
+          result.searchId_ = searchId_;
+        } else {
+          result.searchId_ = searchIdBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (valueResultBuilder_ == null) {
+          result.valueResult_ = valueResult_;
+        } else {
+          result.valueResult_ = valueResultBuilder_.build();
+        }
+        if (resultsBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004)) {
+            results_ = java.util.Collections.unmodifiableList(results_);
+            bitField0_ = (bitField0_ & ~0x00000004);
+          }
+          result.results_ = results_;
+        } else {
+          result.results_ = resultsBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.FindValueResponse) {
+          return mergeFrom((protos.KademliaProtos.FindValueResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.FindValueResponse other) {
+        if (other == protos.KademliaProtos.FindValueResponse.getDefaultInstance()) return this;
+        if (other.hasSearchId()) {
+          mergeSearchId(other.getSearchId());
+        }
+        if (other.hasValueResult()) {
+          mergeValueResult(other.getValueResult());
+        }
+        if (resultsBuilder_ == null) {
+          if (!other.results_.isEmpty()) {
+            if (results_.isEmpty()) {
+              results_ = other.results_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+            } else {
+              ensureResultsIsMutable();
+              results_.addAll(other.results_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.results_.isEmpty()) {
+            if (resultsBuilder_.isEmpty()) {
+              resultsBuilder_.dispose();
+              resultsBuilder_ = null;
+              results_ = other.results_;
+              bitField0_ = (bitField0_ & ~0x00000004);
+              resultsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getResultsFieldBuilder() : null;
+            } else {
+              resultsBuilder_.addAllMessages(other.results_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.FindValueResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.FindValueResponse) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional .tutorial.KademliaId searchId = 1;
+      private protos.KademliaProtos.KademliaId searchId_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.KademliaId, protos.KademliaProtos.KademliaId.Builder, protos.KademliaProtos.KademliaIdOrBuilder> searchIdBuilder_;
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public boolean hasSearchId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public protos.KademliaProtos.KademliaId getSearchId() {
+        if (searchIdBuilder_ == null) {
+          return searchId_;
+        } else {
+          return searchIdBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public Builder setSearchId(protos.KademliaProtos.KademliaId value) {
+        if (searchIdBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          searchId_ = value;
+          onChanged();
+        } else {
+          searchIdBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public Builder setSearchId(
+          protos.KademliaProtos.KademliaId.Builder builderForValue) {
+        if (searchIdBuilder_ == null) {
+          searchId_ = builderForValue.build();
+          onChanged();
+        } else {
+          searchIdBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public Builder mergeSearchId(protos.KademliaProtos.KademliaId value) {
+        if (searchIdBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              searchId_ != protos.KademliaProtos.KademliaId.getDefaultInstance()) {
+            searchId_ =
+              protos.KademliaProtos.KademliaId.newBuilder(searchId_).mergeFrom(value).buildPartial();
+          } else {
+            searchId_ = value;
+          }
+          onChanged();
+        } else {
+          searchIdBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public Builder clearSearchId() {
+        if (searchIdBuilder_ == null) {
+          searchId_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+          onChanged();
+        } else {
+          searchIdBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public protos.KademliaProtos.KademliaId.Builder getSearchIdBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getSearchIdFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      public protos.KademliaProtos.KademliaIdOrBuilder getSearchIdOrBuilder() {
+        if (searchIdBuilder_ != null) {
+          return searchIdBuilder_.getMessageOrBuilder();
+        } else {
+          return searchId_;
+        }
+      }
+      /**
+       * <code>optional .tutorial.KademliaId searchId = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.KademliaId, protos.KademliaProtos.KademliaId.Builder, protos.KademliaProtos.KademliaIdOrBuilder> 
+          getSearchIdFieldBuilder() {
+        if (searchIdBuilder_ == null) {
+          searchIdBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protos.KademliaProtos.KademliaId, protos.KademliaProtos.KademliaId.Builder, protos.KademliaProtos.KademliaIdOrBuilder>(
+                  searchId_,
+                  getParentForChildren(),
+                  isClean());
+          searchId_ = null;
+        }
+        return searchIdBuilder_;
+      }
+
+      // optional .tutorial.HashTableValue valueResult = 2;
+      private protos.KademliaProtos.HashTableValue valueResult_ = protos.KademliaProtos.HashTableValue.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.HashTableValue, protos.KademliaProtos.HashTableValue.Builder, protos.KademliaProtos.HashTableValueOrBuilder> valueResultBuilder_;
+      /**
+       * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+       */
+      public boolean hasValueResult() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+       */
+      public protos.KademliaProtos.HashTableValue getValueResult() {
+        if (valueResultBuilder_ == null) {
+          return valueResult_;
+        } else {
+          return valueResultBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+       */
+      public Builder setValueResult(protos.KademliaProtos.HashTableValue value) {
+        if (valueResultBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          valueResult_ = value;
+          onChanged();
+        } else {
+          valueResultBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+       */
+      public Builder setValueResult(
+          protos.KademliaProtos.HashTableValue.Builder builderForValue) {
+        if (valueResultBuilder_ == null) {
+          valueResult_ = builderForValue.build();
+          onChanged();
+        } else {
+          valueResultBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+       */
+      public Builder mergeValueResult(protos.KademliaProtos.HashTableValue value) {
+        if (valueResultBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              valueResult_ != protos.KademliaProtos.HashTableValue.getDefaultInstance()) {
+            valueResult_ =
+              protos.KademliaProtos.HashTableValue.newBuilder(valueResult_).mergeFrom(value).buildPartial();
+          } else {
+            valueResult_ = value;
+          }
+          onChanged();
+        } else {
+          valueResultBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+       */
+      public Builder clearValueResult() {
+        if (valueResultBuilder_ == null) {
+          valueResult_ = protos.KademliaProtos.HashTableValue.getDefaultInstance();
+          onChanged();
+        } else {
+          valueResultBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+       */
+      public protos.KademliaProtos.HashTableValue.Builder getValueResultBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getValueResultFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+       */
+      public protos.KademliaProtos.HashTableValueOrBuilder getValueResultOrBuilder() {
+        if (valueResultBuilder_ != null) {
+          return valueResultBuilder_.getMessageOrBuilder();
+        } else {
+          return valueResult_;
+        }
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue valueResult = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.HashTableValue, protos.KademliaProtos.HashTableValue.Builder, protos.KademliaProtos.HashTableValueOrBuilder> 
+          getValueResultFieldBuilder() {
+        if (valueResultBuilder_ == null) {
+          valueResultBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protos.KademliaProtos.HashTableValue, protos.KademliaProtos.HashTableValue.Builder, protos.KademliaProtos.HashTableValueOrBuilder>(
+                  valueResult_,
+                  getParentForChildren(),
+                  isClean());
+          valueResult_ = null;
+        }
+        return valueResultBuilder_;
+      }
+
+      // repeated .tutorial.KademliaNode results = 3;
+      private java.util.List<protos.KademliaProtos.KademliaNode> results_ =
+        java.util.Collections.emptyList();
+      private void ensureResultsIsMutable() {
+        if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+          results_ = new java.util.ArrayList<protos.KademliaProtos.KademliaNode>(results_);
+          bitField0_ |= 0x00000004;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protos.KademliaProtos.KademliaNode, protos.KademliaProtos.KademliaNode.Builder, protos.KademliaProtos.KademliaNodeOrBuilder> resultsBuilder_;
+
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public java.util.List<protos.KademliaProtos.KademliaNode> getResultsList() {
+        if (resultsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(results_);
+        } else {
+          return resultsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public int getResultsCount() {
+        if (resultsBuilder_ == null) {
+          return results_.size();
+        } else {
+          return resultsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public protos.KademliaProtos.KademliaNode getResults(int index) {
+        if (resultsBuilder_ == null) {
+          return results_.get(index);
+        } else {
+          return resultsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public Builder setResults(
+          int index, protos.KademliaProtos.KademliaNode value) {
+        if (resultsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureResultsIsMutable();
+          results_.set(index, value);
+          onChanged();
+        } else {
+          resultsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public Builder setResults(
+          int index, protos.KademliaProtos.KademliaNode.Builder builderForValue) {
+        if (resultsBuilder_ == null) {
+          ensureResultsIsMutable();
+          results_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          resultsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public Builder addResults(protos.KademliaProtos.KademliaNode value) {
+        if (resultsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureResultsIsMutable();
+          results_.add(value);
+          onChanged();
+        } else {
+          resultsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public Builder addResults(
+          int index, protos.KademliaProtos.KademliaNode value) {
+        if (resultsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureResultsIsMutable();
+          results_.add(index, value);
+          onChanged();
+        } else {
+          resultsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public Builder addResults(
+          protos.KademliaProtos.KademliaNode.Builder builderForValue) {
+        if (resultsBuilder_ == null) {
+          ensureResultsIsMutable();
+          results_.add(builderForValue.build());
+          onChanged();
+        } else {
+          resultsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public Builder addResults(
+          int index, protos.KademliaProtos.KademliaNode.Builder builderForValue) {
+        if (resultsBuilder_ == null) {
+          ensureResultsIsMutable();
+          results_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          resultsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public Builder addAllResults(
+          java.lang.Iterable<? extends protos.KademliaProtos.KademliaNode> values) {
+        if (resultsBuilder_ == null) {
+          ensureResultsIsMutable();
+          super.addAll(values, results_);
+          onChanged();
+        } else {
+          resultsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public Builder clearResults() {
+        if (resultsBuilder_ == null) {
+          results_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000004);
+          onChanged();
+        } else {
+          resultsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public Builder removeResults(int index) {
+        if (resultsBuilder_ == null) {
+          ensureResultsIsMutable();
+          results_.remove(index);
+          onChanged();
+        } else {
+          resultsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public protos.KademliaProtos.KademliaNode.Builder getResultsBuilder(
+          int index) {
+        return getResultsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public protos.KademliaProtos.KademliaNodeOrBuilder getResultsOrBuilder(
+          int index) {
+        if (resultsBuilder_ == null) {
+          return results_.get(index);  } else {
+          return resultsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public java.util.List<? extends protos.KademliaProtos.KademliaNodeOrBuilder> 
+           getResultsOrBuilderList() {
+        if (resultsBuilder_ != null) {
+          return resultsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(results_);
+        }
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public protos.KademliaProtos.KademliaNode.Builder addResultsBuilder() {
+        return getResultsFieldBuilder().addBuilder(
+            protos.KademliaProtos.KademliaNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public protos.KademliaProtos.KademliaNode.Builder addResultsBuilder(
+          int index) {
+        return getResultsFieldBuilder().addBuilder(
+            index, protos.KademliaProtos.KademliaNode.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .tutorial.KademliaNode results = 3;</code>
+       */
+      public java.util.List<protos.KademliaProtos.KademliaNode.Builder> 
+           getResultsBuilderList() {
+        return getResultsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          protos.KademliaProtos.KademliaNode, protos.KademliaProtos.KademliaNode.Builder, protos.KademliaProtos.KademliaNodeOrBuilder> 
+          getResultsFieldBuilder() {
+        if (resultsBuilder_ == null) {
+          resultsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              protos.KademliaProtos.KademliaNode, protos.KademliaProtos.KademliaNode.Builder, protos.KademliaProtos.KademliaNodeOrBuilder>(
+                  results_,
+                  ((bitField0_ & 0x00000004) == 0x00000004),
+                  getParentForChildren(),
+                  isClean());
+          results_ = null;
+        }
+        return resultsBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.FindValueResponse)
+    }
+
+    static {
+      defaultInstance = new FindValueResponse(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.FindValueResponse)
+  }
+
   public interface StoreRequestOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
@@ -6149,6 +7717,16 @@ public final class KademliaProtos {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_tutorial_FindNodeResponse_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_FindValueRequest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_FindValueRequest_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_FindValueResponse_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_FindValueResponse_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_tutorial_StoreRequest_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -6185,11 +7763,16 @@ public final class KademliaProtos {
       " \001(\0132\024.tutorial.KademliaId\"c\n\020FindNodeRe" +
       "sponse\022&\n\010searchId\030\001 \001(\0132\024.tutorial.Kade" +
       "mliaId\022\'\n\007results\030\002 \003(\0132\026.tutorial.Kadem" +
-      "liaNode\"Z\n\014StoreRequest\022!\n\003key\030\001 \001(\0132\024.t" +
-      "utorial.KademliaId\022\'\n\005value\030\002 \001(\0132\030.tuto" +
-      "rial.HashTableValue\"\037\n\rStoreResponse\022\016\n\006" +
-      "status\030\001 \001(\t\"\035\n\016HashTableValue\022\013\n\003tmp\030\001 " +
-      "\001(\tB\030\n\006protosB\016KademliaProtos"
+      "liaNode\":\n\020FindValueRequest\022&\n\010searchId\030" +
+      "\001 \001(\0132\024.tutorial.KademliaId\"\223\001\n\021FindValu" +
+      "eResponse\022&\n\010searchId\030\001 \001(\0132\024.tutorial.K" +
+      "ademliaId\022-\n\013valueResult\030\002 \001(\0132\030.tutoria" +
+      "l.HashTableValue\022\'\n\007results\030\003 \003(\0132\026.tuto" +
+      "rial.KademliaNode\"Z\n\014StoreRequest\022!\n\003key" +
+      "\030\001 \001(\0132\024.tutorial.KademliaId\022\'\n\005value\030\002 ",
+      "\001(\0132\030.tutorial.HashTableValue\"\037\n\rStoreRe" +
+      "sponse\022\016\n\006status\030\001 \001(\t\"\035\n\016HashTableValue" +
+      "\022\013\n\003tmp\030\001 \001(\tB\030\n\006protosB\016KademliaProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -6238,20 +7821,32 @@ public final class KademliaProtos {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_tutorial_FindNodeResponse_descriptor,
               new java.lang.String[] { "SearchId", "Results", });
-          internal_static_tutorial_StoreRequest_descriptor =
+          internal_static_tutorial_FindValueRequest_descriptor =
             getDescriptor().getMessageTypes().get(7);
+          internal_static_tutorial_FindValueRequest_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_FindValueRequest_descriptor,
+              new java.lang.String[] { "SearchId", });
+          internal_static_tutorial_FindValueResponse_descriptor =
+            getDescriptor().getMessageTypes().get(8);
+          internal_static_tutorial_FindValueResponse_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_FindValueResponse_descriptor,
+              new java.lang.String[] { "SearchId", "ValueResult", "Results", });
+          internal_static_tutorial_StoreRequest_descriptor =
+            getDescriptor().getMessageTypes().get(9);
           internal_static_tutorial_StoreRequest_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_tutorial_StoreRequest_descriptor,
               new java.lang.String[] { "Key", "Value", });
           internal_static_tutorial_StoreResponse_descriptor =
-            getDescriptor().getMessageTypes().get(8);
+            getDescriptor().getMessageTypes().get(10);
           internal_static_tutorial_StoreResponse_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_tutorial_StoreResponse_descriptor,
               new java.lang.String[] { "Status", });
           internal_static_tutorial_HashTableValue_descriptor =
-            getDescriptor().getMessageTypes().get(9);
+            getDescriptor().getMessageTypes().get(11);
           internal_static_tutorial_HashTableValue_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_tutorial_HashTableValue_descriptor,

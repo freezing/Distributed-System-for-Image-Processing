@@ -1,33 +1,36 @@
 package listeners;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import kademlia.KademliaNodeWorker;
 import protos.KademliaProtos.FindNodeResponse;
+import protos.KademliaProtos.FindValueResponse;
 import protos.KademliaProtos.KademliaNode;
 
-public class FindNodeResponseListener extends FindAnythingResponseListener {
+import com.google.protobuf.InvalidProtocolBufferException;
 
-	private KademliaNodeWorker worker;
+public class FindValueResponseListener extends FindAnythingResponseListener {
+
+private KademliaNodeWorker worker;
 	
-	public FindNodeResponseListener(KademliaNodeWorker worker) {
+	public FindValueResponseListener(KademliaNodeWorker worker) {
 		super();
 		this.worker = worker;
 	}
 
 	@Override
 	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
-		FindNodeResponse response = parseResponse(message);
+		FindValueResponse response = parseResponse(message);
 		worker.addAllToKBuckets(response.getResultsList());
+		//response.getValueResult()		
 		worker.addToKBuckets(sender);
 		latchCountDown(response.getSearchId());
 	}
 
-	private FindNodeResponse parseResponse(byte[] message) {
+	private FindValueResponse parseResponse(byte[] message) {
 		try {
-			return FindNodeResponse.parseFrom(message);
+			return FindValueResponse.parseFrom(message);
 		} catch (InvalidProtocolBufferException e) {
 			throw new RuntimeException(e);
 		}
 	}
+
 }

@@ -39,6 +39,16 @@ message FindNodeResponse {
 	repeated KademliaNode results = 2;
 }
 
+message FindValueRequest {
+	optional KademliaId searchId = 1;
+}
+
+message FindValueResponse {
+	optional KademliaId searchId = 1;
+	optional HashTableValue valueResult = 2;
+	repeated KademliaNode results = 3;
+}
+
 message StoreRequest {
 	optional KademliaId key = 1;
 	optional HashTableValue value = 2;

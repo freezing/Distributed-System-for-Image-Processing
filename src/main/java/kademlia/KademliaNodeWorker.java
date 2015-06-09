@@ -1,5 +1,6 @@
 package kademlia;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
+import listeners.FindValueResponseListener;
 import listeners.StoreRequestListener;
 import listeners.StoreResponseListener;
 import network.MessageManager;
@@ -31,17 +33,18 @@ public class KademliaNodeWorker {
 	private KademliaNode node;
 	
 	private KBuckets kbuckets;
-	private ConcurrentHashMap<KademliaId, HashTableValue> hashMap;
+	private ConcurrentHashMap<KademliaId, HashTableValue> localHashMap;
 	
 	// Listeners
 	private FindNodeResponseListener findNodeResponseListener;
+	private FindValueResponseListener findValueResponseListener;
 	private StoreRequestListener storeRequestListener;
 	
 	public KademliaNodeWorker(BootstrapConnectResponse bootstrapResponse, MessageManager messageManager) {
 		this.node = bootstrapResponse.getYou();
 		this.kbuckets = new KBuckets(node.getId(), bootstrapResponse.getOthersList());
 		this.messageManager = messageManager;
-		this.hashMap = new ConcurrentHashMap<KademliaId, HashTableValue>();
+		this.localHashMap = new ConcurrentHashMap<KademliaId, HashTableValue>();
 		registerListeners();
 	}
 
@@ -51,6 +54,7 @@ public class KademliaNodeWorker {
 		
 		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST, new FindNodeRequestListener(this));
 		messageManager.registerListener(MessageType.NODE_FIND_NODE_RESPONSE, findNodeResponseListener);
+		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE, findValueResponseListener);
 		
 		messageManager.registerListener(MessageType.NODE_STORE_REQUEST, storeRequestListener);
 		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener());
@@ -62,12 +66,28 @@ public class KademliaNodeWorker {
 	public KademliaNode getNode() {
 		return node;
 	}
+	
+	private void sendMessageToNodes(List<KademliaNode> nodes, MessageContainer message) {
+		for (KademliaNode receiver : nodes) {
+			messageManager.sendMessage(receiver, message);
+		}
+	}
+	
+	private List<KademliaNode> excludeNodesFromSet(List<KademliaNode> nodes, Set<KademliaId> excludeNodes) {
+		ArrayList<KademliaNode> result = new ArrayList<KademliaNode>(nodes.size());
+		for (KademliaNode node : nodes) {
+			if (!excludeNodes.contains(node.getId())) {
+				result.add(node);
+			}
+		}
+		return result;
+	}
 
 	public List<KademliaNode> findNode(KademliaId id) {
 		List<KademliaNode> prevClosest = null;
 		
 		Set<KademliaId> visited = new HashSet<KademliaId>();
-		
+	
 		int depth = 0; 
 		while (depth < Constants.MAX_FIND_DEPTH) {
 			List<KademliaNode> closest = kbuckets.getKClosest(id);
@@ -78,27 +98,19 @@ public class KademliaNodeWorker {
 				break;
 			}
 			prevClosest = closest;
-			
-			for (KademliaNode receiver : closest) {
-				if (!visited.contains(receiver.getId())) {
-					visited.add(receiver.getId());
-					FindNodeRequest request = FindNodeRequestFactory.make(id);
-					messageManager.sendMessage(receiver, MessageContainerFactory.make(this.node, request));
-				} else {
-					latch.countDown();
-				}
-			}
+
+			FindNodeRequest request = FindNodeRequestFactory.make(id);
+			MessageContainer message = MessageContainerFactory.make(this.node, request);
+			sendMessageToNodes(excludeNodesFromSet(closest, visited), message);
 			
 			try {
 				latch.await(Constants.LATCH_TIMEOUT, TimeUnit.SECONDS);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			depth++;
 		}
-		System.out.println("took: "+depth);
 		return prevClosest;
 	}
 
@@ -131,8 +143,12 @@ public class KademliaNodeWorker {
 		sendMessage(receiver, message);
 	}
 
-	public void putKeyValue(KademliaId key, HashTableValue value) {
-		hashMap.put(key, value);
+	public void putToLocalHashMap(KademliaId key, HashTableValue value) {
+		localHashMap.put(key, value);
+	}
+	
+	public HashTableValue getFromLocalHashMap(KademliaId key) {
+		return localHashMap.get(key);
 	}
 	
 	public void findValue(KademliaId key) {

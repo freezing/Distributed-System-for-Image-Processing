@@ -20,7 +20,7 @@ public class StoreRequestListener implements MessageListener {
 	
 	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
 		StoreRequest request = StoreRequestFactory.parse(message);
-		worker.putKeyValue(request.getKey(), request.getValue());
+		worker.putToLocalHashMap(request.getKey(), request.getValue());
 		StoreResponse response = StoreResponseFactory.make("success");
 		MessageContainer msg = MessageContainerFactory.make(worker.getNode(), response);
 		worker.sendMessage(sender, msg);
