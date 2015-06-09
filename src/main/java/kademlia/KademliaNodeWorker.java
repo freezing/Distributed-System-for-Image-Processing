@@ -7,6 +7,7 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
+
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
@@ -32,6 +33,7 @@ import utils.KademliaUtils;
 import buckets.KBuckets;
 import factories.FindNodeRequestFactory;
 import factories.FindValueRequestFactory;
+import factories.HashTableValueFactory;
 import factories.MessageContainerFactory;
 import factories.SegmentTreeNodeFactory;
 import factories.StoreRequestFactory;
@@ -248,9 +250,23 @@ public class KademliaNodeWorker {
 	private int createTaskNodes(List<ImageTask> unitTasks, int id,
 			HashTableValue values[]) {
 		for (int i = unitTasks.size() - 1; i >= 0; i--) {
-			SegmentTreeNodeFactory.make(
-					unitTasks.get(i),
-					KademliaUtils.generateId(id));
+			// Calculate parent id
+			int parentId = id / 2;
+
+			// Make HashTableValue
+			HashTableValue value = HashTableValueFactory.make(unitTasks.get(i),
+					KademliaUtils.generateId(id),
+					KademliaUtils.generateId(parentId));
+
+			// Insert value in DHT
+			store(value.getSegmentTreeNode().getMyId(), value);
+
+			// And store in the values array
+			values[id] = value;
+
+			// Update next id value
+			id--;
 		}
+		return id;
 	}
 }
