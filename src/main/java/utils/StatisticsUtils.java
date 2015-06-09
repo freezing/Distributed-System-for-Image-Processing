@@ -42,4 +42,9 @@ public class StatisticsUtils {
 		return true;
 	}
 
+	public static float calculatePercentage(HashTableValue rootValue) {
+		float percentage = (float)(rootValue.getFinishedTasks()) / (float)(rootValue.getValidTasks());
+		return percentage * 100.0f;
+	}
+
 }

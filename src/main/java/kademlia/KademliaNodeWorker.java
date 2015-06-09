@@ -10,6 +10,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 import listeners.BlurImageRequestListener;
+import listeners.BlurResultRequestListener;
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
@@ -24,6 +25,7 @@ import protos.KademliaProtos.BootstrapConnectResponse;
 import protos.KademliaProtos.FindNodeRequest;
 import protos.KademliaProtos.FindValueRequest;
 import protos.KademliaProtos.HashTableValue;
+import protos.KademliaProtos.ImageProto;
 import protos.KademliaProtos.ImageTask;
 import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
@@ -79,13 +81,15 @@ public class KademliaNodeWorker {
 		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener(this));
 		
 		messageManager.registerListener(MessageType.BLUR_IMAGE_REQUEST, new BlurImageRequestListener(this));
+		
+		messageManager.registerListener(MessageType.BLUR_RESULT_REQUEST, new BlurResultRequestListener(this));
 	}
 
 	public void run() {
 		while (true) {
 			// Check if there are any not finished jobs
 			HashTableValue rootValue = findValue(SEGMENT_TREE_ROOT_ID);
-			if (!StatisticsUtils.isAllFinished(rootValue)) {
+			if (rootValue != null && !StatisticsUtils.isAllFinished(rootValue)) {
 				// Access random task
 				int nextRandomTaskId = rnd.nextInt(rootValue.getValidTasks()) + 1;
 				HashTableValue taskValue = getTask(nextRandomTaskId);
@@ -407,5 +411,14 @@ public class KademliaNodeWorker {
 			id--;
 		}
 		return id;
+	}
+
+	public HashTableValue findRootValue() {
+		return findValue(SEGMENT_TREE_ROOT_ID);
+	}
+
+	public ImageProto assembleImage() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

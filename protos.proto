@@ -72,8 +72,13 @@ message BlurImageRequest {
 	optional int32 radius = 2;
 }
 
-message BlurImageResponse {
+message BlurResultRequest {
+	optional string dummy = 1;
+}
+
+message BlurResultResponse {
 	optional ImageProto image = 1;
+	optional float percentage = 2;
 }
 
 message Pixel {
