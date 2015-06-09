@@ -3,13 +3,10 @@ package kademlia;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
-import listeners.BlurImageRequestListener;
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
@@ -29,35 +26,31 @@ import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
 import protos.KademliaProtos.StoreRequest;
 import util.Constants;
-import utils.HashTableValueUtils;
 import utils.ImageTaskUtils;
 import utils.KademliaUtils;
-import utils.StatisticsUtils;
 import buckets.KBuckets;
 import factories.FindNodeRequestFactory;
-import factories.FindValueRequestFactory;
 import factories.HashTableValueFactory;
 import factories.MessageContainerFactory;
 import factories.StoreRequestFactory;
 
 public class KademliaNodeWorker {
-	private static final KademliaId SEGMENT_TREE_ROOT_ID = KademliaUtils.generateId(1);
-	private static final Random rnd = new Random(235798231L);
-	
 	private MessageManager messageManager;
 	private KademliaNode node;
-	
+
 	private KBuckets kbuckets;
 	private ConcurrentHashMap<KademliaId, HashTableValue> localHashMap;
-	
+
 	// Listeners
 	private FindNodeResponseListener findNodeResponseListener;
 	private FindValueResponseListener findValueResponseListener;
 	private StoreRequestListener storeRequestListener;
-	
-	public KademliaNodeWorker(BootstrapConnectResponse bootstrapResponse, MessageManager messageManager) {
+
+	public KademliaNodeWorker(BootstrapConnectResponse bootstrapResponse,
+			MessageManager messageManager) {
 		this.node = bootstrapResponse.getYou();
-		this.kbuckets = new KBuckets(node.getId(), bootstrapResponse.getOthersList());
+		this.kbuckets = new KBuckets(node.getId(),
+				bootstrapResponse.getOthersList());
 		this.messageManager = messageManager;
 		this.localHashMap = new ConcurrentHashMap<KademliaId, HashTableValue>();
 		registerListeners();
@@ -65,132 +58,25 @@ public class KademliaNodeWorker {
 
 	private void registerListeners() {
 		findNodeResponseListener = new FindNodeResponseListener(this);
-		findValueResponseListener = new FindValueResponseListener(this);
 		storeRequestListener = new StoreRequestListener(this);
-		
-		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST, new FindNodeRequestListener(this));
-		messageManager.registerListener(MessageType.NODE_FIND_NODE_RESPONSE, findNodeResponseListener);
-		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE, findValueResponseListener);
-		
-		messageManager.registerListener(MessageType.NODE_STORE_REQUEST, storeRequestListener);
-		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener());
-		
-		messageManager.registerListener(MessageType.BLUR_IMAGE_REQUEST, new BlurImageRequestListener(this));
+
+		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST,
+				new FindNodeRequestListener(this));
+		messageManager.registerListener(MessageType.NODE_FIND_NODE_RESPONSE,
+				findNodeResponseListener);
+		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE,
+				findValueResponseListener);
+
+		messageManager.registerListener(MessageType.NODE_STORE_REQUEST,
+				storeRequestListener);
+		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE,
+				new StoreResponseListener());
 	}
 
 	public void run() {
-		while (true) {
-			// Check if there are any not finished jobs
-			HashTableValue rootValue = findValue(SEGMENT_TREE_ROOT_ID);
-			if (!StatisticsUtils.isAllFinished(rootValue)) {
-				// Access random task
-				int nextRandomTaskId = rnd.nextInt(rootValue.getValidTasks()) + 1;
-				HashTableValue taskValue = getTask(nextRandomTaskId);
-				if (taskValue != null) {
-					// Create new HashTableValue with updated timestamp
-					HashTableValue.newBuilder(taskValue)
-						.setLastTimeTaken(System.currentTimeMillis())
-						.build();
-					// Store it in the 
-					store(taskValue.getSegmentTreeNode().getMyId(), taskValue);
-					updateSegmentTreeParent(taskValue.getSegmentTreeNode().getParentId());
-					
-					// TODO: Start work on the task and update when finished
-					
-				}
-			}
-			Thread.yield();
-		}
+
 	}
 	
-	private void updateSegmentTreeParent(KademliaId parentId) {
-		KademliaId currentId = parentId;
-		
-		while (currentId != null) {
-			HashTableValue parentValue = findValue(parentId);
-			HashTableValue leftChildValue = findValue(parentValue.getSegmentTreeNode().getLeftChildId());
-			HashTableValue rightChildValue = findValue(parentValue.getSegmentTreeNode().getLeftChildId());
-			
-			HashTableValue newParentValue = HashTableValueUtils.updateParent(parentValue, leftChildValue, rightChildValue);
-			store(newParentValue.getSegmentTreeNode().getMyId(), newParentValue);
-			currentId = parentValue.getSegmentTreeNode().getParentId();
-		}
-	}
-
-	private HashTableValue getTask(int nextRandomTaskId) {
-		KademliaId randomId = KademliaUtils.generateId(nextRandomTaskId);
-		// Try to find task that is not taken
-		while (true) {
-			HashTableValue potentialValue = findValue(randomId);
-			if (StatisticsUtils.isNonTakenTask(potentialValue)) {
-				// Check if potential value has unfinished (and non-taken) task
-				return potentialValue;
-			} else {
-				// Find the first parent that has jobs that are not in progress
-				// and not finished
-				HashTableValue parentWithNonFinishedTasks = findParentWithNonFinishedTasksNotInProgress(potentialValue);
-				if (parentWithNonFinishedTasks != null) {
-					return findNonFinishedTaskInTree(parentWithNonFinishedTasks);
-				} else {
-					// All tasks are finished (or some super parallel thing happened,
-					// which will make this process run again (so we're good :D)
-					return null;
-				}
-			}
-		}
-	}
-
-	private HashTableValue findNonFinishedTaskInTree(
-			HashTableValue value) {
-		HashTableValue current = value;
-		while (true) {
-			if (StatisticsUtils.isNonTakenTask(current)) {
-				return current;
-			} else {
-				// Go towards random child that has non-finished tasks
-				KademliaId randomChild = null;
-				KademliaId otherChild = null;
-				
-				if (rnd.nextBoolean()) {
-					randomChild = current.getSegmentTreeNode().getLeftChildId();
-					otherChild = current.getSegmentTreeNode().getRightChildId();
-				} else {
-					randomChild = current.getSegmentTreeNode().getRightChildId();
-					otherChild = current.getSegmentTreeNode().getLeftChildId();
-				}
-				
-				// Check if random child has non finished tasks
-				HashTableValue randomChildValue = findValue(randomChild);
-				if (StatisticsUtils.hasNonFinishedTasksNotInProgress(randomChildValue)) {
-					current = randomChildValue;
-				} else {
-					HashTableValue otherChildValue = findValue(otherChild);
-					if (StatisticsUtils.hasNonFinishedTasksNotInProgress(otherChildValue)) {
-						current = otherChildValue;
-					} else {
-						// Some parallel work has made this state possible,
-						// which will cause this whole process to run again (we're good again :D)
-						return null;
-					}
-				}
-			}
-		}
-	}
-
-	private HashTableValue findParentWithNonFinishedTasksNotInProgress(HashTableValue value) {
-		HashTableValue current = value;
-		while (true) {
-			KademliaId parentId = current.getSegmentTreeNode().getParentId();
-			if (parentId == null) {
-				return null;
-			}
-			HashTableValue parent = findValue(parentId);
-			if (StatisticsUtils.hasNonFinishedTasksNotInProgress(parent)) {
-				return parent;
-			}
-		}
-	}
-
 	public void testStore() {
 		KademliaId key = KademliaUtils.generateId(6534);
 		HashTableValue value = HashTableValue.newBuilder().setTmp("This is a test string").build();
@@ -208,15 +94,18 @@ public class KademliaNodeWorker {
 	public KademliaNode getNode() {
 		return node;
 	}
-	
-	private void sendMessageToNodes(List<KademliaNode> nodes, MessageContainer message) {
+
+	private void sendMessageToNodes(List<KademliaNode> nodes,
+			MessageContainer message) {
 		for (KademliaNode receiver : nodes) {
 			messageManager.sendMessage(receiver, message);
 		}
 	}
-	
-	private List<KademliaNode> excludeNodesFromSet(List<KademliaNode> nodes, Set<KademliaId> excludeNodes) {
-		ArrayList<KademliaNode> result = new ArrayList<KademliaNode>(nodes.size());
+
+	private List<KademliaNode> excludeNodesFromSet(List<KademliaNode> nodes,
+			Set<KademliaId> excludeNodes) {
+		ArrayList<KademliaNode> result = new ArrayList<KademliaNode>(
+				nodes.size());
 		for (KademliaNode node : nodes) {
 			if (!excludeNodes.contains(node.getId())) {
 				result.add(node);
@@ -277,36 +166,43 @@ public class KademliaNodeWorker {
 	public void addAllToKBuckets(List<KademliaNode> results) {
 		kbuckets.addAll(results);
 	}
-	
+
 	public void addToKBuckets(KademliaNode node) {
 		kbuckets.add(node);
 	}
-	
+
 	public KBuckets getKbuckets() {
 		return kbuckets;
 	}
-	
+
 	public void sendMessage(KademliaNode receiver, MessageContainer message) {
 		messageManager.sendMessage(receiver, message);
 	}
-	
+
 	public void store(KademliaId key, HashTableValue value) {
 		List<KademliaNode> closest = findNode(key);
 		for (KademliaNode node : closest) {
 			sendStoreRequest(node, key, value);
 		}
 	}
+<<<<<<< HEAD
+
+	public void store(KademliaNode receiver, KademliaId key,
+			HashTableValue value) {
+=======
 	
 	public void sendStoreRequest(KademliaNode receiver, KademliaId key, HashTableValue value) {
+>>>>>>> 7740895efaf7d973bef6eb30a24a467fb6c47c86
 		StoreRequest request = StoreRequestFactory.make(key, value);
-		MessageContainer message = MessageContainerFactory.make(getNode(), request);
+		MessageContainer message = MessageContainerFactory.make(getNode(),
+				request);
 		sendMessage(receiver, message);
 	}
 
 	public void putToLocalHashMap(KademliaId key, HashTableValue value) {
 		localHashMap.put(key, value);
 	}
-	
+
 	public HashTableValue getFromLocalHashMap(KademliaId key) {
 		return localHashMap.get(key);
 	}
@@ -343,8 +239,8 @@ public class KademliaNodeWorker {
 			KademliaId rightChildId = KademliaUtils.generateId(2 * id + 1);
 
 			// Calculate number of pending tasks using children info
-			int pendingTasks = values[2 * id].getValidTasks()
-					+ values[2 * id + 1].getValidTasks();
+			int pendingTasks = values[2 * id].getPendingTasks()
+					+ values[2 * id + 1].getPendingTasks();
 
 			// Make HashTableValue
 			HashTableValue value = HashTableValueFactory.make(myId, parentId,
