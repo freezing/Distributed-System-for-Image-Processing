@@ -4472,6 +4472,1647 @@ public final class KademliaProtos {
     // @@protoc_insertion_point(class_scope:tutorial.FindNodeResponse)
   }
 
+  public interface StoreRequestOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional .tutorial.KademliaId key = 1;
+    /**
+     * <code>optional .tutorial.KademliaId key = 1;</code>
+     */
+    boolean hasKey();
+    /**
+     * <code>optional .tutorial.KademliaId key = 1;</code>
+     */
+    protos.KademliaProtos.KademliaId getKey();
+    /**
+     * <code>optional .tutorial.KademliaId key = 1;</code>
+     */
+    protos.KademliaProtos.KademliaIdOrBuilder getKeyOrBuilder();
+
+    // optional .tutorial.HashTableValue value = 2;
+    /**
+     * <code>optional .tutorial.HashTableValue value = 2;</code>
+     */
+    boolean hasValue();
+    /**
+     * <code>optional .tutorial.HashTableValue value = 2;</code>
+     */
+    protos.KademliaProtos.HashTableValue getValue();
+    /**
+     * <code>optional .tutorial.HashTableValue value = 2;</code>
+     */
+    protos.KademliaProtos.HashTableValueOrBuilder getValueOrBuilder();
+  }
+  /**
+   * Protobuf type {@code tutorial.StoreRequest}
+   */
+  public static final class StoreRequest extends
+      com.google.protobuf.GeneratedMessage
+      implements StoreRequestOrBuilder {
+    // Use StoreRequest.newBuilder() to construct.
+    private StoreRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private StoreRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final StoreRequest defaultInstance;
+    public static StoreRequest getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public StoreRequest getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private StoreRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              protos.KademliaProtos.KademliaId.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = key_.toBuilder();
+              }
+              key_ = input.readMessage(protos.KademliaProtos.KademliaId.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(key_);
+                key_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 18: {
+              protos.KademliaProtos.HashTableValue.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                subBuilder = value_.toBuilder();
+              }
+              value_ = input.readMessage(protos.KademliaProtos.HashTableValue.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(value_);
+                value_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000002;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_StoreRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_StoreRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.StoreRequest.class, protos.KademliaProtos.StoreRequest.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<StoreRequest> PARSER =
+        new com.google.protobuf.AbstractParser<StoreRequest>() {
+      public StoreRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new StoreRequest(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<StoreRequest> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional .tutorial.KademliaId key = 1;
+    public static final int KEY_FIELD_NUMBER = 1;
+    private protos.KademliaProtos.KademliaId key_;
+    /**
+     * <code>optional .tutorial.KademliaId key = 1;</code>
+     */
+    public boolean hasKey() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional .tutorial.KademliaId key = 1;</code>
+     */
+    public protos.KademliaProtos.KademliaId getKey() {
+      return key_;
+    }
+    /**
+     * <code>optional .tutorial.KademliaId key = 1;</code>
+     */
+    public protos.KademliaProtos.KademliaIdOrBuilder getKeyOrBuilder() {
+      return key_;
+    }
+
+    // optional .tutorial.HashTableValue value = 2;
+    public static final int VALUE_FIELD_NUMBER = 2;
+    private protos.KademliaProtos.HashTableValue value_;
+    /**
+     * <code>optional .tutorial.HashTableValue value = 2;</code>
+     */
+    public boolean hasValue() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional .tutorial.HashTableValue value = 2;</code>
+     */
+    public protos.KademliaProtos.HashTableValue getValue() {
+      return value_;
+    }
+    /**
+     * <code>optional .tutorial.HashTableValue value = 2;</code>
+     */
+    public protos.KademliaProtos.HashTableValueOrBuilder getValueOrBuilder() {
+      return value_;
+    }
+
+    private void initFields() {
+      key_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+      value_ = protos.KademliaProtos.HashTableValue.getDefaultInstance();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, key_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeMessage(2, value_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, key_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, value_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.StoreRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.StoreRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.StoreRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.StoreRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.StoreRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.StoreRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.StoreRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.StoreRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.StoreRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.StoreRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.StoreRequest prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.StoreRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.StoreRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_StoreRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_StoreRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.StoreRequest.class, protos.KademliaProtos.StoreRequest.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.StoreRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getKeyFieldBuilder();
+          getValueFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (keyBuilder_ == null) {
+          key_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+        } else {
+          keyBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        if (valueBuilder_ == null) {
+          value_ = protos.KademliaProtos.HashTableValue.getDefaultInstance();
+        } else {
+          valueBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_StoreRequest_descriptor;
+      }
+
+      public protos.KademliaProtos.StoreRequest getDefaultInstanceForType() {
+        return protos.KademliaProtos.StoreRequest.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.StoreRequest build() {
+        protos.KademliaProtos.StoreRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.StoreRequest buildPartial() {
+        protos.KademliaProtos.StoreRequest result = new protos.KademliaProtos.StoreRequest(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (keyBuilder_ == null) {
+          result.key_ = key_;
+        } else {
+          result.key_ = keyBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        if (valueBuilder_ == null) {
+          result.value_ = value_;
+        } else {
+          result.value_ = valueBuilder_.build();
+        }
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.StoreRequest) {
+          return mergeFrom((protos.KademliaProtos.StoreRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.StoreRequest other) {
+        if (other == protos.KademliaProtos.StoreRequest.getDefaultInstance()) return this;
+        if (other.hasKey()) {
+          mergeKey(other.getKey());
+        }
+        if (other.hasValue()) {
+          mergeValue(other.getValue());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.StoreRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.StoreRequest) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional .tutorial.KademliaId key = 1;
+      private protos.KademliaProtos.KademliaId key_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.KademliaId, protos.KademliaProtos.KademliaId.Builder, protos.KademliaProtos.KademliaIdOrBuilder> keyBuilder_;
+      /**
+       * <code>optional .tutorial.KademliaId key = 1;</code>
+       */
+      public boolean hasKey() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional .tutorial.KademliaId key = 1;</code>
+       */
+      public protos.KademliaProtos.KademliaId getKey() {
+        if (keyBuilder_ == null) {
+          return key_;
+        } else {
+          return keyBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .tutorial.KademliaId key = 1;</code>
+       */
+      public Builder setKey(protos.KademliaProtos.KademliaId value) {
+        if (keyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          key_ = value;
+          onChanged();
+        } else {
+          keyBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId key = 1;</code>
+       */
+      public Builder setKey(
+          protos.KademliaProtos.KademliaId.Builder builderForValue) {
+        if (keyBuilder_ == null) {
+          key_ = builderForValue.build();
+          onChanged();
+        } else {
+          keyBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId key = 1;</code>
+       */
+      public Builder mergeKey(protos.KademliaProtos.KademliaId value) {
+        if (keyBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              key_ != protos.KademliaProtos.KademliaId.getDefaultInstance()) {
+            key_ =
+              protos.KademliaProtos.KademliaId.newBuilder(key_).mergeFrom(value).buildPartial();
+          } else {
+            key_ = value;
+          }
+          onChanged();
+        } else {
+          keyBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId key = 1;</code>
+       */
+      public Builder clearKey() {
+        if (keyBuilder_ == null) {
+          key_ = protos.KademliaProtos.KademliaId.getDefaultInstance();
+          onChanged();
+        } else {
+          keyBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.KademliaId key = 1;</code>
+       */
+      public protos.KademliaProtos.KademliaId.Builder getKeyBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getKeyFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .tutorial.KademliaId key = 1;</code>
+       */
+      public protos.KademliaProtos.KademliaIdOrBuilder getKeyOrBuilder() {
+        if (keyBuilder_ != null) {
+          return keyBuilder_.getMessageOrBuilder();
+        } else {
+          return key_;
+        }
+      }
+      /**
+       * <code>optional .tutorial.KademliaId key = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.KademliaId, protos.KademliaProtos.KademliaId.Builder, protos.KademliaProtos.KademliaIdOrBuilder> 
+          getKeyFieldBuilder() {
+        if (keyBuilder_ == null) {
+          keyBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protos.KademliaProtos.KademliaId, protos.KademliaProtos.KademliaId.Builder, protos.KademliaProtos.KademliaIdOrBuilder>(
+                  key_,
+                  getParentForChildren(),
+                  isClean());
+          key_ = null;
+        }
+        return keyBuilder_;
+      }
+
+      // optional .tutorial.HashTableValue value = 2;
+      private protos.KademliaProtos.HashTableValue value_ = protos.KademliaProtos.HashTableValue.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.HashTableValue, protos.KademliaProtos.HashTableValue.Builder, protos.KademliaProtos.HashTableValueOrBuilder> valueBuilder_;
+      /**
+       * <code>optional .tutorial.HashTableValue value = 2;</code>
+       */
+      public boolean hasValue() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue value = 2;</code>
+       */
+      public protos.KademliaProtos.HashTableValue getValue() {
+        if (valueBuilder_ == null) {
+          return value_;
+        } else {
+          return valueBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue value = 2;</code>
+       */
+      public Builder setValue(protos.KademliaProtos.HashTableValue value) {
+        if (valueBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          value_ = value;
+          onChanged();
+        } else {
+          valueBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue value = 2;</code>
+       */
+      public Builder setValue(
+          protos.KademliaProtos.HashTableValue.Builder builderForValue) {
+        if (valueBuilder_ == null) {
+          value_ = builderForValue.build();
+          onChanged();
+        } else {
+          valueBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue value = 2;</code>
+       */
+      public Builder mergeValue(protos.KademliaProtos.HashTableValue value) {
+        if (valueBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002) &&
+              value_ != protos.KademliaProtos.HashTableValue.getDefaultInstance()) {
+            value_ =
+              protos.KademliaProtos.HashTableValue.newBuilder(value_).mergeFrom(value).buildPartial();
+          } else {
+            value_ = value;
+          }
+          onChanged();
+        } else {
+          valueBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000002;
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue value = 2;</code>
+       */
+      public Builder clearValue() {
+        if (valueBuilder_ == null) {
+          value_ = protos.KademliaProtos.HashTableValue.getDefaultInstance();
+          onChanged();
+        } else {
+          valueBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000002);
+        return this;
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue value = 2;</code>
+       */
+      public protos.KademliaProtos.HashTableValue.Builder getValueBuilder() {
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return getValueFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue value = 2;</code>
+       */
+      public protos.KademliaProtos.HashTableValueOrBuilder getValueOrBuilder() {
+        if (valueBuilder_ != null) {
+          return valueBuilder_.getMessageOrBuilder();
+        } else {
+          return value_;
+        }
+      }
+      /**
+       * <code>optional .tutorial.HashTableValue value = 2;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          protos.KademliaProtos.HashTableValue, protos.KademliaProtos.HashTableValue.Builder, protos.KademliaProtos.HashTableValueOrBuilder> 
+          getValueFieldBuilder() {
+        if (valueBuilder_ == null) {
+          valueBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              protos.KademliaProtos.HashTableValue, protos.KademliaProtos.HashTableValue.Builder, protos.KademliaProtos.HashTableValueOrBuilder>(
+                  value_,
+                  getParentForChildren(),
+                  isClean());
+          value_ = null;
+        }
+        return valueBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.StoreRequest)
+    }
+
+    static {
+      defaultInstance = new StoreRequest(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.StoreRequest)
+  }
+
+  public interface StoreResponseOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional string status = 1;
+    /**
+     * <code>optional string status = 1;</code>
+     */
+    boolean hasStatus();
+    /**
+     * <code>optional string status = 1;</code>
+     */
+    java.lang.String getStatus();
+    /**
+     * <code>optional string status = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getStatusBytes();
+  }
+  /**
+   * Protobuf type {@code tutorial.StoreResponse}
+   */
+  public static final class StoreResponse extends
+      com.google.protobuf.GeneratedMessage
+      implements StoreResponseOrBuilder {
+    // Use StoreResponse.newBuilder() to construct.
+    private StoreResponse(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private StoreResponse(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final StoreResponse defaultInstance;
+    public static StoreResponse getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public StoreResponse getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private StoreResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              status_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_StoreResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_StoreResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.StoreResponse.class, protos.KademliaProtos.StoreResponse.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<StoreResponse> PARSER =
+        new com.google.protobuf.AbstractParser<StoreResponse>() {
+      public StoreResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new StoreResponse(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<StoreResponse> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional string status = 1;
+    public static final int STATUS_FIELD_NUMBER = 1;
+    private java.lang.Object status_;
+    /**
+     * <code>optional string status = 1;</code>
+     */
+    public boolean hasStatus() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional string status = 1;</code>
+     */
+    public java.lang.String getStatus() {
+      java.lang.Object ref = status_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          status_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string status = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getStatusBytes() {
+      java.lang.Object ref = status_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        status_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      status_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getStatusBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getStatusBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.StoreResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.StoreResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.StoreResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.StoreResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.StoreResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.StoreResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.StoreResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.StoreResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.StoreResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.StoreResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.StoreResponse prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.StoreResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.StoreResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_StoreResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_StoreResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.StoreResponse.class, protos.KademliaProtos.StoreResponse.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.StoreResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        status_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_StoreResponse_descriptor;
+      }
+
+      public protos.KademliaProtos.StoreResponse getDefaultInstanceForType() {
+        return protos.KademliaProtos.StoreResponse.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.StoreResponse build() {
+        protos.KademliaProtos.StoreResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.StoreResponse buildPartial() {
+        protos.KademliaProtos.StoreResponse result = new protos.KademliaProtos.StoreResponse(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.status_ = status_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.StoreResponse) {
+          return mergeFrom((protos.KademliaProtos.StoreResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.StoreResponse other) {
+        if (other == protos.KademliaProtos.StoreResponse.getDefaultInstance()) return this;
+        if (other.hasStatus()) {
+          bitField0_ |= 0x00000001;
+          status_ = other.status_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.StoreResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.StoreResponse) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional string status = 1;
+      private java.lang.Object status_ = "";
+      /**
+       * <code>optional string status = 1;</code>
+       */
+      public boolean hasStatus() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional string status = 1;</code>
+       */
+      public java.lang.String getStatus() {
+        java.lang.Object ref = status_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          status_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string status = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getStatusBytes() {
+        java.lang.Object ref = status_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          status_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string status = 1;</code>
+       */
+      public Builder setStatus(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string status = 1;</code>
+       */
+      public Builder clearStatus() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        status_ = getDefaultInstance().getStatus();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string status = 1;</code>
+       */
+      public Builder setStatusBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        status_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.StoreResponse)
+    }
+
+    static {
+      defaultInstance = new StoreResponse(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.StoreResponse)
+  }
+
+  public interface HashTableValueOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // optional string tmp = 1;
+    /**
+     * <code>optional string tmp = 1;</code>
+     */
+    boolean hasTmp();
+    /**
+     * <code>optional string tmp = 1;</code>
+     */
+    java.lang.String getTmp();
+    /**
+     * <code>optional string tmp = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getTmpBytes();
+  }
+  /**
+   * Protobuf type {@code tutorial.HashTableValue}
+   */
+  public static final class HashTableValue extends
+      com.google.protobuf.GeneratedMessage
+      implements HashTableValueOrBuilder {
+    // Use HashTableValue.newBuilder() to construct.
+    private HashTableValue(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private HashTableValue(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final HashTableValue defaultInstance;
+    public static HashTableValue getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public HashTableValue getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private HashTableValue(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              bitField0_ |= 0x00000001;
+              tmp_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return protos.KademliaProtos.internal_static_tutorial_HashTableValue_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return protos.KademliaProtos.internal_static_tutorial_HashTableValue_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              protos.KademliaProtos.HashTableValue.class, protos.KademliaProtos.HashTableValue.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<HashTableValue> PARSER =
+        new com.google.protobuf.AbstractParser<HashTableValue>() {
+      public HashTableValue parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new HashTableValue(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<HashTableValue> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // optional string tmp = 1;
+    public static final int TMP_FIELD_NUMBER = 1;
+    private java.lang.Object tmp_;
+    /**
+     * <code>optional string tmp = 1;</code>
+     */
+    public boolean hasTmp() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>optional string tmp = 1;</code>
+     */
+    public java.lang.String getTmp() {
+      java.lang.Object ref = tmp_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          tmp_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string tmp = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getTmpBytes() {
+      java.lang.Object ref = tmp_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        tmp_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private void initFields() {
+      tmp_ = "";
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeBytes(1, getTmpBytes());
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(1, getTmpBytes());
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static protos.KademliaProtos.HashTableValue parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.HashTableValue parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.HashTableValue parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static protos.KademliaProtos.HashTableValue parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static protos.KademliaProtos.HashTableValue parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.HashTableValue parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.HashTableValue parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static protos.KademliaProtos.HashTableValue parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static protos.KademliaProtos.HashTableValue parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static protos.KademliaProtos.HashTableValue parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(protos.KademliaProtos.HashTableValue prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code tutorial.HashTableValue}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements protos.KademliaProtos.HashTableValueOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return protos.KademliaProtos.internal_static_tutorial_HashTableValue_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return protos.KademliaProtos.internal_static_tutorial_HashTableValue_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                protos.KademliaProtos.HashTableValue.class, protos.KademliaProtos.HashTableValue.Builder.class);
+      }
+
+      // Construct using protos.KademliaProtos.HashTableValue.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        tmp_ = "";
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return protos.KademliaProtos.internal_static_tutorial_HashTableValue_descriptor;
+      }
+
+      public protos.KademliaProtos.HashTableValue getDefaultInstanceForType() {
+        return protos.KademliaProtos.HashTableValue.getDefaultInstance();
+      }
+
+      public protos.KademliaProtos.HashTableValue build() {
+        protos.KademliaProtos.HashTableValue result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public protos.KademliaProtos.HashTableValue buildPartial() {
+        protos.KademliaProtos.HashTableValue result = new protos.KademliaProtos.HashTableValue(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        result.tmp_ = tmp_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof protos.KademliaProtos.HashTableValue) {
+          return mergeFrom((protos.KademliaProtos.HashTableValue)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(protos.KademliaProtos.HashTableValue other) {
+        if (other == protos.KademliaProtos.HashTableValue.getDefaultInstance()) return this;
+        if (other.hasTmp()) {
+          bitField0_ |= 0x00000001;
+          tmp_ = other.tmp_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        protos.KademliaProtos.HashTableValue parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (protos.KademliaProtos.HashTableValue) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // optional string tmp = 1;
+      private java.lang.Object tmp_ = "";
+      /**
+       * <code>optional string tmp = 1;</code>
+       */
+      public boolean hasTmp() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional string tmp = 1;</code>
+       */
+      public java.lang.String getTmp() {
+        java.lang.Object ref = tmp_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          tmp_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string tmp = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getTmpBytes() {
+        java.lang.Object ref = tmp_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          tmp_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string tmp = 1;</code>
+       */
+      public Builder setTmp(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        tmp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string tmp = 1;</code>
+       */
+      public Builder clearTmp() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        tmp_ = getDefaultInstance().getTmp();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string tmp = 1;</code>
+       */
+      public Builder setTmpBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+        tmp_ = value;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:tutorial.HashTableValue)
+    }
+
+    static {
+      defaultInstance = new HashTableValue(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:tutorial.HashTableValue)
+  }
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_tutorial_KademliaId_descriptor;
   private static
@@ -4507,6 +6148,21 @@ public final class KademliaProtos {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_tutorial_FindNodeResponse_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_StoreRequest_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_StoreRequest_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_StoreResponse_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_StoreResponse_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_tutorial_HashTableValue_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_tutorial_HashTableValue_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -4529,7 +6185,11 @@ public final class KademliaProtos {
       " \001(\0132\024.tutorial.KademliaId\"c\n\020FindNodeRe" +
       "sponse\022&\n\010searchId\030\001 \001(\0132\024.tutorial.Kade" +
       "mliaId\022\'\n\007results\030\002 \003(\0132\026.tutorial.Kadem" +
-      "liaNodeB\030\n\006protosB\016KademliaProtos"
+      "liaNode\"Z\n\014StoreRequest\022!\n\003key\030\001 \001(\0132\024.t" +
+      "utorial.KademliaId\022\'\n\005value\030\002 \001(\0132\030.tuto" +
+      "rial.HashTableValue\"\037\n\rStoreResponse\022\016\n\006" +
+      "status\030\001 \001(\t\"\035\n\016HashTableValue\022\013\n\003tmp\030\001 " +
+      "\001(\tB\030\n\006protosB\016KademliaProtos"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -4578,6 +6238,24 @@ public final class KademliaProtos {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_tutorial_FindNodeResponse_descriptor,
               new java.lang.String[] { "SearchId", "Results", });
+          internal_static_tutorial_StoreRequest_descriptor =
+            getDescriptor().getMessageTypes().get(7);
+          internal_static_tutorial_StoreRequest_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_StoreRequest_descriptor,
+              new java.lang.String[] { "Key", "Value", });
+          internal_static_tutorial_StoreResponse_descriptor =
+            getDescriptor().getMessageTypes().get(8);
+          internal_static_tutorial_StoreResponse_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_StoreResponse_descriptor,
+              new java.lang.String[] { "Status", });
+          internal_static_tutorial_HashTableValue_descriptor =
+            getDescriptor().getMessageTypes().get(9);
+          internal_static_tutorial_HashTableValue_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_tutorial_HashTableValue_descriptor,
+              new java.lang.String[] { "Tmp", });
           return null;
         }
       };

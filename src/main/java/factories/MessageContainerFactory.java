@@ -6,6 +6,8 @@ import protos.KademliaProtos.FindNodeRequest;
 import protos.KademliaProtos.FindNodeResponse;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
+import protos.KademliaProtos.StoreRequest;
+import protos.KademliaProtos.StoreResponse;
 
 import com.google.protobuf.ByteString;
 
@@ -39,7 +41,16 @@ public class MessageContainerFactory {
 			BootstrapConnectRequest request = (BootstrapConnectRequest) obj;
 			builder.setType(MessageType.BOOTSTRAP_CONNECT_REQUEST.getValue())
 				.setData(request.toByteString());
-		} else {
+		} else if (obj instanceof StoreRequest) {
+			StoreRequest request = (StoreRequest) obj;
+			builder.setType(MessageType.NODE_STORE_REQUEST.getValue())
+				.setData(request.toByteString());
+		} else if (obj instanceof StoreResponse) {
+			StoreResponse response = (StoreResponse) obj;
+			builder.setType(MessageType.NODE_STORE_RESPONSE.getValue())
+				.setData(response.toByteString());
+		}
+		else {
 			throw new IllegalArgumentException(obj.toString());
 		}
 		
