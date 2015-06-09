@@ -24,5 +24,6 @@ public class StoreRequestListener implements MessageListener {
 		StoreResponse response = StoreResponseFactory.make("success");
 		MessageContainer msg = MessageContainerFactory.make(worker.getNode(), response);
 		worker.sendMessage(sender, msg);
+		worker.addToKBuckets(sender);
 	}
 }

@@ -11,6 +11,7 @@ import java.util.concurrent.TimeUnit;
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
+import listeners.FindValueRequestListener;
 import listeners.FindValueResponseListener;
 import listeners.FindValueResponseListener.NonConsistentValueException;
 import listeners.StoreRequestListener;
@@ -26,7 +27,6 @@ import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
 import protos.KademliaProtos.StoreRequest;
-import sha.Sha;
 import util.Constants;
 import utils.ImageTaskUtils;
 import utils.KademliaUtils;
@@ -35,7 +35,6 @@ import factories.FindNodeRequestFactory;
 import factories.FindValueRequestFactory;
 import factories.HashTableValueFactory;
 import factories.MessageContainerFactory;
-import factories.SegmentTreeNodeFactory;
 import factories.StoreRequestFactory;
 
 public class KademliaNodeWorker {
@@ -66,9 +65,9 @@ public class KademliaNodeWorker {
 		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST, new FindNodeRequestListener(this));
 		messageManager.registerListener(MessageType.NODE_FIND_NODE_RESPONSE, findNodeResponseListener);
 		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE, findValueResponseListener);
-		
+		messageManager.registerListener(MessageType.NODE_FIND_VALUE_REQUEST, new FindValueRequestListener(this));		
 		messageManager.registerListener(MessageType.NODE_STORE_REQUEST, storeRequestListener);
-		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener());
+		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener(this));
 	}
 
 	public void run() {
@@ -86,7 +85,7 @@ public class KademliaNodeWorker {
 		KademliaId key = KademliaUtils.generateId(6534);
 		HashTableValue val = findValue(key);
 		if (val == null) System.out.println("NULL");
-		else System.out.println("Got value: "+val.getTmp());
+		else System.out.println("Got value: "+val.getTmp());		
 	}
 
 	public KademliaNode getNode() {
@@ -135,6 +134,7 @@ public class KademliaNodeWorker {
 		int depth = 0; 
 		while (depth < Constants.MAX_FIND_DEPTH) {
 			List<KademliaNode> closest = kbuckets.getKClosest(id);
+			
 			CountDownLatch latch = new CountDownLatch(closest.size());
 			listener.put(id, latch);
 			
@@ -177,6 +177,7 @@ public class KademliaNodeWorker {
 	public void store(KademliaId key, HashTableValue value) {
 		List<KademliaNode> closest = findNode(key);
 		for (KademliaNode node : closest) {
+			System.out.println(node);
 			sendStoreRequest(node, key, value);
 		}
 	}
@@ -188,11 +189,16 @@ public class KademliaNodeWorker {
 	}
 
 	public void putToLocalHashMap(KademliaId key, HashTableValue value) {
+		System.out.println("put "+value.getTmp());
 		localHashMap.put(key, value);
 	}
 	
 	public HashTableValue getFromLocalHashMap(KademliaId key) {
-		return localHashMap.get(key);
+		HashTableValue val = localHashMap.get(key);
+		if (val != null) {
+			System.out.println("get "+val.getTmp());
+		}
+		return val;
 	}
 
 	public void setTasksReadyForDistribution(List<ImageTask> unitTasks) {

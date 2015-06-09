@@ -86,10 +86,12 @@ public class KademliaNodeRunner implements Runnable {
 		Thread.sleep(5000);
 		new KademliaNodeRunner(20000+i++, "localhost", 19803).testStore();
 		Thread.sleep(5000);
-		/*for (; i<70; i++) {
+		for (; i<70; i++) {
 			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
-		}*/
-		//Thread.sleep(5000);
-		new KademliaNodeRunner(20000+i++, "localhost", 19803).testGet();
+		}
+		Thread.sleep(5000);
+		KademliaNodeRunner runner = new KademliaNodeRunner(20000+i++, "localhost", 19803);
+		Thread.sleep(5000);
+		runner.testGet();
 	}
 }

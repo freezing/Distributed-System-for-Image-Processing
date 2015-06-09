@@ -29,8 +29,14 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
 		FindValueResponse response = parseResponse(message);
 		worker.addAllToKBuckets(response.getResultsList());
-		valueSet.add(response.getValueResult());
 		worker.addToKBuckets(sender);
+		
+		if (response.hasValueResult()) {
+			synchronized(valueSet) {
+				valueSet.add(response.getValueResult());
+			}
+		}
+		
 		latchCountDown(response.getSearchId());
 	}
 
@@ -44,12 +50,18 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 	
 	@Override
 	public boolean hasValue() {
-		return !valueSet.isEmpty();
+		synchronized(valueSet) {
+			return !valueSet.isEmpty();
+		}
 	}
 	
 	public HashTableValue getValue() throws NonConsistentValueException {
-		if (valueSet.isEmpty()) return null;
-		else if (valueSet.size() == 1) {
+		int size;
+		synchronized(valueSet) {
+			size = valueSet.size();
+		}
+		if (size == 0) return null;
+		else if (size == 1) {
 			return (HashTableValue)valueSet.toArray()[0];
 		} else {
 			throw new NonConsistentValueException();
@@ -57,7 +69,9 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 	}
 	
 	public void resetValue() {
-		valueSet.clear();
+		synchronized(valueSet) {
+			valueSet.clear();
+		}
 	}
 
 }
