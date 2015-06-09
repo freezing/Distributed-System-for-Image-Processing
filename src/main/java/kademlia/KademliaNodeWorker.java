@@ -7,7 +7,6 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
@@ -26,32 +25,32 @@ import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
 import protos.KademliaProtos.StoreRequest;
+import sha.Sha;
 import util.Constants;
 import utils.ImageTaskUtils;
 import utils.KademliaUtils;
 import buckets.KBuckets;
 import factories.FindNodeRequestFactory;
-import factories.HashTableValueFactory;
+import factories.FindValueRequestFactory;
 import factories.MessageContainerFactory;
+import factories.SegmentTreeNodeFactory;
 import factories.StoreRequestFactory;
 
 public class KademliaNodeWorker {
 	private MessageManager messageManager;
 	private KademliaNode node;
-
+	
 	private KBuckets kbuckets;
 	private ConcurrentHashMap<KademliaId, HashTableValue> localHashMap;
-
+	
 	// Listeners
 	private FindNodeResponseListener findNodeResponseListener;
 	private FindValueResponseListener findValueResponseListener;
 	private StoreRequestListener storeRequestListener;
-
-	public KademliaNodeWorker(BootstrapConnectResponse bootstrapResponse,
-			MessageManager messageManager) {
+	
+	public KademliaNodeWorker(BootstrapConnectResponse bootstrapResponse, MessageManager messageManager) {
 		this.node = bootstrapResponse.getYou();
-		this.kbuckets = new KBuckets(node.getId(),
-				bootstrapResponse.getOthersList());
+		this.kbuckets = new KBuckets(node.getId(), bootstrapResponse.getOthersList());
 		this.messageManager = messageManager;
 		this.localHashMap = new ConcurrentHashMap<KademliaId, HashTableValue>();
 		registerListeners();
@@ -60,38 +59,45 @@ public class KademliaNodeWorker {
 	private void registerListeners() {
 		findNodeResponseListener = new FindNodeResponseListener(this);
 		storeRequestListener = new StoreRequestListener(this);
-
-		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST,
-				new FindNodeRequestListener(this));
-		messageManager.registerListener(MessageType.NODE_FIND_NODE_RESPONSE,
-				findNodeResponseListener);
-		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE,
-				findValueResponseListener);
-
-		messageManager.registerListener(MessageType.NODE_STORE_REQUEST,
-				storeRequestListener);
-		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE,
-				new StoreResponseListener());
+		
+		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST, new FindNodeRequestListener(this));
+		messageManager.registerListener(MessageType.NODE_FIND_NODE_RESPONSE, findNodeResponseListener);
+		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE, findValueResponseListener);
+		
+		messageManager.registerListener(MessageType.NODE_STORE_REQUEST, storeRequestListener);
+		messageManager.registerListener(MessageType.NODE_STORE_RESPONSE, new StoreResponseListener());
 	}
 
 	public void run() {
+
+	}
+	
+	public void testStore() {
+		KademliaId key = KademliaUtils.generateId(6534);
+		HashTableValue value = HashTableValue.newBuilder().setTmp("This is a test string").build();
+		store(key, value);
+		System.out.println("Sent value: "+value.getTmp());
+	}
+	
+	public void testGet() {
+		KademliaId key = KademliaUtils.generateId(6534);
+		HashTableValue val = findValue(key);
+		if (val == null) System.out.println("NULL");
+		else System.out.println("Got value: "+val.getTmp());
 	}
 
 	public KademliaNode getNode() {
 		return node;
 	}
-
-	private void sendMessageToNodes(List<KademliaNode> nodes,
-			MessageContainer message) {
+	
+	private void sendMessageToNodes(List<KademliaNode> nodes, MessageContainer message) {
 		for (KademliaNode receiver : nodes) {
 			messageManager.sendMessage(receiver, message);
 		}
 	}
-
-	private List<KademliaNode> excludeNodesFromSet(List<KademliaNode> nodes,
-			Set<KademliaId> excludeNodes) {
-		ArrayList<KademliaNode> result = new ArrayList<KademliaNode>(
-				nodes.size());
+	
+	private List<KademliaNode> excludeNodesFromSet(List<KademliaNode> nodes, Set<KademliaId> excludeNodes) {
+		ArrayList<KademliaNode> result = new ArrayList<KademliaNode>(nodes.size());
 		for (KademliaNode node : nodes) {
 			if (!excludeNodes.contains(node.getId())) {
 				result.add(node);
@@ -152,38 +158,36 @@ public class KademliaNodeWorker {
 	public void addAllToKBuckets(List<KademliaNode> results) {
 		kbuckets.addAll(results);
 	}
-
+	
 	public void addToKBuckets(KademliaNode node) {
 		kbuckets.add(node);
 	}
-
+	
 	public KBuckets getKbuckets() {
 		return kbuckets;
 	}
-
+	
 	public void sendMessage(KademliaNode receiver, MessageContainer message) {
 		messageManager.sendMessage(receiver, message);
 	}
-
+	
 	public void store(KademliaId key, HashTableValue value) {
 		List<KademliaNode> closest = findNode(key);
 		for (KademliaNode node : closest) {
-			store(node, key, value);
+			sendStoreRequest(node, key, value);
 		}
 	}
-
-	public void store(KademliaNode receiver, KademliaId key,
-			HashTableValue value) {
+	
+	public void sendStoreRequest(KademliaNode receiver, KademliaId key, HashTableValue value) {
 		StoreRequest request = StoreRequestFactory.make(key, value);
-		MessageContainer message = MessageContainerFactory.make(getNode(),
-				request);
+		MessageContainer message = MessageContainerFactory.make(getNode(), request);
 		sendMessage(receiver, message);
 	}
 
 	public void putToLocalHashMap(KademliaId key, HashTableValue value) {
 		localHashMap.put(key, value);
 	}
-
+	
 	public HashTableValue getFromLocalHashMap(KademliaId key) {
 		return localHashMap.get(key);
 	}
@@ -244,23 +248,9 @@ public class KademliaNodeWorker {
 	private int createTaskNodes(List<ImageTask> unitTasks, int id,
 			HashTableValue values[]) {
 		for (int i = unitTasks.size() - 1; i >= 0; i--) {
-			// Calculate parent id
-			int parentId = id / 2;
-
-			// Make HashTableValue
-			HashTableValue value = HashTableValueFactory.make(unitTasks.get(i),
-					KademliaUtils.generateId(id),
-					KademliaUtils.generateId(parentId));
-
-			// Insert value in DHT
-			store(value.getSegmentTreeNode().getMyId(), value);
-
-			// And store in the values array
-			values[id] = value;
-
-			// Update next id value
-			id--;
+			SegmentTreeNodeFactory.make(
+					unitTasks.get(i),
+					KademliaUtils.generateId(id));
 		}
-		return id;
 	}
 }
