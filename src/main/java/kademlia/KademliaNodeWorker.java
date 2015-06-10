@@ -82,6 +82,7 @@ public class KademliaNodeWorker {
 	}
 
 	public void run() {
+		//System.out.println(KademliaUtils.idToString(node.getId()));
 		new Thread(new KademliaRepublisher(this)).start();
 		//taskManager.run();
 	}
@@ -89,9 +90,8 @@ public class KademliaNodeWorker {
 	public void testStore(int id, String val) {
 		KademliaId key = KademliaUtils.generateId(id);
 		HashTableValue value = HashTableValue.newBuilder().setTmp(val).build();
-		putToLocalHashMap(key, value);
 		store(key, value);
-		System.out.println("Sent value: "+value.getTmp());
+		//System.out.println("Sent value: "+value.getTmp());
 	}
 	
 	public void testGet(int id) {
@@ -215,6 +215,9 @@ public class KademliaNodeWorker {
 	}
 
 	public void putToLocalHashMap(KademliaId key, HashTableValue value) {
+		if (localHashMap.size() == 100) {
+			System.out.println("Node "+KademliaUtils.idToString(node.getId())+" reached 100 entries!");
+		}
 		localHashMap.put(key, new HashTableValueWrapper(value));
 	}
 	

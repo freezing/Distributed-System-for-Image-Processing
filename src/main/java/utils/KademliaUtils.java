@@ -62,4 +62,18 @@ public class KademliaUtils {
 				.setData(ByteString.copyFrom(bytes))
 				.build();
 	}
+	
+	public static String idToString(KademliaId id) {
+		byte[] data = id.getData().toByteArray();
+		String result = "[";
+		for (int i = 0; i < data.length; i++) {
+			if (i > 0) result += "-";
+			String tmp = Integer.toHexString(data[i]);
+			if (tmp.length() > 2) tmp = tmp.substring(tmp.length()-2);
+			else if (tmp.length() == 1) tmp = "0"+tmp;
+			result += tmp;
+		}
+		result += "]";
+		return result;
+	}
 }

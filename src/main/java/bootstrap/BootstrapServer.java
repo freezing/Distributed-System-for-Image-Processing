@@ -1,5 +1,6 @@
 package bootstrap;
 
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -51,8 +52,12 @@ public class BootstrapServer {
 	}
 	
 	public static void main(String[] args) {
-		BootstrapServer bs = new BootstrapServer(19803);
-		bs.run();
+		try {
+			BootstrapServer bs = new BootstrapServer(19803);
+			bs.run();
+		} catch (RuntimeException e) {
+			System.out.println("Bootstrap already running!");
+		}
 	}
 
 	public void removeNodeByAddressAndPort(String address, int port) {
