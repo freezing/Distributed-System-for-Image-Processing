@@ -326,18 +326,23 @@ public class KademliaNodeWorker {
 	}
 	
 	public void sendStoreRequest(KademliaNode receiver, KademliaId key, HashTableValue value) {
-		KademliaId distanceFromMe = KademliaUtils.XOR(node.getId(), key);
-		KademliaId distanceFromReceiver = KademliaUtils.XOR(receiver.getId(), key);
-		if (KademliaUtils.compare(distanceFromMe, distanceFromReceiver) != -1) {
-			StoreRequest request = StoreRequestFactory.make(key, value);
-			MessageContainer message = MessageContainerFactory.make(getNode(), request);
-			sendMessage(receiver, message);
+		sendStoreRequest(receiver, key, value, false);
+	}
+	
+	public void sendStoreRequest(KademliaNode receiver, KademliaId key, HashTableValue value, boolean checkDistance) {
+		if 	((checkDistance) &&
+			(KademliaUtils.compare(	KademliaUtils.XOR(node.getId(), key),
+									KademliaUtils.XOR(receiver.getId(), key)) != -1)) {
+				StoreRequest request = StoreRequestFactory.make(key, value);
+				MessageContainer message = MessageContainerFactory.make(getNode(), request);
+				sendMessage(receiver, message);
 		}
 	}
 	
 	public void sendAllValuesToNode(KademliaNode target) {
 		for (Entry<KademliaId, HashTableValueWrapper> tableEntry: getAllLocalHashMapItems()) {
-			sendStoreRequest(target, tableEntry.getKey(), tableEntry.getValue().getValue());
+			if (!tableEntry.getValue().isFresh())
+				sendStoreRequest(target, tableEntry.getKey(), tableEntry.getValue().getValue(), true);
 		}
 	}
 	
