@@ -1,6 +1,6 @@
 package listeners;
 
-import kademlia.KademliaNodeRunner;
+import kademlia.KademliaNodeStarter;
 import network.MessageListener;
 import protos.KademliaProtos.BootstrapConnectResponse;
 import protos.KademliaProtos.KademliaNode;
@@ -8,9 +8,9 @@ import protos.KademliaProtos.KademliaNode;
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class BootstrapConnectResponseListener implements MessageListener {
-	private KademliaNodeRunner runner;
+	private KademliaNodeStarter runner;
 	
-	public BootstrapConnectResponseListener(KademliaNodeRunner runner) {
+	public BootstrapConnectResponseListener(KademliaNodeStarter runner) {
 		this.runner = runner;
 	}
 	
@@ -21,6 +21,9 @@ public class BootstrapConnectResponseListener implements MessageListener {
 		
 		BootstrapConnectResponse response = parseResponse(message);
 		runner.setBootstrapResponse(response);
+		synchronized (this) {
+			this.notify();
+		}
 	}
 
 	private BootstrapConnectResponse parseResponse(byte[] message) {

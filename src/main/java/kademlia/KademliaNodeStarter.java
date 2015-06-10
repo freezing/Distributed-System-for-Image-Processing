@@ -1,5 +1,7 @@
 package kademlia;
 
+import java.util.Random;
+
 import listeners.BootstrapConnectResponseListener;
 import network.MessageManager;
 import network.MessageType;
@@ -9,14 +11,15 @@ import protos.KademliaProtos.KademliaNode;
 import utils.KademliaUtils;
 import factories.MessageContainerFactory;
 
-public class KademliaNodeRunner implements Runnable {
+public class KademliaNodeStarter implements Runnable {
 	private MessageManager messageManager;
 	private BootstrapConnectResponse bootstrapResponse = null;
+	private BootstrapConnectResponseListener bootstrapListener;
 	private KademliaNode bootstrapNode;
 	private int myPort;
 	private KademliaNodeWorker worker;
 	
-	public KademliaNodeRunner(int myPort, String bootstrapIp, int bootstrapPort) {
+	public KademliaNodeStarter(int myPort, String bootstrapIp, int bootstrapPort) {
 		this.myPort = myPort;
 		bootstrapNode = KademliaNode.newBuilder().setAddress(bootstrapIp).setPort(bootstrapPort).build();
 		messageManager = new MessageManager(myPort);
@@ -24,7 +27,8 @@ public class KademliaNodeRunner implements Runnable {
 	}
 	
 	private void registerListeners() {
-		messageManager.registerListener(MessageType.BOOTSTRAP_CONNECT_RESPONSE, new BootstrapConnectResponseListener(this));
+		bootstrapListener = new BootstrapConnectResponseListener(this);
+		messageManager.registerListener(MessageType.BOOTSTRAP_CONNECT_RESPONSE, bootstrapListener);
 	}
 	
 	public void run() {
@@ -33,15 +37,15 @@ public class KademliaNodeRunner implements Runnable {
 				.setPort(myPort).build();
 		messageManager.sendMessage(bootstrapNode, MessageContainerFactory.make(null, bootstrapConnectRequest));
 		
-		while (bootstrapResponse == null) {
+		synchronized (bootstrapListener) {
 			try {
-				Thread.sleep(0);
+				bootstrapListener.wait();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Thread.yield();
 		}
+		
+		if (bootstrapResponse == null) throw new NullPointerException();
 		
 		worker = new KademliaNodeWorker(bootstrapResponse, messageManager);
 		worker.findNode(worker.getNode().getId());
@@ -70,14 +74,23 @@ public class KademliaNodeRunner implements Runnable {
 	
 	public void testGet() {
 		run();
-		for (int i = 5000; i < 6000; i++) {
+		/*for (int i = 5000; i < 6000; i++) {
 			worker.testGet(i);
+		}*/
+		while (true) {
+			Random rand = new Random();
+			worker.testGet(rand.nextInt(1000)+5000);
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-//		worker.testGet(10);
-//		worker.testGet(100);
-//		worker.testGet(4545);
-//		worker.testGet(5766);
-//		worker.testGet(21323);
+		/*worker.testGet(10);
+		worker.testGet(100);
+		worker.testGet(4545);
+		worker.testGet(5766);*/
 	}
 	
 	public void setBootstrapResponse(BootstrapConnectResponse bootstrapResponse) {
@@ -95,20 +108,20 @@ public class KademliaNodeRunner implements Runnable {
 		}*/
 		int i = 0;
 		for (; i<500; i++) {
-			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
+			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
 		}
 		Thread.sleep(2000);
-		new KademliaNodeRunner(20000+i++, "localhost", 19803).testStore();
+		new KademliaNodeStarter(20000+i++, "localhost", 19803).testStore();
 		Thread.sleep(2000);
-		for (; i<1000; i++) {
-			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
-		}
+		/*for (; i<1000; i++) {
+			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
+		}*/
 		/*for (; i<70; i++) {
 			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
 		}
 		Thread.sleep(5000);*/
-		Thread.sleep(5000);
-		KademliaNodeRunner runner = new KademliaNodeRunner(20000+i++, "localhost", 19803);
+	//	Thread.sleep(5000);
+		KademliaNodeStarter runner = new KademliaNodeStarter(20000+i++, "localhost", 19803);
 		Thread.sleep(5000);
 		runner.testGet();
 	}
