@@ -55,17 +55,25 @@ public class KademliaNodeRunner implements Runnable {
 		run();
 		
 		for (int i=5000; i<6000; i++) {
-		worker.testStore(i, (i-5000)+"");
+			worker.testStore(i, (i-5000)+"");
 		}
+//		worker.testStore(10, "ABC");
+//		worker.testStore(100, "DADSD");
+//		worker.testStore(4545, "adsdasd");
+//		worker.testStore(5766, "sdsdsad");
+//		worker.testStore(21323, "zcxczx");
 	}
 	
 	public void testGet() {
 		run();
-		worker.testGet(5001);
-		worker.testGet(5500);
-		worker.testGet(5100);
-		worker.testGet(5200);
-		worker.testGet(5020);
+		for (int i = 5000; i < 6000; i++) {
+			worker.testGet(i);
+		}
+//		worker.testGet(10);
+//		worker.testGet(100);
+//		worker.testGet(4545);
+//		worker.testGet(5766);
+//		worker.testGet(21323);
 	}
 	
 	public void setBootstrapResponse(BootstrapConnectResponse bootstrapResponse) {
