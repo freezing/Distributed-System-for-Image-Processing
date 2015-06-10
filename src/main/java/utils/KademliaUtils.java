@@ -1,11 +1,13 @@
 package utils;
 
 import java.util.BitSet;
+import java.util.Random;
 
 import com.google.protobuf.ByteString;
 
 import protos.KademliaProtos.KademliaId;
 import sha.Sha;
+import util.Constants;
 
 public class KademliaUtils {
 	public static int xorDistance(KademliaId a, KademliaId b) {
@@ -47,6 +49,15 @@ public class KademliaUtils {
 	
 	public static KademliaId generateId(int id) {
 		byte[] bytes = Sha.getInstance().digest(id);
+		return KademliaId.newBuilder()
+				.setData(ByteString.copyFrom(bytes))
+				.build();
+	}
+	
+	public static KademliaId randomId() {
+		Random random = new Random();
+		byte[] bytes = new byte[Constants.ID_SIZE_IN_BYTES];
+		random.nextBytes(bytes);
 		return KademliaId.newBuilder()
 				.setData(ByteString.copyFrom(bytes))
 				.build();

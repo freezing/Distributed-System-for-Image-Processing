@@ -6,6 +6,7 @@ import network.MessageType;
 import protos.KademliaProtos.BootstrapConnectRequest;
 import protos.KademliaProtos.BootstrapConnectResponse;
 import protos.KademliaProtos.KademliaNode;
+import utils.KademliaUtils;
 import factories.MessageContainerFactory;
 
 public class KademliaNodeRunner implements Runnable {
@@ -34,7 +35,7 @@ public class KademliaNodeRunner implements Runnable {
 		
 		while (bootstrapResponse == null) {
 			try {
-				Thread.sleep(100);
+				Thread.sleep(0);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -44,11 +45,14 @@ public class KademliaNodeRunner implements Runnable {
 		
 		worker = new KademliaNodeWorker(bootstrapResponse, messageManager);
 		worker.findNode(worker.getNode().getId());
+		worker.findNode(KademliaUtils.randomId());
+		worker.findNode(KademliaUtils.randomId());
+		worker.findNode(KademliaUtils.randomId());
 		/*List<KademliaNode> results = worker.findNode(worker.getNode().getId());
 		for (KademliaNode result: results) {
 			KademliaId id = KademliaUtils.XOR(result.getId(), worker.getNode().getId());
 		}*/
-		//worker.run();
+		worker.run();
 	}
 	
 	public void testStore() {
@@ -85,13 +89,17 @@ public class KademliaNodeRunner implements Runnable {
 		for (; i<500; i++) {
 			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
 		}
-		Thread.sleep(5000);
+		Thread.sleep(2000);
 		new KademliaNodeRunner(20000+i++, "localhost", 19803).testStore();
-		Thread.sleep(5000);
+		Thread.sleep(2000);
+		for (; i<1000; i++) {
+			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
+		}
 		/*for (; i<70; i++) {
 			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
 		}
 		Thread.sleep(5000);*/
+		Thread.sleep(5000);
 		KademliaNodeRunner runner = new KademliaNodeRunner(20000+i++, "localhost", 19803);
 		Thread.sleep(5000);
 		runner.testGet();

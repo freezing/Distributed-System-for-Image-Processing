@@ -57,7 +57,6 @@ public class KademliaNodeWorker {
 	
 	private KBuckets kbuckets;
 	private ConcurrentHashMap<KademliaId, HashTableValueWrapper> localHashMap;
-	private ConcurrentHashMap<KademliaNode, Long> nodeLastSeen;
 	
 	// Listeners
 	private FindNodeResponseListener findNodeResponseListener;
@@ -69,7 +68,6 @@ public class KademliaNodeWorker {
 		this.kbuckets = new KBuckets(node.getId(), bootstrapResponse.getOthersList());
 		this.messageManager = messageManager;
 		this.localHashMap = new ConcurrentHashMap<KademliaId, HashTableValueWrapper>();
-		this.nodeLastSeen = new ConcurrentHashMap<KademliaNode, Long>();
 		registerListeners();
 	}
 
@@ -251,7 +249,7 @@ public class KademliaNodeWorker {
 		return result;
 	}
 	
-	public List<KademliaNode> findNode(KademliaId id) {
+	public synchronized List<KademliaNode> findNode(KademliaId id) {
 		FindNodeRequest request = FindNodeRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node, request);
 		return findNodeOrValue(id, findNodeResponseListener, message);
@@ -309,10 +307,10 @@ public class KademliaNodeWorker {
 	
 	public void addToKBuckets(KademliaNode node) {
 		kbuckets.add(node);
-		Long lastSeen = nodeLastSeen.get(node);
+		/*Long lastSeen = nodeLastSeen.get(node);
 		if (lastSeen == null) lastSeen = 0L;
 		sendAllValuesToNode(node, lastSeen);
-		nodeLastSeen.put(node, System.currentTimeMillis());
+		nodeLastSeen.put(node, System.currentTimeMillis());*/
 	}
 	
 	public KBuckets getKbuckets() {
@@ -326,12 +324,12 @@ public class KademliaNodeWorker {
 	public void store(KademliaId key, HashTableValue value) {
 		List<KademliaNode> closest = findNode(key);
 		for (KademliaNode node : closest) {
-			System.out.println(node);
+			//System.out.println(node);
 			sendStoreRequest(node, key, value);
 		}
 	}
 	
-	public void sendStoreRequest(KademliaNode receiver, KademliaId key, HashTableValue value) {
+	public synchronized void sendStoreRequest(KademliaNode receiver, KademliaId key, HashTableValue value) {
 		sendStoreRequest(receiver, key, value, false);
 	}
 	
@@ -362,14 +360,7 @@ public class KademliaNodeWorker {
 		}
 		
 		for (Entry<KademliaId, HashTableValueWrapper> tableEntry: rottenValues) {
-			findNode(tableEntry.getKey());
-		}
-		
-		for (Entry<KademliaId, HashTableValueWrapper> tableEntry: rottenValues) {
-			List<KademliaNode> closest = kbuckets.getKClosest(tableEntry.getKey());
-			for (KademliaNode target: closest) {
-				sendStoreRequest(target, tableEntry.getKey(), tableEntry.getValue().getValue()); 
-			}
+			store(tableEntry.getKey(), tableEntry.getValue().getValue());
 		}
 	}
 	
