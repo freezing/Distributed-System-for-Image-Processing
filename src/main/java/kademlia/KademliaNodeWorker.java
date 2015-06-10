@@ -464,7 +464,7 @@ public class KademliaNodeWorker {
 		return findValue(SEGMENT_TREE_ROOT_ID);
 	}
 
-	public ImageProto assembleImage(int totalParts, int validParts) {
+	public ImageProto assembleImage(int totalParts, int validParts, int height, int width) {
 		List<TaskResult> imageParts = new ArrayList<TaskResult>();
 		
 		// Iterate through ids of the tasks that are valid
@@ -478,6 +478,6 @@ public class KademliaNodeWorker {
 			}
 		}
 		
-		return ImageProtoUtils.assembleImage(imageParts);
+		return ImageProtoUtils.assembleImage(imageParts, height, width);
 	}
 }
