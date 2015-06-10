@@ -40,7 +40,7 @@ public class KBuckets {
 		}
 	}
 
-	private boolean contains(KademliaNode node, List<KademliaNode> nodes) {
+	private synchronized boolean contains(KademliaNode node, List<KademliaNode> nodes) {
 		for (KademliaNode entry : nodes) {
 			if (node.getId().equals(entry.getId())) {
 				return true;
@@ -49,7 +49,7 @@ public class KBuckets {
 		return false;
 	}
 
-	public List<KademliaNode> getKClosest(final KademliaId id) {
+	public synchronized List<KademliaNode> getKClosest(final KademliaId id) {
 		List<KademliaNode> nodes = new ArrayList<KademliaNode>();
 		
 		for (SingleKBucket singleBucket : buckets) {
@@ -68,7 +68,7 @@ public class KBuckets {
 		return nodes.subList(0, Math.min(nodes.size(), Constants.K));
 	}
 	
-	public List<KademliaId> getRottenBucketMembers() {
+	public synchronized List<KademliaId> getRottenBucketMembers() {
 		ArrayList<KademliaId> result = new ArrayList<KademliaId>();
 		for (SingleKBucket singleBucket : buckets) {
 			if (!singleBucket.isFresh()) {

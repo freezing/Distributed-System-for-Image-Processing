@@ -53,20 +53,19 @@ public class KademliaNodeRunner implements Runnable {
 	
 	public void testStore() {
 		run();
-		worker.testStore(10, "ABC");
-		worker.testStore(100, "DADSD");
-		worker.testStore(4545, "adsdasd");
-		worker.testStore(5766, "sdsdsad");
-		worker.testStore(21323, "zcxczx");
+		
+		for (int i=5000; i<6000; i++) {
+		worker.testStore(i, (i-5000)+"");
+		}
 	}
 	
 	public void testGet() {
 		run();
-		worker.testGet(10);
-		worker.testGet(100);
-		worker.testGet(4545);
-		worker.testGet(5766);
-		worker.testGet(21323);
+		worker.testGet(5001);
+		worker.testGet(5500);
+		worker.testGet(5100);
+		worker.testGet(5200);
+		worker.testGet(5020);
 	}
 	
 	public void setBootstrapResponse(BootstrapConnectResponse bootstrapResponse) {
@@ -83,16 +82,16 @@ public class KademliaNodeRunner implements Runnable {
 			new KademliaNodeRunner(20000+whereFrom+i, "localhost", 19803).run();
 		}*/
 		int i = 0;
-		for (; i<50; i++) {
+		for (; i<500; i++) {
 			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
 		}
 		Thread.sleep(5000);
 		new KademliaNodeRunner(20000+i++, "localhost", 19803).testStore();
 		Thread.sleep(5000);
-		for (; i<70; i++) {
+		/*for (; i<70; i++) {
 			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
 		}
-		Thread.sleep(5000);
+		Thread.sleep(5000);*/
 		KademliaNodeRunner runner = new KademliaNodeRunner(20000+i++, "localhost", 19803);
 		Thread.sleep(5000);
 		runner.testGet();

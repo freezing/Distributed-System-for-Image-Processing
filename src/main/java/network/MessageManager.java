@@ -73,7 +73,6 @@ public class MessageManager {
 	}
 	
 	public void sendMessage(KademliaNode receiver, MessageContainer message) {
-		System.out.println(MessageType.values()[message.getType()]);
 		InetAddress inetAddress = null;
 		try {
 			inetAddress = InetAddress.getByName(receiver.getAddress());

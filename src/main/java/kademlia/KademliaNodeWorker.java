@@ -57,6 +57,7 @@ public class KademliaNodeWorker {
 	
 	private KBuckets kbuckets;
 	private ConcurrentHashMap<KademliaId, HashTableValueWrapper> localHashMap;
+	private ConcurrentHashMap<KademliaNode, Long> nodeLastSeen;
 	
 	// Listeners
 	private FindNodeResponseListener findNodeResponseListener;
@@ -68,6 +69,7 @@ public class KademliaNodeWorker {
 		this.kbuckets = new KBuckets(node.getId(), bootstrapResponse.getOthersList());
 		this.messageManager = messageManager;
 		this.localHashMap = new ConcurrentHashMap<KademliaId, HashTableValueWrapper>();
+		this.nodeLastSeen = new ConcurrentHashMap<KademliaNode, Long>();
 		registerListeners();
 	}
 
@@ -225,7 +227,8 @@ public class KademliaNodeWorker {
 		KademliaId key = KademliaUtils.generateId(id);
 		HashTableValue val = findValue(key);
 		if (val == null) System.out.println("Got NULL");
-		else System.out.println("Got value: "+val.getTmp());		
+		else System.out.println("Got value: "+val.getTmp());
+		System.out.println("I have "+localHashMap.size());
 	}
 
 	public KademliaNode getNode() {
@@ -306,7 +309,10 @@ public class KademliaNodeWorker {
 	
 	public void addToKBuckets(KademliaNode node) {
 		kbuckets.add(node);
-		sendAllValuesToNode(node);
+		Long lastSeen = nodeLastSeen.get(node);
+		if (lastSeen == null) lastSeen = 0L;
+		sendAllValuesToNode(node, lastSeen);
+		nodeLastSeen.put(node, System.currentTimeMillis());
 	}
 	
 	public KBuckets getKbuckets() {
@@ -330,7 +336,7 @@ public class KademliaNodeWorker {
 	}
 	
 	public void sendStoreRequest(KademliaNode receiver, KademliaId key, HashTableValue value, boolean checkDistance) {
-		if 	((checkDistance) &&
+		if 	((!checkDistance) ||
 			(KademliaUtils.compare(	KademliaUtils.XOR(node.getId(), key),
 									KademliaUtils.XOR(receiver.getId(), key)) != -1)) {
 				StoreRequest request = StoreRequestFactory.make(key, value);
@@ -339,9 +345,10 @@ public class KademliaNodeWorker {
 		}
 	}
 	
-	public void sendAllValuesToNode(KademliaNode target) {
+	public void sendAllValuesToNode(KademliaNode target, long newerThan) {
 		for (Entry<KademliaId, HashTableValueWrapper> tableEntry: getAllLocalHashMapItems()) {
-			if (!tableEntry.getValue().isFresh())
+			//if (!tableEntry.getValue().isFresh())
+			if (tableEntry.getValue().getLastUpdated() > newerThan)
 				sendStoreRequest(target, tableEntry.getKey(), tableEntry.getValue().getValue(), true);
 		}
 	}
