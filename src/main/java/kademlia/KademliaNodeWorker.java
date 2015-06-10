@@ -469,20 +469,20 @@ public class KademliaNodeWorker {
 		return findValue(SEGMENT_TREE_ROOT_ID);
 	}
 
-	public ImageProto assembleImage(int totalParts, int validParts) {
-		List<ImageProto> imageParts = new ArrayList<ImageProto>();
+	public ImageProto assembleImage(int totalParts, int validParts, int height, int width) {
+		List<TaskResult> imageParts = new ArrayList<TaskResult>();
 		
 		// Iterate through ids of the tasks that are valid
 		for (int id = totalParts; id < totalParts + validParts; id++) {
 			KademliaId kademliaId = KademliaUtils.generateId(id);
 			HashTableValue value = findValue(kademliaId);
 			if (value.hasResult()) {
-				imageParts.add(value.getResult().getBluredImage());
+				imageParts.add(value.getResult());
 			} else {
 				throw new IllegalStateException("This state should not be possibled!");
 			}
 		}
 		
-		return ImageProtoUtils.assembleImage(imageParts);
+		return ImageProtoUtils.assembleImage(imageParts, height, width);
 	}
 }

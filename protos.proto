@@ -111,6 +111,8 @@ message ImageTask {
 	optional BlurArea wholeImageBlurArea = 3;
 	optional int32 radius = 4;
 	optional bool fake = 5;
+	optional int32 wholeImageHeight = 6;
+	optional int32 wholeImageWidth = 7;
 }
 
 message TaskResult {

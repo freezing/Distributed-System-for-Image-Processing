@@ -1,16 +1,11 @@
 package kademlia;
 
-import java.util.List;
-import java.util.Scanner;
-
 import listeners.BootstrapConnectResponseListener;
 import network.MessageManager;
 import network.MessageType;
 import protos.KademliaProtos.BootstrapConnectRequest;
 import protos.KademliaProtos.BootstrapConnectResponse;
-import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
-import utils.KademliaUtils;
 import factories.MessageContainerFactory;
 
 public class KademliaNodeRunner implements Runnable {
