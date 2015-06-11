@@ -191,10 +191,13 @@ public class KademliaNodeWorker {
 	}
 	
 	public void store(KademliaId key, HashTableValue value) {
+		store(key, value, false);
+	}
+	
+	public void store(KademliaId key, HashTableValue value, boolean checkDistance) {
 		List<KademliaNode> closest = findNode(key);
 		for (KademliaNode node : closest) {
-			//System.out.println(node);
-			sendStoreRequest(node, key, value);
+			sendStoreRequest(node, key, value, checkDistance);
 		}
 	}
 	

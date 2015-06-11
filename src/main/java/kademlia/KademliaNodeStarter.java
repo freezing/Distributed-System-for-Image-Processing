@@ -106,21 +106,24 @@ public class KademliaNodeStarter implements Runnable {
 		for (int i=0; i<howMany; i++) {
 			new KademliaNodeRunner(20000+whereFrom+i, "localhost", 19803).run();
 		}*/
+		long a = System.currentTimeMillis();
 		int i = 0;
-		for (; i<500; i++) {
+		for (; i<50; i++) {
 			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
 		}
 		Thread.sleep(2000);
 		new KademliaNodeStarter(20000+i++, "localhost", 19803).testStore();
-		Thread.sleep(2000);
-		/*for (; i<1000; i++) {
+		for (; i<1000; i++) {
 			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
-		}*/
+		}
+		System.out.println(System.currentTimeMillis()-a);
+		Thread.sleep(40000);
+		
 		/*for (; i<70; i++) {
 			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
 		}
 		Thread.sleep(5000);*/
-	//	Thread.sleep(5000);
+		//Thread.sleep(5000);
 		KademliaNodeStarter runner = new KademliaNodeStarter(20000+i++, "localhost", 19803);
 		Thread.sleep(5000);
 		runner.testGet();

@@ -33,6 +33,6 @@ public class SingleKBucket {
 	}
 	
 	public boolean isFresh() {
-		return ((System.currentTimeMillis()-lastModified)/1000) <= Constants.KBUCKET_FRESH_DURATION;
+		return ((System.currentTimeMillis()-lastModified)/1000) <= Constants.KBUCKET_FRESH_DURATION_S;
 	}
 }
