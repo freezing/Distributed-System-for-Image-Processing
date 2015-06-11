@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import listeners.BlurImageRequestListener;
 import listeners.BlurResultRequestListener;
+import listeners.BlurResultResponseListener;
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
@@ -80,7 +81,7 @@ public class KademliaNodeWorker {
 	public void run() {
 		//System.out.println(KademliaUtils.idToString(node.getId()));
 		new Thread(new KademliaRepublisher(this)).start();
-		//taskManager.run(); TODO uncomment
+		taskManager.run();
 	}
 
 	public void testStore(int id, String val) {
@@ -138,16 +139,7 @@ public class KademliaNodeWorker {
 		FindValueRequest request = FindValueRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node, request);
 		findValueResponseListener.addValueExpectation(id);
-		
-		long currentTime = System.currentTimeMillis();
-		
-		findNodeOrValue(id, findValueResponseListener, message);
-		
-		long elapsedTime = System.currentTimeMillis() - currentTime;
-		if (getNode().getPort() == 20000) {
-			Debug.println(102, "Elapsed time for findNodeOrValue: " + elapsedTime);
-		}
-		
+		findNodeOrValue(id, findValueResponseListener, message);		
 		HashTableValue result = findValueResponseListener.getValue(id);
 		KademliaNode node = findValueResponseListener.getClosestNodeIfNotStored(id);
 		if (node != null) {

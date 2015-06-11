@@ -18,7 +18,7 @@ public class BlurResultResponseListener implements MessageListener {
 		BlurResultResponse response = BlurResultResponseFactory.make(message);
 		
 		if (response.hasImage()) {
-			client.setBluredImage(response.getImage());					
+			client.setBluredImage(response.getImage());
 		}
 		client.setPercentageDone(response.getPercentage());
 	}

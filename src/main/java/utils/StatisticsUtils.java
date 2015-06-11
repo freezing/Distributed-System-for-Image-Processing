@@ -6,6 +6,9 @@ import util.Constants;
 public class StatisticsUtils {
 
 	public static boolean isAllFinished(HashTableValue value) {
+		if (value == null) {
+			return false;
+		}
 		return value.getFinishedTasks() == value.getValidTasks();
 	}
 
@@ -43,6 +46,10 @@ public class StatisticsUtils {
 	}
 
 	public static float calculatePercentage(HashTableValue rootValue) {
+		if (rootValue == null) {
+			return 0;
+		}
+		
 		float percentage = (float)(rootValue.getFinishedTasks()) / (float)(rootValue.getValidTasks());
 		return percentage * 100.0f;
 	}
