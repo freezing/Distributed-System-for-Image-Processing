@@ -1,10 +1,11 @@
 package listeners;
 
-import com.google.protobuf.InvalidProtocolBufferException;
-
 import kademlia.KademliaNodeWorker;
 import protos.KademliaProtos.FindNodeResponse;
+import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
+
+import com.google.protobuf.InvalidProtocolBufferException;
 
 public class FindNodeResponseListener extends FindAnythingResponseListener {
 
@@ -32,7 +33,7 @@ public class FindNodeResponseListener extends FindAnythingResponseListener {
 	}
 	
 	// FIND_NODE will never have a value
-	public boolean hasValue() {
+	public boolean hasValue(KademliaId id) {
 		return false;
 	}
 }

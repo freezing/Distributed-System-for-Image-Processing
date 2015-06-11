@@ -1,11 +1,13 @@
 package utils;
 
 import java.util.BitSet;
+import java.util.Comparator;
 import java.util.Random;
 
 import com.google.protobuf.ByteString;
 
 import protos.KademliaProtos.KademliaId;
+import protos.KademliaProtos.KademliaNode;
 import sha.Sha;
 import util.Constants;
 
@@ -47,6 +49,18 @@ public class KademliaUtils {
 		return 0;
 	}
 	
+	public static Comparator<KademliaNode> makeComparator(final KademliaId compareId) {
+		return new Comparator<KademliaNode>() {
+
+			public int compare(KademliaNode a, KademliaNode b) {
+				KademliaId ax = KademliaUtils.XOR(a.getId(), compareId);
+				KademliaId bx = KademliaUtils.XOR(b.getId(), compareId);
+				return KademliaUtils.compare(ax, bx);
+			}
+			
+		};
+	}
+
 	public static KademliaId generateId(int id) {
 		byte[] bytes = Sha.getInstance().digest(id);
 		return KademliaId.newBuilder()

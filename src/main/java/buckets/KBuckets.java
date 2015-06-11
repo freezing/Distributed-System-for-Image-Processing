@@ -56,15 +56,7 @@ public class KBuckets {
 			nodes.addAll(singleBucket.getNodes());
 		}
 		
-		Collections.sort(nodes, new Comparator<KademliaNode>() {
-
-			public int compare(KademliaNode a, KademliaNode b) {
-				KademliaId ax = KademliaUtils.XOR(a.getId(), id);
-				KademliaId bx = KademliaUtils.XOR(b.getId(), id);
-				return KademliaUtils.compare(ax, bx);
-			}
-			
-		});
+		Collections.sort(nodes, KademliaUtils.makeComparator(id));
 		return nodes.subList(0, Math.min(nodes.size(), Constants.K));
 	}
 	

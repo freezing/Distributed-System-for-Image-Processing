@@ -21,6 +21,6 @@ public class HashTableValueWrapper {
 	}
 	
 	public boolean isFresh() {
-		return ((System.currentTimeMillis()-lastUpdated)/1000) <= Constants.HASHTABLEVALUE_FRESH_DURATION;
+		return ((System.currentTimeMillis()-lastUpdated)/1000) <= Constants.HASHTABLEVALUE_FRESH_DURATION_S;
 	}
 }

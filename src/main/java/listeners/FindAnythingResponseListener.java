@@ -17,7 +17,7 @@ public abstract class FindAnythingResponseListener implements MessageListener {
 
 	public abstract void messageReceived(String ip, KademliaNode sender, byte[] message);
 	
-	public abstract boolean hasValue();
+	public abstract boolean hasValue(KademliaId id);
 
 	public void put(KademliaId key, CountDownLatch value) {
 		latchMap.put(key, value);

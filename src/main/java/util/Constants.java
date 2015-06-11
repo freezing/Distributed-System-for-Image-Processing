@@ -9,6 +9,7 @@ public final class Constants {
 	public static final int UNIT_TASK_IMAGE_HEIGHT = 30;
 	public static final int UNIT_TASK_IMAGE_WIDTH = 30;
 	public static final long JOB_TIMEOUT_TIME_MS = 10 * 1000;
-	public static final long HASHTABLEVALUE_FRESH_DURATION = 10;
-	public static final long KBUCKET_FRESH_DURATION = 600;
+	public static final int REPUBLISH_PERIOD_S = 35;
+	public static final long HASHTABLEVALUE_FRESH_DURATION_S = 10;
+	public static final long KBUCKET_FRESH_DURATION_S = 600;
 }

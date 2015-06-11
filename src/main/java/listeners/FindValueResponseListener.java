@@ -1,24 +1,75 @@
 package listeners;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import kademlia.KademliaNodeWorker;
 import protos.KademliaProtos.FindValueResponse;
 import protos.KademliaProtos.HashTableValue;
+import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
+import utils.KademliaUtils;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
 public class FindValueResponseListener extends FindAnythingResponseListener {
 	
-	public static class NonConsistentValueException extends Exception {
-		private static final long serialVersionUID = -6876837256450445333L;
+	private class HashTableValueWithSender {
+		private HashTableValue value;
+		private KademliaNode sender;
+		
+		public HashTableValueWithSender(HashTableValue value, KademliaNode sender) {
+			this.value = value;
+			this.sender = sender;
+		}
+		
+		public HashTableValue getValue() {
+			return value;
+		}
+		
+		public KademliaId getDistance(KademliaId from) {
+			return KademliaUtils.XOR(sender.getId(), from);
+		}
+	}
+	
+	private class HashTableValueBucket {
+		private ArrayList<HashTableValueWithSender> buckets = new ArrayList<HashTableValueWithSender>();
+		private int count = 1;
+		
+		public synchronized void incrementCount() {
+			count++;
+		}
+		
+		public synchronized boolean decrementCount() {
+			count--;
+			if (count == 0) return true;
+			return false;
+		}
+		
+		public synchronized void addToBucket(HashTableValueWithSender value) {
+			buckets.add(value);
+		}
+		
+		public synchronized boolean isEmpty() {
+			return buckets.isEmpty();
+		}
+		
+		public synchronized HashTableValue getBest(final KademliaId id) {
+			HashTableValueWithSender value = Collections.min(buckets, new Comparator<HashTableValueWithSender>() {
+				public int compare(HashTableValueWithSender o1, HashTableValueWithSender o2) {
+					return KademliaUtils.compare(o1.getDistance(id), o2.getDistance(id));
+				}
+			});
+			return value.getValue();
+		}
 	}
 
 	private KademliaNodeWorker worker;
 
-	private Set<HashTableValue> valueSet = new HashSet<HashTableValue>();
+	private Map<KademliaId,HashTableValueBucket> valueMap = new ConcurrentHashMap<KademliaId,HashTableValueBucket>();
 	
 	public FindValueResponseListener(KademliaNodeWorker worker) {
 		super();
@@ -32,8 +83,9 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 		worker.addToKBuckets(sender);
 		
 		if (response.hasValueResult()) {
-			synchronized(valueSet) {
-				valueSet.add(response.getValueResult());
+			HashTableValueBucket valueBucket = valueMap.get(response.getSearchId());
+			if (valueBucket != null) {
+				valueBucket.addToBucket(new HashTableValueWithSender(response.getValueResult(), sender));
 			}
 		}
 		
@@ -49,35 +101,37 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 	}
 	
 	@Override
-	public boolean hasValue() {
-		synchronized(valueSet) {
-			return !valueSet.isEmpty();
+	public boolean hasValue(KademliaId id) {
+		if (valueMap.containsKey(id)) {
+			return !valueMap.get(id).isEmpty();
 		}
+		return false;
 	}
 	
-	public HashTableValue getValue() throws NonConsistentValueException {
-		int size;
-		synchronized(valueSet) {
-			size = valueSet.size();
-		}
-		if (size == 0) return null;
-		else if (size == 1) {
-			return (HashTableValue)valueSet.toArray()[0];
-		} else {
-			if (worker.getNode().getPort() == 20000) {
-				for (HashTableValue value : valueSet) {
-					System.out.println("============ EXCEPTION VALUES ======================================================================");
-					System.out.println(value);
-					System.out.println("==================================================================================");
-				}
+	public HashTableValue getValue(KademliaId id) {
+		HashTableValueBucket valueBucket = valueMap.get(id);
+		if (valueBucket != null) {
+			if (valueBucket.isEmpty()) return null;
+			else {
+				return valueBucket.getBest(id);
 			}
-			throw new NonConsistentValueException();
+		}
+		return null;
+	}
+	
+	public synchronized void addValueExpectation(KademliaId id) {
+		if (valueMap.containsKey(id)) {
+			valueMap.get(id).incrementCount();
+		} else {
+			valueMap.put(id, new HashTableValueBucket());
 		}
 	}
 	
-	public void resetValue() {
-		synchronized(valueSet) {
-			valueSet.clear();
+	public synchronized void removeValueExpectation(KademliaId id) {
+		if (valueMap.containsKey(id)) {
+			if (valueMap.get(id).decrementCount()) {
+				valueMap.remove(id);
+			}
 		}
 	}
 

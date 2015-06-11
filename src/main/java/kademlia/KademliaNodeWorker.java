@@ -131,17 +131,15 @@ public class KademliaNodeWorker {
 	public HashTableValue findValue(KademliaId id) {
 		FindValueRequest request = FindValueRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node, request);
-		findValueResponseListener.resetValue();
+		findValueResponseListener.addValueExpectation(id);
 		findNodeOrValue(id, findValueResponseListener, message);
-		try {
-			return findValueResponseListener.getValue();
-		} catch (NonConsistentValueException e) {
-			throw new RuntimeException(e);
-		}
+		HashTableValue result = findValueResponseListener.getValue(id);
+		findValueResponseListener.removeValueExpectation(id);
+		return result;
 	}
 
+	private List<KademliaNode> findNodeOrValue(KademliaId id, FindAnythingResponseListener listener, MessageContainer message) {
 		List<KademliaNode> prevClosest = null;
-		private List<KademliaNode> findNodeOrValue(KademliaId id, FindAnythingResponseListener listener, MessageContainer message) {
 		
 		Set<KademliaId> visited = new HashSet<KademliaId>();
 
@@ -165,7 +163,7 @@ public class KademliaNodeWorker {
 				e.printStackTrace();
 			}
 			
-			if (listener.hasValue()) break;
+			if (listener.hasValue(id)) break;
 			
 			depth++;
 		}
@@ -191,13 +189,13 @@ public class KademliaNodeWorker {
 	}
 	
 	public void store(KademliaId key, HashTableValue value) {
-	//	long currentTimeMS = System.currentTimeMillis();
+		store(key, value, false);
+	}
+	
+	public void store(KademliaId key, HashTableValue value, boolean checkDistance) {
 		List<KademliaNode> closest = findNode(key);
-	//	long elapsedTimeMS = System.currentTimeMillis() - currentTimeMS;
-	//	if (getNode().getPort() == 20000) System.out.println("Elapsed time for findNode: " + elapsedTimeMS);
 		for (KademliaNode node : closest) {
-			//System.out.println(node);
-			sendStoreRequest(node, key, value);
+			sendStoreRequest(node, key, value, checkDistance);
 		}
 	}
 	
