@@ -11,6 +11,7 @@ import listeners.BlurResultResponseListener;
 import network.MessageManager;
 import network.MessageType;
 import protos.KademliaProtos.BlurImageRequest;
+import protos.KademliaProtos.BlurResultRequest;
 import protos.KademliaProtos.ImageProto;
 import protos.KademliaProtos.ImageRow;
 import protos.KademliaProtos.KademliaNode;
@@ -25,11 +26,15 @@ public class Client {
 	private File imageFile;
 	private int radius;
 	private KademliaNode receiver;
+	private KademliaNode clientNode;
 	
 	private BufferedImage bluredImage;
 	
 	public Client(String imagePath, int radius, int port, KademliaNode receiver) throws IOException {
+		this.clientNode = KademliaNode.newBuilder().setAddress("localhost").setPort(port).build();
 		messageManager = new MessageManager(port);
+		messageManager.startListening();
+		
 		messageManager.registerListener(MessageType.BLUR_RESULT_RESPONSE, new BlurResultResponseListener(this));
 		
 		this.imageFile = new File(imagePath);
@@ -37,13 +42,25 @@ public class Client {
 		this.receiver = receiver;
 	}
 	
-	public void run() throws IOException {
+	public void run() throws IOException, InterruptedException {
 		BufferedImage image = ImageIO.read(imageFile);
 		ImageProto imageProto = makeImageProto(image);
 		BlurImageRequest blurImageRequest = BlurImageRequestFactory.make(imageProto, radius);
 		MessageContainer message = MessageContainerFactory.make(receiver, blurImageRequest);
-		System.out.println(message.toByteArray().length);
 		messageManager.sendMessage(receiver, message);
+
+		while (true) {
+			if (bluredImage != null) {
+				break;
+			}
+			
+			Thread.sleep(2000);
+			BlurResultRequest request = BlurResultRequest.newBuilder().setDummy("dummy").build();
+			MessageContainer msg = MessageContainerFactory.make(clientNode, request);
+			messageManager.sendMessage(receiver, msg);
+		}
+		
+		ImageIO.write(bluredImage, "png", new File("/home/nikola/Desktop/blured.png"));
 	}
 	
 	private ImageProto makeImageProto(BufferedImage image) {
@@ -68,21 +85,28 @@ public class Client {
 	}
 
 	public void setBluredImage(ImageProto imageProto) {
-		// TODO Auto-generated method stub
-		// Set blured image from image proto
+		BufferedImage bufferedImage = new BufferedImage(imageProto.getWidth(), imageProto.getHeight(), BufferedImage.TYPE_3BYTE_BGR);
+		for (int y = 0; y < imageProto.getHeight(); y++) {
+			for (int x = 0; x < imageProto.getWidth(); x++) {
+				Pixel pixel = imageProto.getRows(y).getPixels(x);
+				int rgb = new Color(pixel.getRed(), pixel.getGreen(), pixel.getBlue()).getRGB();
+				bufferedImage.setRGB(x, y, rgb);
+			}
+		}
+		bluredImage = bufferedImage;
 	}
 
 	public void setPercentageDone(float percentage) {
 		System.out.println("Percentage done: " + percentage);
 	}
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, InterruptedException {
 		System.out.println("Starting client");
 		KademliaNode node = KademliaNode.newBuilder()
 				.setAddress("localhost")
 				.setPort(20000)
 				.build();
-		Client client = new Client("/home/maverick/workspace/KIDS/1.bmp", 5, 22000, node);
+		Client client = new Client("/home/nikola/Pictures/1.bmp", 5, 22000, node);
 		client.run();
 	}
 }

@@ -7,13 +7,11 @@ import protos.KademliaProtos.BlurResultResponse;
 import protos.KademliaProtos.HashTableValue;
 import protos.KademliaProtos.ImageProto;
 import protos.KademliaProtos.KademliaNode;
-import protos.KademliaProtos.MessageContainer;
 import utils.StatisticsUtils;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 
 import factories.BlurResultResponseFactory;
-import factories.MessageContainerFactory;
 
 public class BlurResultRequestListener implements MessageListener {
 	private KademliaNodeTaskManager taskManager;

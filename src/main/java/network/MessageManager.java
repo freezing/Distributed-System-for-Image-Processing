@@ -63,11 +63,9 @@ public class MessageManager {
 						for (MessageListener listener : listenerList) {
 							KademliaNode sender = message.hasSender() ? message.getSender() : null;
 							
-							System.out.println("enter "+MessageType.values()[message.getType()]);
 							listener.messageReceived(receivePacket.getAddress()
 									.getHostAddress(), sender,
 									message.getData().toByteArray());
-							System.out.println("exit "+MessageType.values()[message.getType()]);
 						}
 					}
 				}

@@ -80,7 +80,7 @@ public class KademliaNodeWorker {
 	public void run() {
 		//System.out.println(KademliaUtils.idToString(node.getId()));
 		new Thread(new KademliaRepublisher(this)).start();
-		//taskManager.run(); TODO uncomment
+		taskManager.run();
 	}
 
 	public void testStore(int id, String val) {
@@ -138,16 +138,7 @@ public class KademliaNodeWorker {
 		FindValueRequest request = FindValueRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node, request);
 		findValueResponseListener.addValueExpectation(id);
-		
-		long currentTime = System.currentTimeMillis();
-		
-		findNodeOrValue(id, findValueResponseListener, message);
-		
-		long elapsedTime = System.currentTimeMillis() - currentTime;
-		if (getNode().getPort() == 20000) {
-			System.out.println("Elapsed time for findNodeOrValue: " + elapsedTime);
-		}
-		
+		findNodeOrValue(id, findValueResponseListener, message);		
 		HashTableValue result = findValueResponseListener.getValue(id);
 		findValueResponseListener.removeValueExpectation(id);
 		return result;

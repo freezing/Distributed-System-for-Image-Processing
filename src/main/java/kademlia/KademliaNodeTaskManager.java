@@ -39,6 +39,7 @@ public class KademliaNodeTaskManager {
 			if (rootValue != null && !StatisticsUtils.isAllFinished(rootValue)) {
 				// Access random task
 				int nextRandomTaskId = rnd.nextInt(rootValue.getValidTasks()) + rootValue.getTotalTasks();
+				System.out.println("Random task id: = " + nextRandomTaskId);
 				HashTableValue taskValue = getTask(nextRandomTaskId);
 				if (taskValue != null) {
 					System.out.println("Found task");
@@ -48,26 +49,26 @@ public class KademliaNodeTaskManager {
 					
 					// Store it in the 
 					worker.store(taskValue.getSegmentTreeNode().getMyId(), taskValueBuilder.build());
-					System.out.println("Updated task timestamp");
+		//			System.out.println("Updated task timestamp");
 					updateSegmentTreeParent(taskValue.getSegmentTreeNode().getParentId());
-					System.out.println("Updated parents");
+		//			System.out.println("Updated parents");
 					
 					// Start work on the task
-					System.out.println("Bluring task....");
+		//			System.out.println("Bluring task....");
 					TaskResult result = processTask(taskValue);
-					System.out.println("Finished bluring");
+		//			System.out.println("Finished bluring");
 					
 					// And update when finished
 					HashTableValue resultValue = taskValueBuilder
 						.setFinishedTasks(1)
 						.setResult(result)
 						.build();
-					System.out.println("Storing finished task...");
+		//			System.out.println("Storing finished task...");
 					worker.store(resultValue.getSegmentTreeNode().getMyId(), resultValue);
-					System.out.println("Storing finished");
-					System.out.println("Updating parents...");
+		//			System.out.println("Storing finished");
+		//			System.out.println("Updating parents...");
 					updateSegmentTreeParent(resultValue.getSegmentTreeNode().getParentId());
-					System.out.println("Updated parents");
+		//			System.out.println("Updated parents");
 				} else {
 					System.out.println("Potential value doesn't exists, everything's finished");
 				}
@@ -91,18 +92,24 @@ public class KademliaNodeTaskManager {
 	private void updateSegmentTreeParent(KademliaId parentId) {
 		KademliaId currentId = parentId;
 		
+		int depth = 0;
 		while (currentId != null) {
-			System.out.println("Finding values...");
-			HashTableValue parentValue = worker.findValue(parentId);
+			depth++;
+			if (depth > 1000) {
+				throw new RuntimeException("Parent MUST be reached eventually");
+			}
+			
+			HashTableValue parentValue = worker.findValue(currentId);
 			HashTableValue leftChildValue = worker.findValue(parentValue.getSegmentTreeNode().getLeftChildId());
-			HashTableValue rightChildValue = worker.findValue(parentValue.getSegmentTreeNode().getLeftChildId());
-			System.out.println("Found all 3 values");
+			HashTableValue rightChildValue = worker.findValue(parentValue.getSegmentTreeNode().getRightChildId());
 			
 			HashTableValue newParentValue = HashTableValueUtils.updateParent(parentValue, leftChildValue, rightChildValue);
 			worker.store(newParentValue.getSegmentTreeNode().getMyId(), newParentValue);
-			currentId = parentValue.getSegmentTreeNode().getParentId();
-			if (currentId == null) {
-				System.out.println("Percentage: " + StatisticsUtils.calculatePercentage(newParentValue));
+			
+			if (parentValue.getSegmentTreeNode().hasParentId()) {
+				currentId = parentValue.getSegmentTreeNode().getParentId();
+			} else {
+				currentId = null;
 			}
 		}
 	}
@@ -202,6 +209,16 @@ public class KademliaNodeTaskManager {
 
 		// Then create parent nodes
 		createParentNodes(id, values);
+		
+		for (int i = unitTasks.size(); i < 2 * unitTasks.size(); i++) {
+			KademliaId mid = KademliaUtils.generateId(id);
+			HashTableValue value = worker.findValue(mid);
+			if (value == null) {
+				throw new RuntimeException("Value is null for id: " + i);
+			} else {
+				System.out.println("Value: " + i);
+			}
+		}
 	}
 
 	private void createParentNodes(int id, HashTableValue[] values) {

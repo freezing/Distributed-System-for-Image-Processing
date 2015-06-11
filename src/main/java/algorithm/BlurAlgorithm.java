@@ -6,7 +6,6 @@ import protos.KademliaProtos.ImageRow;
 import protos.KademliaProtos.ImageTask;
 import protos.KademliaProtos.Pixel;
 import protos.KademliaProtos.TaskResult;
-import utils.ImageProtoUtils;
 
 public class BlurAlgorithm {
 
@@ -50,8 +49,8 @@ public class BlurAlgorithm {
 				blurRow.addPixels(blurPixel);
 			}
 			blurBuilder.addRows(blurRow.build());
-		}		
-		return ImageProtoUtils.subImage(blurBuilder.build(), blurArea);
+		}
+		return blurBuilder.build();
 	}
 
 	private static Pixel getPixel(ImageProto subImage, int y, int x) {

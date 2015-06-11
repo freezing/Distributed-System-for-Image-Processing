@@ -12,6 +12,15 @@ import sha.Sha;
 import util.Constants;
 
 public class KademliaUtils {
+	public static int crackSha(KademliaId id) {
+		for (int i = 0; i < 10000; i++) {
+			if (generateId(i).equals(id)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
 	public static int xorDistance(KademliaId a, KademliaId b) {
 		KademliaId id = XOR(a, b);
 		return cardinality(id);
