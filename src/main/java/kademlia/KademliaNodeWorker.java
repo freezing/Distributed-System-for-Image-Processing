@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 import listeners.BlurImageRequestListener;
 import listeners.BlurResultRequestListener;
-import listeners.BlurResultResponseListener;
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
@@ -30,6 +29,7 @@ import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
 import protos.KademliaProtos.StoreRequest;
+import test.Debug;
 import util.Constants;
 import utils.KademliaUtils;
 import buckets.KBuckets;
@@ -93,8 +93,8 @@ public class KademliaNodeWorker {
 	public void testGet(int id) {
 		KademliaId key = KademliaUtils.generateId(id);
 		HashTableValue val = findValue(key);
-		if (val == null) System.out.println("Got NULL");
-		else System.out.println("Got value: ["+id+"] = "+val.getTmp());
+		if (val == null) Debug.println(101, "Got NULL");
+		else Debug.println(101, "Got value: ["+id+"] = "+val.getTmp());
 		//System.out.println("I have "+localHashMap.size());
 	}
 
@@ -145,7 +145,7 @@ public class KademliaNodeWorker {
 		
 		long elapsedTime = System.currentTimeMillis() - currentTime;
 		if (getNode().getPort() == 20000) {
-			System.out.println("Elapsed time for findNodeOrValue: " + elapsedTime);
+			Debug.println(102, "Elapsed time for findNodeOrValue: " + elapsedTime);
 		}
 		
 		HashTableValue result = findValueResponseListener.getValue(id);
@@ -232,7 +232,7 @@ public class KademliaNodeWorker {
 
 	public void putToLocalHashMap(KademliaId key, HashTableValue value) {
 		if (localHashMap.size() == 100) {
-			System.out.println("Node "+KademliaUtils.idToString(node.getId())+" reached 100 entries!");
+			Debug.println(103, "Node "+KademliaUtils.idToString(node.getId())+" reached 100 entries!");
 		}
 		localHashMap.put(key, new HashTableValueWrapper(value));
 	}

@@ -52,7 +52,7 @@ public class TCPMessageManager {
 					    for (int i=0; i<4; i++) {
 					    	int b = inFromClient.read();
 					        if (b == -1) {
-					            System.out.println("pojebalo se nesto sa TCP-om");
+					            System.out.println("greska sa TCP-om");
 					        }
 					        bf.put( (byte) b);
 					    }
