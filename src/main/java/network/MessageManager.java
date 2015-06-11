@@ -9,24 +9,25 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
 
 import com.google.protobuf.InvalidProtocolBufferException;
-import com.google.protobuf.Message;
 
 public class MessageManager {
 	private Thread listenerThread;
-	private HashMap<Integer, ArrayList<MessageListener>> listeners;
+	private HashMap<Integer, List<MessageListener>> listeners;
 	private DatagramSocket serverSocket;
 
 	public MessageManager(int port) {
-		listeners = new HashMap<Integer, ArrayList<MessageListener>>(
+		listeners = new HashMap<Integer, List<MessageListener>>(
 				MessageType.values().length);
 
 		for (MessageType msgtype : MessageType.values()) {
-			listeners.put(msgtype.getValue(), new ArrayList<MessageListener>());
+			listeners.put(msgtype.getValue(), new LinkedList<MessageListener>());
 		}
 
 		try {
@@ -57,7 +58,7 @@ public class MessageManager {
 						throw new RuntimeException(e);
 					}
 					
-					ArrayList<MessageListener> listenerList = listeners
+					List<MessageListener> listenerList = listeners
 							.get(message.getType());
 					if (listenerList != null) {
 						for (MessageListener listener : listenerList) {
@@ -90,10 +91,20 @@ public class MessageManager {
 	}
 
 	public void registerListener(MessageType type, MessageListener listener) {
-		ArrayList<MessageListener> listenerList = listeners
+		List<MessageListener> listenerList = listeners
 				.get(type.getValue());
 		if (listenerList != null) {
 			listenerList.add(listener);
+		} else {
+			System.out.println("not registered");
+		}
+	}
+	
+	public void unregisterListener(MessageType type, MessageListener listener) {
+		List<MessageListener> listenerList = listeners
+				.get(type.getValue());
+		if (listenerList != null) {
+			listenerList.remove(listener);
 		} else {
 			System.out.println("not registered");
 		}

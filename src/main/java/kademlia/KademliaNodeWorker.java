@@ -149,6 +149,13 @@ public class KademliaNodeWorker {
 		}
 		
 		HashTableValue result = findValueResponseListener.getValue(id);
+		KademliaNode node = findValueResponseListener.getClosestNodeIfNotStored(id);
+		if (node != null) {
+			// resend to best node
+			Debug.println(104, "resend");
+			sendStoreRequest(node, id, result);
+		}
+		
 		findValueResponseListener.removeValueExpectation(id);
 		return result;
 	}

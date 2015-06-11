@@ -37,6 +37,10 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 	
 	private class HashTableValueBucket {
 		private ArrayList<HashTableValueWithSender> buckets = new ArrayList<HashTableValueWithSender>();
+		
+		private KademliaNode closest = null;
+		private boolean isStored = false;
+		
 		private int count = 1;
 		
 		public synchronized void incrementCount() {
@@ -65,6 +69,25 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 			});
 			return value.getValue();
 		}
+		
+		public synchronized KademliaNode getClosestNodeIfNotStored() {
+			if (!isStored) return closest;
+			return null;
+		}
+		
+		public void updateClosest(KademliaId id, KademliaNode node, boolean returnedValue) {
+			if (closest == null) {
+				closest = node;
+				isStored = returnedValue;
+			} else {
+				KademliaId o1 = KademliaUtils.XOR(id, node.getId());
+				KademliaId o2 = KademliaUtils.XOR(id, closest.getId());
+				if (KademliaUtils.compare(o1, o2) == -1) {
+					closest = node;
+					isStored = returnedValue;
+				}
+			}
+		}
 	}
 
 	private KademliaNodeWorker worker;
@@ -81,11 +104,15 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 		FindValueResponse response = parseResponse(message);
 		worker.addAllToKBuckets(response.getResultsList());
 		worker.addToKBuckets(sender);
-		
-		if (response.hasValueResult()) {
-			HashTableValueBucket valueBucket = valueMap.get(response.getSearchId());
-			if (valueBucket != null) {
+				
+		HashTableValueBucket valueBucket = valueMap.get(response.getSearchId());
+		if (valueBucket != null) {
+			if (response.hasValueResult()) {
+				valueBucket.updateClosest(response.getSearchId(), sender, true);
+				
 				valueBucket.addToBucket(new HashTableValueWithSender(response.getValueResult(), sender));
+			} else {
+				valueBucket.updateClosest(response.getSearchId(), sender, false);
 			}
 		}
 		
@@ -115,6 +142,14 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 			else {
 				return valueBucket.getBest(id);
 			}
+		}
+		return null;
+	}
+	
+	public KademliaNode getClosestNodeIfNotStored(KademliaId id) {
+		HashTableValueBucket valueBucket = valueMap.get(id);
+		if (valueBucket != null) {
+			return valueBucket.getClosestNodeIfNotStored();
 		}
 		return null;
 	}

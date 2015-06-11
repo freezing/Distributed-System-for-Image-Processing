@@ -1,5 +1,6 @@
 package bootstrap;
 
+import java.net.BindException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -10,7 +11,6 @@ import network.MessageType;
 import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
-import test.Debug;
 import util.Constants;
 import utils.KademliaUtils;
 
@@ -56,7 +56,7 @@ public class BootstrapServer {
 			BootstrapServer bs = new BootstrapServer(19803);
 			bs.run();
 		} catch (RuntimeException e) {
-			Debug.println(100, "Bootstrap already running!");
+			System.out.println("Bootstrap already running!");
 		}
 	}
 
