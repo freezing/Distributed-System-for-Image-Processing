@@ -36,7 +36,6 @@ public class FindValueRequestListener implements MessageListener {
 		if (value != null) {
 			response = FindValueResponse.newBuilder().setValueResult(value)
 					.setSearchId(request.getSearchId()).build();
-			System.out.println("Total in map: "+worker.getAllLocalHashMapItems().size());
 		} else {
 			List<KademliaNode> nodes = worker.getKbuckets().getKClosest(request.getSearchId());
 			
