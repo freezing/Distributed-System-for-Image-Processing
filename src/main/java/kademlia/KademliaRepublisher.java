@@ -6,6 +6,7 @@ import java.util.Random;
 
 import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
+import test.Debug;
 import util.Constants;
 
 public class KademliaRepublisher implements Runnable {
@@ -28,13 +29,14 @@ public class KademliaRepublisher implements Runnable {
 	}
 	
 	private void republishAllValues() {
-		System.out.println("republish");
 		ArrayList<Entry<KademliaId, HashTableValueWrapper>> rottenValues = new ArrayList<Entry<KademliaId, HashTableValueWrapper>>(); 
 		for (Entry<KademliaId, HashTableValueWrapper> tableEntry: worker.getAllLocalHashMapItems()) {
 			if (!tableEntry.getValue().isFresh()) {
 				rottenValues.add(tableEntry);
 			}
 		}
+		
+		Debug.println(100, "Sending "+rottenValues.size()+" out of "+worker.getAllLocalHashMapItems().size());
 		
 		for (Entry<KademliaId, HashTableValueWrapper> tableEntry: rottenValues) {
 			worker.store(tableEntry.getKey(), tableEntry.getValue().getValue(), true);

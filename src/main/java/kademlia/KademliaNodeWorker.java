@@ -30,6 +30,7 @@ import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
 import protos.KademliaProtos.StoreRequest;
+import test.Debug;
 import util.Constants;
 import utils.KademliaUtils;
 import buckets.KBuckets;
@@ -93,8 +94,8 @@ public class KademliaNodeWorker {
 	public void testGet(int id) {
 		KademliaId key = KademliaUtils.generateId(id);
 		HashTableValue val = findValue(key);
-		if (val == null) System.out.println("Got NULL");
-		else System.out.println("Got value: ["+id+"] = "+val.getTmp());
+		if (val == null) Debug.println(101, "Got NULL");
+		else Debug.println(101, "Got value: ["+id+"] = "+val.getTmp());
 		//System.out.println("I have "+localHashMap.size());
 	}
 
@@ -129,7 +130,7 @@ public class KademliaNodeWorker {
 		return findNodeOrValue(id, findNodeResponseListener, message);
 	}
 	
-	public synchronized HashTableValue findValue(KademliaId id) {
+	public HashTableValue findValue(KademliaId id) {
 		/*	try {
 				throw new Exception();
 			}catch (Exception e) {
@@ -223,7 +224,7 @@ public class KademliaNodeWorker {
 
 	public void putToLocalHashMap(KademliaId key, HashTableValue value) {
 		if (localHashMap.size() == 100) {
-			System.out.println("Node "+KademliaUtils.idToString(node.getId())+" reached 100 entries!");
+			Debug.println(103, "Node "+KademliaUtils.idToString(node.getId())+" reached 100 entries!");
 		}
 		localHashMap.put(key, new HashTableValueWrapper(value));
 	}
