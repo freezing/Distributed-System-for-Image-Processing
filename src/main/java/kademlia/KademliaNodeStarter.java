@@ -19,7 +19,7 @@ public class KademliaNodeStarter implements Runnable {
 	private BootstrapConnectResponseListener bootstrapListener;
 	private KademliaNode bootstrapNode;
 	private int myPort;
-	private KademliaNodeWorker worker;
+	KademliaNodeWorker worker;
 	
 	public KademliaNodeStarter(int myPort, String bootstrapIp, int bootstrapPort) {
 		this.myPort = myPort;
@@ -54,84 +54,11 @@ public class KademliaNodeStarter implements Runnable {
 		worker.findNode(KademliaUtils.randomId());
 		worker.findNode(KademliaUtils.randomId());
 		worker.findNode(KademliaUtils.randomId());
-		/*List<KademliaNode> results = worker.findNode(worker.getNode().getId());
-		for (KademliaNode result: results) {
-			KademliaId id = KademliaUtils.XOR(result.getId(), worker.getNode().getId());
-		}*/
+
 		worker.run();
-	}
-	
-	public void testStore() {
-		run();
-		
-		for (int i=5000; i<6000; i++) {
-			worker.testStore(i, (i-5000)+"");
-		}
-//		worker.testStore(10, "ABC");
-//		worker.testStore(100, "DADSD");
-//		worker.testStore(4545, "adsdasd");
-//		worker.testStore(5766, "sdsdsad");
-//		worker.testStore(21323, "zcxczx");
-	}
-	
-	public void testGet() {
-		run();
-		/*for (int i = 5000; i < 6000; i++) {
-			worker.testGet(i);
-		}*/
-		while (true) {
-			Random rand = new Random();
-			worker.testGet(rand.nextInt(1000)+5000);
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		/*worker.testGet(10);
-		worker.testGet(100);
-		worker.testGet(4545);
-		worker.testGet(5766);*/
 	}
 	
 	public void setBootstrapResponse(BootstrapConnectResponse bootstrapResponse) {
 		this.bootstrapResponse = bootstrapResponse;
-	}
-
-	public static void main(String[] args) throws InterruptedException, IOException {
-		/*Scanner scanner = new Scanner(System.in);
-		System.out.print("How many? ");
-		int howMany = scanner.nextInt();
-		System.out.print("Where from? ");
-		int whereFrom = scanner.nextInt();
-		for (int i=0; i<howMany; i++) {
-			new KademliaNodeRunner(20000+whereFrom+i, "localhost", 19803).run();
-		}*/
-		
-		final int N = 20;
-		
-		KademliaNodeStarter nodes[] = new KademliaNodeStarter[N];
-		
-		int i = 0;
-		for (; i<N; i++) {
-			nodes[i] = new KademliaNodeStarter(20000+i, "localhost", 19803);
-			nodes[i].run();
-		}
-		System.out.println("Nodes started");
-	/*	Thread.sleep(2000);
-		new KademliaNodeStarter(20000+i++, "localhost", 19803).testStore();
-		Thread.sleep(2000);*/
-		/*for (; i<1000; i++) {
-			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
-		}*/
-		/*for (; i<70; i++) {
-			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
-		}
-		Thread.sleep(5000);*/
-	//	Thread.sleep(5000);
-	/*	KademliaNodeStarter runner = new KademliaNodeStarter(20000+i++, "localhost", 19803);
-		Thread.sleep(5000);
-		runner.testGet();*/
 	}
 }
