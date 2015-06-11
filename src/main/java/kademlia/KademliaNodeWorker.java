@@ -101,9 +101,10 @@ public class KademliaNodeWorker {
 		return node;
 	}
 	
-	private void sendMessageToNodes(List<KademliaNode> nodes, MessageContainer message) {
+	private void sendMessageToNodes(List<KademliaNode> nodes, MessageContainer message, Set<KademliaId> visited) {
 		for (KademliaNode receiver : nodes) {
 			messageManager.sendMessage(receiver, message);
+			visited.add(receiver.getId());
 		}
 	}
 	
@@ -165,7 +166,7 @@ public class KademliaNodeWorker {
 			}
 			prevClosest = closest;
 
-			sendMessageToNodes(closestExcluded, message);
+			sendMessageToNodes(closestExcluded, message, visited);
 			
 			try {
 				latch.await(Constants.LATCH_TIMEOUT, TimeUnit.SECONDS);
