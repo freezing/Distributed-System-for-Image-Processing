@@ -79,7 +79,7 @@ public class KademliaNodeWorker {
 	public void run() {
 		//System.out.println(KademliaUtils.idToString(node.getId()));
 		new Thread(new KademliaRepublisher(this)).start();
-		taskManager.run();
+	//	taskManager.run(); TODO uncomment
 	}
 
 	public void testStore(int id, String val) {
@@ -120,14 +120,29 @@ public class KademliaNodeWorker {
 	public synchronized List<KademliaNode> findNode(KademliaId id) {
 		FindNodeRequest request = FindNodeRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node, request);
+
 		return findNodeOrValue(id, findNodeResponseListener, message);
 	}
 	
 	public HashTableValue findValue(KademliaId id) {
+			try {
+				throw new Exception();
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
 		FindValueRequest request = FindValueRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node, request);
 		findValueResponseListener.addValueExpectation(id);
+		
+		long currentTime = System.currentTimeMillis();
+		
 		findNodeOrValue(id, findValueResponseListener, message);
+		
+		long elapsedTime = System.currentTimeMillis() - currentTime;
+		if (getNode().getPort() == 20000) {
+			System.out.println("Elapsed time for findNodeOrValue: " + elapsedTime);
+		}
+		
 		HashTableValue result = findValueResponseListener.getValue(id);
 		findValueResponseListener.removeValueExpectation(id);
 		return result;
@@ -141,8 +156,8 @@ public class KademliaNodeWorker {
 		int depth = 0; 
 		while (depth < Constants.MAX_FIND_DEPTH) {
 			List<KademliaNode> closest = kbuckets.getKClosest(id);
-			
-			CountDownLatch latch = new CountDownLatch(closest.size());
+			List<KademliaNode> closestExcluded = excludeNodesFromSet(closest, visited);
+			CountDownLatch latch = new CountDownLatch(closestExcluded.size());
 			listener.put(id, latch);
 			
 			if (prevClosest != null && prevClosest.equals(closest)) {
@@ -150,7 +165,7 @@ public class KademliaNodeWorker {
 			}
 			prevClosest = closest;
 
-			sendMessageToNodes(excludeNodesFromSet(closest, visited), message);
+			sendMessageToNodes(closestExcluded, message);
 			
 			try {
 				latch.await(Constants.LATCH_TIMEOUT, TimeUnit.SECONDS);

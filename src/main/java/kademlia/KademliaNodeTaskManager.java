@@ -92,9 +92,11 @@ public class KademliaNodeTaskManager {
 		KademliaId currentId = parentId;
 		
 		while (currentId != null) {
+			System.out.println("Finding values...");
 			HashTableValue parentValue = worker.findValue(parentId);
 			HashTableValue leftChildValue = worker.findValue(parentValue.getSegmentTreeNode().getLeftChildId());
 			HashTableValue rightChildValue = worker.findValue(parentValue.getSegmentTreeNode().getLeftChildId());
+			System.out.println("Found all 3 values");
 			
 			HashTableValue newParentValue = HashTableValueUtils.updateParent(parentValue, leftChildValue, rightChildValue);
 			worker.store(newParentValue.getSegmentTreeNode().getMyId(), newParentValue);
