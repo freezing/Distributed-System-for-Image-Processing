@@ -3,14 +3,16 @@ package kademlia;
 import java.io.IOException;
 import java.util.Random;
 
+import bootstrap.BootstrapServer;
 import test.Debug;
 
 public class KademliaNodeTester {
 	
 	public static void testStore(KademliaNodeStarter starter) {
-		starter.run();
+		//starter.run();
 		
-		for (int i=5000; i<6000; i++) {
+		//for (int i=5000; i<6000; i++) {
+		for (int i=1; i<=15; i++) {
 			starter.worker.testStore(i, (i-5000)+"");
 		}
 //		worker.testStore(10, "ABC");
@@ -21,15 +23,16 @@ public class KademliaNodeTester {
 	}
 	
 	public static void testGet(KademliaNodeStarter starter) {
-		starter.run();
+		//starter.run();
 		/*for (int i = 5000; i < 6000; i++) {
 			worker.testGet(i);
 		}*/
-		int i = 10;
+		int i = 20;
 		while (i > 0) {
 			i--;
 			Random rand = new Random();
-			starter.worker.testGet(rand.nextInt(1000)+5000);
+			//starter.worker.testGet(rand.nextInt(1000)+5000);
+			starter.worker.testGet(i);
 			/*try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -52,7 +55,18 @@ public class KademliaNodeTester {
 		for (int i=0; i<howMany; i++) {
 			new KademliaNodeRunner(20000+whereFrom+i, "localhost", 19803).run();
 		}*/
-		long start = System.currentTimeMillis();
+		new BootstrapServer(19803).run();
+		KademliaNodeStarter first = new KademliaNodeStarter(20000, "localhost", 19803);
+		first.run();
+		for (int i=1; i<20; i++) {
+			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
+		}
+		testStore(first);
+		Thread.sleep(10000);
+		testGet(first);
+		
+		
+		/*long start = System.currentTimeMillis();
 		int i = 0;
 		for (; i<50; i++) {
 			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
@@ -68,6 +82,28 @@ public class KademliaNodeTester {
 		Thread.sleep(20000);
 		
 		Thread.sleep(2000);
+		final int ii = i+5;
+		new Thread(new Runnable() {
+			public void run() {
+				testGet(new KademliaNodeStarter(30000, "localhost", 19803));
+			}
+		}).run();
+		new Thread(new Runnable() {
+			public void run() {
+				try {
+					Thread.sleep(8000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				testGet(new KademliaNodeStarter(30001, "localhost", 19803));
+			}
+		}).run();
+		new Thread(new Runnable() {
+			public void run() {
+				testGet(new KademliaNodeStarter(30002, "localhost", 19803));
+			}
+		}).run();
 		testGet(new KademliaNodeStarter(20000+i++, "localhost", 19803));
 		/*for (; i<70; i++) {
 			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
