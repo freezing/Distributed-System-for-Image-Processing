@@ -17,7 +17,6 @@ import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
 import listeners.FindValueRequestListener;
 import listeners.FindValueResponseListener;
-import listeners.FindValueResponseListener.NonConsistentValueException;
 import listeners.StoreRequestListener;
 import listeners.StoreResponseListener;
 import network.MessageManager;
@@ -131,13 +130,11 @@ public class KademliaNodeWorker {
 	public HashTableValue findValue(KademliaId id) {
 		FindValueRequest request = FindValueRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node, request);
-		findValueResponseListener.resetValue();
+		findValueResponseListener.addValueExpectation(id);
 		findNodeOrValue(id, findValueResponseListener, message);
-		try {
-			return findValueResponseListener.getValue();
-		} catch (NonConsistentValueException e) {
-			throw new RuntimeException(e);
-		}
+		HashTableValue result = findValueResponseListener.getValue(id);
+		findValueResponseListener.removeValueExpectation(id);
+		return result;
 	}
 
 	private List<KademliaNode> findNodeOrValue(KademliaId id, FindAnythingResponseListener listener, MessageContainer message) {
@@ -165,7 +162,7 @@ public class KademliaNodeWorker {
 				e.printStackTrace();
 			}
 			
-			if (listener.hasValue()) break;
+			if (listener.hasValue(id)) break;
 			
 			depth++;
 		}

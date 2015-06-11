@@ -108,12 +108,12 @@ public class KademliaNodeStarter implements Runnable {
 		}*/
 		long a = System.currentTimeMillis();
 		int i = 0;
-		for (; i<50; i++) {
+		for (; i<500; i++) {
 			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
 		}
 		Thread.sleep(2000);
 		new KademliaNodeStarter(20000+i++, "localhost", 19803).testStore();
-		for (; i<1000; i++) {
+		/*for (; i<1000; i++) {
 			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
 		}
 		System.out.println(System.currentTimeMillis()-a);
@@ -123,7 +123,7 @@ public class KademliaNodeStarter implements Runnable {
 			new KademliaNodeRunner(20000+i, "localhost", 19803).run();
 		}
 		Thread.sleep(5000);*/
-		//Thread.sleep(5000);
+		Thread.sleep(5000);
 		KademliaNodeStarter runner = new KademliaNodeStarter(20000+i++, "localhost", 19803);
 		Thread.sleep(5000);
 		runner.testGet();
