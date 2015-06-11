@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import listeners.BlurImageRequestListener;
 import listeners.BlurResultRequestListener;
+import listeners.BlurResultResponseListener;
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
@@ -79,7 +80,7 @@ public class KademliaNodeWorker {
 	public void run() {
 		//System.out.println(KademliaUtils.idToString(node.getId()));
 		new Thread(new KademliaRepublisher(this)).start();
-	//	taskManager.run(); TODO uncomment
+		//taskManager.run(); TODO uncomment
 	}
 
 	public void testStore(int id, String val) {
@@ -102,9 +103,12 @@ public class KademliaNodeWorker {
 	}
 	
 	private void sendMessageToNodes(List<KademliaNode> nodes, MessageContainer message, Set<KademliaId> visited) {
+		int remaining = Constants.ALPHA;
 		for (KademliaNode receiver : nodes) {
+			if (remaining == 0) break;
 			messageManager.sendMessage(receiver, message);
 			visited.add(receiver.getId());
+			remaining--;
 		}
 	}
 	
@@ -126,11 +130,11 @@ public class KademliaNodeWorker {
 	}
 	
 	public HashTableValue findValue(KademliaId id) {
-			try {
+		/*	try {
 				throw new Exception();
 			}catch (Exception e) {
 				e.printStackTrace();
-			}
+			}*/
 		FindValueRequest request = FindValueRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node, request);
 		findValueResponseListener.addValueExpectation(id);
@@ -149,7 +153,7 @@ public class KademliaNodeWorker {
 		return result;
 	}
 
-	private List<KademliaNode> findNodeOrValue(KademliaId id, FindAnythingResponseListener listener, MessageContainer message) {
+	private synchronized List<KademliaNode> findNodeOrValue(KademliaId id, FindAnythingResponseListener listener, MessageContainer message) {
 		List<KademliaNode> prevClosest = null;
 		
 		Set<KademliaId> visited = new HashSet<KademliaId>();
@@ -158,7 +162,7 @@ public class KademliaNodeWorker {
 		while (depth < Constants.MAX_FIND_DEPTH) {
 			List<KademliaNode> closest = kbuckets.getKClosest(id);
 			List<KademliaNode> closestExcluded = excludeNodesFromSet(closest, visited);
-			CountDownLatch latch = new CountDownLatch(closestExcluded.size());
+			CountDownLatch latch = new CountDownLatch(Math.min(Constants.ALPHA, closestExcluded.size()));
 			listener.put(id, latch);
 			
 			if (prevClosest != null && prevClosest.equals(closest)) {

@@ -82,7 +82,7 @@ public class Client {
 				.setAddress("localhost")
 				.setPort(20000)
 				.build();
-		Client client = new Client("/home/nikola/Pictures/1.bmp", 5, 22000, node);
+		Client client = new Client("/home/maverick/workspace/KIDS/1.bmp", 5, 22000, node);
 		client.run();
 	}
 }

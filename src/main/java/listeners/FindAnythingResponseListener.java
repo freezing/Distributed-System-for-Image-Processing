@@ -24,6 +24,7 @@ public abstract class FindAnythingResponseListener implements MessageListener {
 	}
 	
 	public void latchCountDown(KademliaId key) {
+		System.out.println("latch");
 		CountDownLatch latch = latchMap.get(key);
 		latch.countDown();
 	}
