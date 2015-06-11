@@ -64,6 +64,13 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 		else if (size == 1) {
 			return (HashTableValue)valueSet.toArray()[0];
 		} else {
+			if (worker.getNode().getPort() == 20000) {
+				for (HashTableValue value : valueSet) {
+					System.out.println("============ EXCEPTION VALUES ======================================================================");
+					System.out.println(value);
+					System.out.println("==================================================================================");
+				}
+			}
 			throw new NonConsistentValueException();
 		}
 	}

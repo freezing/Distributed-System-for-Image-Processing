@@ -17,6 +17,7 @@ public class ImageProtoUtils {
 			for (int x = left; x < right; x++) {
 				rowBuilder.addPixels(imageProto.getRows(y).getPixels(x));
 			}
+			builder.addRows(rowBuilder);
 		}
 		return builder.build();
 	}

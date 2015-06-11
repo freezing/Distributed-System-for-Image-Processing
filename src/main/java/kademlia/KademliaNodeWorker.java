@@ -84,7 +84,7 @@ public class KademliaNodeWorker {
 	public void run() {
 		//System.out.println(KademliaUtils.idToString(node.getId()));
 		new Thread(new KademliaRepublisher(this)).start();
-		//taskManager.run();
+		taskManager.run();
 	}
 
 	public void testStore(int id, String val) {
@@ -140,8 +140,8 @@ public class KademliaNodeWorker {
 		}
 	}
 
-	private List<KademliaNode> findNodeOrValue(KademliaId id, FindAnythingResponseListener listener, MessageContainer message) {
 		List<KademliaNode> prevClosest = null;
+		private List<KademliaNode> findNodeOrValue(KademliaId id, FindAnythingResponseListener listener, MessageContainer message) {
 		
 		Set<KademliaId> visited = new HashSet<KademliaId>();
 
@@ -191,7 +191,10 @@ public class KademliaNodeWorker {
 	}
 	
 	public void store(KademliaId key, HashTableValue value) {
+	//	long currentTimeMS = System.currentTimeMillis();
 		List<KademliaNode> closest = findNode(key);
+	//	long elapsedTimeMS = System.currentTimeMillis() - currentTimeMS;
+	//	if (getNode().getPort() == 20000) System.out.println("Elapsed time for findNode: " + elapsedTimeMS);
 		for (KademliaNode node : closest) {
 			//System.out.println(node);
 			sendStoreRequest(node, key, value);

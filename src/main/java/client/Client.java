@@ -42,6 +42,7 @@ public class Client {
 		ImageProto imageProto = makeImageProto(image);
 		BlurImageRequest blurImageRequest = BlurImageRequestFactory.make(imageProto, radius);
 		MessageContainer message = MessageContainerFactory.make(receiver, blurImageRequest);
+		System.out.println(message.toByteArray().length);
 		messageManager.sendMessage(receiver, message);
 	}
 	
@@ -71,11 +72,17 @@ public class Client {
 		// Set blured image from image proto
 	}
 
-	public static void main(String[] args) {
-		
-	}
-
 	public void setPercentageDone(float percentage) {
 		System.out.println("Percentage done: " + percentage);
+	}
+	
+	public static void main(String[] args) throws IOException {
+		System.out.println("Starting client");
+		KademliaNode node = KademliaNode.newBuilder()
+				.setAddress("localhost")
+				.setPort(20000)
+				.build();
+		Client client = new Client("/home/nikola/Pictures/1.bmp", 5, 22000, node);
+		client.run();
 	}
 }

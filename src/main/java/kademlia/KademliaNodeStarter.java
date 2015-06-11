@@ -1,7 +1,9 @@
 package kademlia;
 
+import java.io.IOException;
 import java.util.Random;
 
+import client.Client;
 import listeners.BootstrapConnectResponseListener;
 import network.MessageManager;
 import network.MessageType;
@@ -97,7 +99,7 @@ public class KademliaNodeStarter implements Runnable {
 		this.bootstrapResponse = bootstrapResponse;
 	}
 
-	public static void main(String[] args) throws InterruptedException {
+	public static void main(String[] args) throws InterruptedException, IOException {
 		/*Scanner scanner = new Scanner(System.in);
 		System.out.print("How many? ");
 		int howMany = scanner.nextInt();
@@ -106,13 +108,20 @@ public class KademliaNodeStarter implements Runnable {
 		for (int i=0; i<howMany; i++) {
 			new KademliaNodeRunner(20000+whereFrom+i, "localhost", 19803).run();
 		}*/
+		
+		final int N = 20;
+		
+		KademliaNodeStarter nodes[] = new KademliaNodeStarter[N];
+		
 		int i = 0;
-		for (; i<500; i++) {
-			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
+		for (; i<N; i++) {
+			nodes[i] = new KademliaNodeStarter(20000+i, "localhost", 19803);
+			nodes[i].run();
 		}
-		Thread.sleep(2000);
+		System.out.println("Nodes started");
+	/*	Thread.sleep(2000);
 		new KademliaNodeStarter(20000+i++, "localhost", 19803).testStore();
-		Thread.sleep(2000);
+		Thread.sleep(2000);*/
 		/*for (; i<1000; i++) {
 			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
 		}*/
@@ -121,8 +130,8 @@ public class KademliaNodeStarter implements Runnable {
 		}
 		Thread.sleep(5000);*/
 	//	Thread.sleep(5000);
-		KademliaNodeStarter runner = new KademliaNodeStarter(20000+i++, "localhost", 19803);
+	/*	KademliaNodeStarter runner = new KademliaNodeStarter(20000+i++, "localhost", 19803);
 		Thread.sleep(5000);
-		runner.testGet();
+		runner.testGet();*/
 	}
 }

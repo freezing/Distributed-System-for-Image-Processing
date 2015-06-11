@@ -37,7 +37,7 @@ public class MessageManager {
 
 		listenerThread = new Thread() {
 			public void run() {
-				byte[] receiveData = new byte[4096];
+				byte[] receiveData = new byte[100000];
 				while (true) {
 					DatagramPacket receivePacket = new DatagramPacket(
 							receiveData, receiveData.length);

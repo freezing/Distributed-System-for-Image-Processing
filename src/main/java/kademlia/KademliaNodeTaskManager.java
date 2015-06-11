@@ -32,33 +32,53 @@ public class KademliaNodeTaskManager {
 	}
 	
 	public void run() {
+		if (worker.getNode().getPort() != 20000) return;
 		while (true) {
 			// Check if there are any not finished jobs
 			HashTableValue rootValue = worker.findValue(SEGMENT_TREE_ROOT_ID);
 			if (rootValue != null && !StatisticsUtils.isAllFinished(rootValue)) {
 				// Access random task
-				int nextRandomTaskId = rnd.nextInt(rootValue.getValidTasks()) + 1;
+				int nextRandomTaskId = rnd.nextInt(rootValue.getValidTasks()) + rootValue.getTotalTasks();
 				HashTableValue taskValue = getTask(nextRandomTaskId);
 				if (taskValue != null) {
+					System.out.println("Found task");
 					// Create new HashTableValue with updated timestamp
 					HashTableValue.Builder taskValueBuilder = HashTableValue.newBuilder(taskValue)
 						.setLastTimeTaken(System.currentTimeMillis());
 					
 					// Store it in the 
 					worker.store(taskValue.getSegmentTreeNode().getMyId(), taskValueBuilder.build());
+					System.out.println("Updated task timestamp");
 					updateSegmentTreeParent(taskValue.getSegmentTreeNode().getParentId());
+					System.out.println("Updated parents");
 					
 					// Start work on the task
+					System.out.println("Bluring task....");
 					TaskResult result = processTask(taskValue);
+					System.out.println("Finished bluring");
 					
 					// And update when finished
 					HashTableValue resultValue = taskValueBuilder
 						.setFinishedTasks(1)
 						.setResult(result)
 						.build();
+					System.out.println("Storing finished task...");
 					worker.store(resultValue.getSegmentTreeNode().getMyId(), resultValue);
+					System.out.println("Storing finished");
+					System.out.println("Updating parents...");
 					updateSegmentTreeParent(resultValue.getSegmentTreeNode().getParentId());
+					System.out.println("Updated parents");
+				} else {
+					System.out.println("Potential value doesn't exists, everything's finished");
 				}
+			} else {
+				System.out.println("Not found");
+			}
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 			Thread.yield();
 		}
@@ -79,6 +99,9 @@ public class KademliaNodeTaskManager {
 			HashTableValue newParentValue = HashTableValueUtils.updateParent(parentValue, leftChildValue, rightChildValue);
 			worker.store(newParentValue.getSegmentTreeNode().getMyId(), newParentValue);
 			currentId = parentValue.getSegmentTreeNode().getParentId();
+			if (currentId == null) {
+				System.out.println("Percentage: " + StatisticsUtils.calculatePercentage(newParentValue));
+			}
 		}
 	}
 
@@ -86,11 +109,15 @@ public class KademliaNodeTaskManager {
 		KademliaId randomId = KademliaUtils.generateId(nextRandomTaskId);
 		// Try to find task that is not taken
 		while (true) {
+			System.out.println("Finding potential value...");
 			HashTableValue potentialValue = worker.findValue(randomId);
+			System.out.println("Found potential value");
 			if (StatisticsUtils.isNonTakenTask(potentialValue)) {
 				// Check if potential value has unfinished (and non-taken) task
+				System.out.println("Potential value is not taken");
 				return potentialValue;
 			} else {
+				System.out.println("Potential value is taken");
 				// Find the first parent that has jobs that are not in progress
 				// and not finished
 				HashTableValue parentWithNonFinishedTasks = findParentWithNonFinishedTasksNotInProgress(potentialValue);
@@ -166,7 +193,7 @@ public class KademliaNodeTaskManager {
 
 		// Temporarily store all the values (id is initially set to the size of
 		// nodes in the segment tree)
-		HashTableValue values[] = new HashTableValue[id];
+		HashTableValue values[] = new HashTableValue[id + 1];
 
 		// First create nodes that contain tasks
 		id = createTaskNodes(unitTasks, id, values);
@@ -186,7 +213,8 @@ public class KademliaNodeTaskManager {
 			KademliaId leftChildId = KademliaUtils.generateId(2 * id);
 			// Right child is calculated using formula: 2 * id + 1
 			KademliaId rightChildId = KademliaUtils.generateId(2 * id + 1);
-
+			
+			System.out.println(String.format("Processing my id: %d  child1: %d   child2: %d", id, 2 * id, 2 * id + 1));
 			// Calculate number of pending tasks using children info
 			int pendingTasks = values[2 * id].getValidTasks()
 					+ values[2 * id + 1].getValidTasks();
@@ -201,6 +229,7 @@ public class KademliaNodeTaskManager {
 			// Insert value in DHT
 			worker.store(value.getSegmentTreeNode().getMyId(), value);
 			
+			values[id] = value;
 			// Update next id
 			id--;
 		}
@@ -228,6 +257,7 @@ public class KademliaNodeTaskManager {
 
 			// And store in the values array
 			values[id] = value;
+			System.out.println("Creating task node: " + id);
 
 			// Update next id value
 			id--;

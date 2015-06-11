@@ -1,21 +1,14 @@
 package listeners;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import network.MessageListener;
 import network.MessageType;
 import protos.KademliaProtos.BootstrapConnectRequest;
 import protos.KademliaProtos.BootstrapConnectResponse;
-import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
-import util.Constants;
-import utils.KademliaUtils;
 import bootstrap.BootstrapServer;
-import buckets.SingleKBucket;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 

@@ -3,7 +3,6 @@ package listeners;
 import java.util.List;
 
 import kademlia.KademliaNodeTaskManager;
-import kademlia.KademliaNodeWorker;
 import network.MessageListener;
 import protos.KademliaProtos.BlurImageRequest;
 import protos.KademliaProtos.ImageTask;
@@ -22,6 +21,7 @@ public class BlurImageRequestListener implements MessageListener {
 	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
 		BlurImageRequest request = BlurImageRequestFactory.parse(message);
 		List<ImageTask> unitTasks = ImageTaskUtils.makeUnitTasks(request.getImageProto(), request.getRadius());
+		
 		taskManager.setTasksReadyForDistribution(unitTasks);
 	}
 }
