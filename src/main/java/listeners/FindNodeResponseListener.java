@@ -20,7 +20,7 @@ public class FindNodeResponseListener extends FindAnythingResponseListener {
 	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
 		FindNodeResponse response = parseResponse(message);
 		worker.addAllToKBuckets(response.getResultsList());
-		worker.addToKBuckets(sender);
+		worker.addToKBuckets(sender);		
 		latchCountDown(response.getSearchId());
 	}
 

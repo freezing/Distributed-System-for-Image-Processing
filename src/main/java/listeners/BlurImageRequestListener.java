@@ -12,7 +12,7 @@ import factories.BlurImageRequestFactory;
 
 public class BlurImageRequestListener implements MessageListener {
 
-	private KademliaNodeTaskManager taskManager;
+	private final KademliaNodeTaskManager taskManager;
 
 	public BlurImageRequestListener(KademliaNodeTaskManager taskManager) {
 		this.taskManager = taskManager;
