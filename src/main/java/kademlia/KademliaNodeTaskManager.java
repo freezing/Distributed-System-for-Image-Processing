@@ -33,10 +33,42 @@ public class KademliaNodeTaskManager {
 	
 	public void run() {
 		if (worker.getNode().getPort() != 20000) return;
+		try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.out.println("run thread");
+		for (int j = 0; j < 1; j++) {
+			System.out.println("Getting root " + j);
+			worker.findValue(SEGMENT_TREE_ROOT_ID);
+			for (int i = 8; i < 12; i++) {
+				KademliaId mid = KademliaUtils.generateId(i);
+				HashTableValue value = worker.findValue(mid);
+				if (value == null) {
+					System.out.println("Value is null for id: " + i);
+				} else {
+					System.out.println("Value: " + i);
+				}
+			}			
+		}
+		
 		while (true) {
 			// Check if there are any not finished jobs
 			HashTableValue rootValue = worker.findValue(SEGMENT_TREE_ROOT_ID);
 			if (rootValue != null && !StatisticsUtils.isAllFinished(rootValue)) {
+				System.out.println(rootValue);
+				for (int i = 8; i < 16; i++) {
+					KademliaId mid = KademliaUtils.generateId(i);
+					HashTableValue value = worker.findValue(mid);
+					if (value == null) {
+						throw new RuntimeException("Value is null for id: " + i);
+					} else {
+						System.out.println("Value: " + i);
+					}
+				}
+				
 				// Access random task
 				int nextRandomTaskId = rnd.nextInt(rootValue.getValidTasks()) + rootValue.getTotalTasks();
 				System.out.println("Random task id: = " + nextRandomTaskId);
@@ -48,9 +80,9 @@ public class KademliaNodeTaskManager {
 						.setLastTimeTaken(System.currentTimeMillis());
 					
 					// Store it in the 
-					worker.store(taskValue.getSegmentTreeNode().getMyId(), taskValueBuilder.build());
+			//TODO:		worker.store(taskValue.getSegmentTreeNode().getMyId(), taskValueBuilder.build());
 		//			System.out.println("Updated task timestamp");
-					updateSegmentTreeParent(taskValue.getSegmentTreeNode().getParentId());
+			//TODO		updateSegmentTreeParent(taskValue.getSegmentTreeNode().getParentId());
 		//			System.out.println("Updated parents");
 					
 					// Start work on the task
@@ -64,10 +96,10 @@ public class KademliaNodeTaskManager {
 						.setResult(result)
 						.build();
 		//			System.out.println("Storing finished task...");
-					worker.store(resultValue.getSegmentTreeNode().getMyId(), resultValue);
+			//TODO:		worker.store(resultValue.getSegmentTreeNode().getMyId(), resultValue);
 		//			System.out.println("Storing finished");
 		//			System.out.println("Updating parents...");
-					updateSegmentTreeParent(resultValue.getSegmentTreeNode().getParentId());
+					//TODO					updateSegmentTreeParent(resultValue.getSegmentTreeNode().getParentId());
 		//			System.out.println("Updated parents");
 				} else {
 					System.out.println("Potential value doesn't exists, everything's finished");
@@ -78,7 +110,6 @@ public class KademliaNodeTaskManager {
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			Thread.yield();
@@ -210,14 +241,19 @@ public class KademliaNodeTaskManager {
 		// Then create parent nodes
 		createParentNodes(id, values);
 		
-		for (int i = unitTasks.size(); i < 2 * unitTasks.size(); i++) {
-			KademliaId mid = KademliaUtils.generateId(id);
-			HashTableValue value = worker.findValue(mid);
-			if (value == null) {
-				throw new RuntimeException("Value is null for id: " + i);
-			} else {
-				System.out.println("Value: " + i);
-			}
+		System.out.println("setTasksReadyForDistribution thread");
+		for (int j = 0; j < 10; j++) {
+			System.out.println("Getting root");
+			worker.findValue(SEGMENT_TREE_ROOT_ID);
+			for (int i = 8; i < 16; i++) {
+				KademliaId mid = KademliaUtils.generateId(i);
+				HashTableValue value = worker.findValue(mid);
+				if (value == null) {
+					throw new RuntimeException("Value is null for id: " + i);
+				} else {
+					System.out.println("Value: " + i);
+				}
+			}			
 		}
 	}
 

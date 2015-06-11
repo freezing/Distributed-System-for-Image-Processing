@@ -129,7 +129,7 @@ public class KademliaNodeWorker {
 		return findNodeOrValue(id, findNodeResponseListener, message);
 	}
 	
-	public HashTableValue findValue(KademliaId id) {
+	public synchronized HashTableValue findValue(KademliaId id) {
 		/*	try {
 				throw new Exception();
 			}catch (Exception e) {
