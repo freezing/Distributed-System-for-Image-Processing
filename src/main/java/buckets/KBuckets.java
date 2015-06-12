@@ -32,6 +32,21 @@ public class KBuckets {
 		add(node, false);
 	}
 	
+	private void removeOldNodes(List<KademliaNode> nodes) {
+		List<KademliaNode> toRemove = new ArrayList<KademliaNode>();
+		for (KademliaNode node: nodes) {
+			Long seen = lastSeen.get(node);
+			if (seen != null) {
+				if (System.currentTimeMillis()-seen > 10000) {
+					toRemove.add(node);
+				}
+			}
+		}
+		for (KademliaNode node: toRemove) {
+			nodes.remove(node);
+		}
+	}
+	
 	public synchronized void add(KademliaNode node, boolean alive) {
 		if (alive) {
 			lastSeen.put(node, System.currentTimeMillis());
@@ -46,8 +61,13 @@ public class KBuckets {
 		} else if (buckets[idx].getNodes().size() < Constants.K) {
 			buckets[idx].getNodes().add(node);
 		} else {
-			Long newNodeTime = lastSeen.get(node);
-			if (newNodeTime != null) {
+			removeOldNodes(buckets[idx].getNodes());
+			if (buckets[idx].getNodes().size() == Constants.K) {
+				buckets[idx].getNodes().remove(0);
+			}
+			buckets[idx].getNodes().add(node);
+			//Long newNodeTime = lastSeen.get(node);
+			/*if (newNodeTime != null) {
 				KademliaNode toRemove = null;
 				long diff = 0;
 				for (KademliaNode oldNode: buckets[idx].getNodes()) {
@@ -64,7 +84,7 @@ public class KBuckets {
 					buckets[idx].getNodes().remove(toRemove);
 					buckets[idx].getNodes().add(node);
 				}
-			}
+			}*/
 		}
 	}
 
