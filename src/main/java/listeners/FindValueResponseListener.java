@@ -102,8 +102,9 @@ public class FindValueResponseListener extends FindAnythingResponseListener {
 	@Override
 	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
 		FindValueResponse response = parseResponse(message);
+		
+		worker.addAliveToKBuckets(sender);
 		worker.addAllToKBuckets(response.getResultsList());
-		worker.addToKBuckets(sender);
 				
 		HashTableValueBucket valueBucket = valueMap.get(response.getSearchId());
 		if (valueBucket != null) {

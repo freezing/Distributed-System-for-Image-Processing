@@ -96,7 +96,7 @@ public class KademliaNodeStarter implements Runnable {
 				e.printStackTrace();
 			}
 			messageManager.unregisterListener(MessageType.NODE_PING_RESPONSE, pingListener);
-			System.out.println(aliveNodes.size()+" are alive");
+			//System.out.println(aliveNodes.size()+" are alive");
 			if (aliveNodes.size() != nodes.size()) {
 				ArrayList<KademliaNode> deadNodes = new ArrayList<KademliaNode>();
 				for (KademliaNode node: nodes) {
