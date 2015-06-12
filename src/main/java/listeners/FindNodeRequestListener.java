@@ -30,7 +30,7 @@ public class FindNodeRequestListener implements MessageListener {
 		}
 		List<KademliaNode> nodes = worker.getKbuckets().getKClosest(request.getSearchId());
 		
-		worker.addAliveToKBuckets(sender);
+		worker.addToKBuckets(sender);
 		
 		FindNodeResponse response = FindNodeResponse.newBuilder().addAllResults(nodes)
 				.setSearchId(request.getSearchId()).build();

@@ -16,7 +16,7 @@ public class PingRequestListener implements MessageListener {
 	}
 	
 	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
-		worker.addAliveToKBuckets(sender);
+		worker.addToKBuckets(sender);
 		PingResponse pingResponse = PingResponse.newBuilder().setState(444).build();
 		MessageContainer msg = MessageContainerFactory.make(worker.getNode(), pingResponse);
 		worker.sendMessage(sender, msg);

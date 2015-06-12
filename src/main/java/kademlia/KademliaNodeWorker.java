@@ -157,6 +157,10 @@ public class KademliaNodeWorker {
 	}
 
 	public HashTableValue findValue(KademliaId id) {
+		/*
+		 * try { throw new Exception(); }catch (Exception e) {
+		 * e.printStackTrace(); }
+		 */
 		FindValueRequest request = FindValueRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node,
 				request);
@@ -172,48 +176,45 @@ public class KademliaNodeWorker {
 		}
 
 		findValueResponseListener.removeValueExpectation(id);
-		
 		return result;
 	}
 
-	private List<KademliaNode> findNodeOrValue(KademliaId id,
+	private synchronized List<KademliaNode> findNodeOrValue(KademliaId id,
 			FindAnythingResponseListener listener, MessageContainer message) {
 		List<KademliaNode> prevClosest = null;
 
 		Set<KademliaId> visited = new HashSet<KademliaId>();
 
 		int depth = 0;
-		int responses = 0;
 		while (depth < Constants.MAX_FIND_DEPTH) {
-			synchronized (listener) {
-				List<KademliaNode> closest = kbuckets.getKClosest(id);
-				List<KademliaNode> closestExcluded = excludeNodesFromSet(closest,
-						visited);
-				/*CountDownLatch latch = new CountDownLatch(Math.min(Constants.ALPHA,
-						closestExcluded.size()));
-				listener.put(id, latch);*/
-	
-				if ((responses == 0) && (prevClosest != null && prevClosest.equals(closest))) {
-					break;
-				}
-				prevClosest = closest;
-	
-				sendMessageToNodes(closestExcluded, message, visited);
-				responses += Math.min(Constants.ALPHA, closestExcluded.size());
-	
-				try {
-					listener.wait(Constants.LATCH_TIMEOUT);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				
-				responses--;
-	
-				if (listener.hasValue(id))
-					break;
-	
-				depth++;
+			List<KademliaNode> closest = kbuckets.getKClosest(id);
+			List<KademliaNode> closestExcluded = excludeNodesFromSet(closest,
+					visited);
+			CountDownLatch latch = new CountDownLatch(Math.min(Constants.ALPHA,
+					closestExcluded.size()));
+			listener.put(id, latch);
+
+			if (prevClosest != null && prevClosest.equals(closest)) {
+				break;
 			}
+			prevClosest = closest;
+
+			sendMessageToNodes(closestExcluded, message, visited);
+
+			try {
+				System.out.println("WAITING");
+				long t1 = System.currentTimeMillis();
+				latch.await(Constants.LATCH_TIMEOUT, TimeUnit.SECONDS);
+				float seconds = (float)(System.currentTimeMillis() - t1) / 1000.0f;
+				System.out.println("LATCH FINISHED for " + seconds);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+
+			if (listener.hasValue(id))
+				break;
+
+			depth++;
 		}
 		return prevClosest;
 	}
@@ -226,10 +227,6 @@ public class KademliaNodeWorker {
 
 	public void addToKBuckets(KademliaNode node) {
 		kbuckets.add(node);
-	}
-	
-	public void addAliveToKBuckets(KademliaNode node) {
-		kbuckets.add(node, true);
 	}
 
 	public KBuckets getKbuckets() {
