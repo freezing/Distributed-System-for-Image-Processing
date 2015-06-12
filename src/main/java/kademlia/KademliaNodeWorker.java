@@ -175,7 +175,7 @@ public class KademliaNodeWorker {
 		return result;
 	}
 
-	private synchronized List<KademliaNode> findNodeOrValue(KademliaId id,
+	private List<KademliaNode> findNodeOrValue(KademliaId id,
 			FindAnythingResponseListener listener, MessageContainer message) {
 		List<KademliaNode> prevClosest = null;
 
@@ -184,35 +184,35 @@ public class KademliaNodeWorker {
 		int depth = 0;
 		int responses = 0;
 		while (depth < Constants.MAX_FIND_DEPTH) {
-			List<KademliaNode> closest = kbuckets.getKClosest(id);
-			List<KademliaNode> closestExcluded = excludeNodesFromSet(closest,
-					visited);
-			/*CountDownLatch latch = new CountDownLatch(Math.min(Constants.ALPHA,
-					closestExcluded.size()));
-			listener.put(id, latch);*/
-
-			if ((responses == 0) && (prevClosest != null && prevClosest.equals(closest))) {
-				break;
-			}
-			prevClosest = closest;
-
-			sendMessageToNodes(closestExcluded, message, visited);
-			responses += Math.min(Constants.ALPHA, closestExcluded.size());
-
-			try {
-				synchronized (listener) {
-					listener.wait(Constants.LATCH_TIMEOUT);
+			synchronized (listener) {
+				List<KademliaNode> closest = kbuckets.getKClosest(id);
+				List<KademliaNode> closestExcluded = excludeNodesFromSet(closest,
+						visited);
+				/*CountDownLatch latch = new CountDownLatch(Math.min(Constants.ALPHA,
+						closestExcluded.size()));
+				listener.put(id, latch);*/
+	
+				if ((responses == 0) && (prevClosest != null && prevClosest.equals(closest))) {
+					break;
 				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+				prevClosest = closest;
+	
+				sendMessageToNodes(closestExcluded, message, visited);
+				responses += Math.min(Constants.ALPHA, closestExcluded.size());
+	
+				try {
+					listener.wait(Constants.LATCH_TIMEOUT);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				
+				responses--;
+	
+				if (listener.hasValue(id))
+					break;
+	
+				depth++;
 			}
-			
-			responses--;
-
-			if (listener.hasValue(id))
-				break;
-
-			depth++;
 		}
 		return prevClosest;
 	}

@@ -27,19 +27,17 @@ public class KademliaNodeTester {
 		/*for (int i = 5000; i < 6000; i++) {
 			worker.testGet(i);
 		}*/
-		int i = 20;
-		while (i > 0) {
-			i--;
-			Random rand = new Random();
-			//starter.worker.testGet(rand.nextInt(1000)+5000);
+		for (int i=1; i<=150; i++) {
 			starter.worker.testGet(i);
+		}
+			//starter.worker.testGet(rand.nextInt(1000)+5000);
 			/*try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}*/
-		}
+		
 		/*worker.testGet(10);
 		worker.testGet(100);
 		worker.testGet(4545);
@@ -63,7 +61,9 @@ public class KademliaNodeTester {
 		}
 		testStore(first);
 		Thread.sleep(1000);
-		testGet(first);
+		KademliaNodeStarter last = new KademliaNodeStarter(20200, "localhost", 19803);
+		last.run();
+		testGet(last);
 		
 		
 		/*long start = System.currentTimeMillis();
