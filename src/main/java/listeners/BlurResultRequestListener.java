@@ -6,7 +6,9 @@ import protos.KademliaProtos.BlurResultRequest;
 import protos.KademliaProtos.BlurResultResponse;
 import protos.KademliaProtos.HashTableValue;
 import protos.KademliaProtos.ImageProto;
+import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
+import utils.KademliaUtils;
 import utils.StatisticsUtils;
 
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -34,10 +36,15 @@ public class BlurResultRequestListener implements MessageListener {
 					ImageProto image = null;
 					
 					if (StatisticsUtils.isAllFinished(rootValue)) {
-						// All is finished, get image
+						// Get whole image height and width from the first task
+						int firstTaskId = rootValue.getTotalTasks();
+						KademliaId firstTaskKademliaId = KademliaUtils.generateId(firstTaskId);
+						HashTableValue firstTaskValue = taskManager.findValue(firstTaskKademliaId);
+						
+						// All is finished, get image						
 						image = taskManager.assembleImage(rootValue.getTotalTasks(), rootValue.getValidTasks(),
-								rootValue.getUnitTask().getWholeImageHeight(),
-								rootValue.getUnitTask().getWholeImageWidth());
+								firstTaskValue.getUnitTask().getWholeImageHeight(),
+								firstTaskValue.getUnitTask().getWholeImageWidth());
 					}
 					
 					BlurResultResponse response = BlurResultResponseFactory.make(

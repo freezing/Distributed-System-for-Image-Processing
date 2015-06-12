@@ -230,7 +230,7 @@ public class KademliaNodeTaskManager {
 			
 			int totalTasks = values[2 * id].getTotalTasks()
 					+ values[2 * id + 1].getTotalTasks();
-
+			
 			// Make HashTableValue
 			HashTableValue value = HashTableValueFactory.make(myId, parentId,
 					leftChildId, rightChildId, pendingTasks, totalTasks);
@@ -299,5 +299,9 @@ public class KademliaNodeTaskManager {
 		MessageContainer messageContainer = MessageContainerFactory.make(
 				worker.getNode(), msg);
 		worker.sendMessage(target, messageContainer);
+	}
+
+	public HashTableValue findValue(KademliaId id) {
+		return worker.findValue(id);
 	}
 }

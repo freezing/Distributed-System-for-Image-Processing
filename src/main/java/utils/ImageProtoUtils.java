@@ -45,14 +45,17 @@ public class ImageProtoUtils {
 		for (int y = area.getTop(); y < area.getBottom(); y++) {
 			for (int x = area.getLeft(); x < area.getRight(); x++) {
 				builder.getRowsBuilder(y).setPixels(x,
-						bluredImage.getRows(y).getPixels(x));
+						bluredImage.getRows(y - area.getTop()).getPixels(x - area.getLeft()));
 			}
 		}
 	}
 
 	private static ImageProto.Builder makeEmptyImageProtoBuilder(int height,
 			int width) {
-		ImageProto.Builder builder = ImageProto.newBuilder();
+		ImageProto.Builder builder = ImageProto.newBuilder()
+				.setHeight(height)
+				.setWidth(width);
+		
 		for (int y = 0; y < height; y++) {
 			ImageRow.Builder row = ImageRow.newBuilder();
 			for (int x = 0; x < width; x++) {
