@@ -32,12 +32,12 @@ public class KademliaNodeTaskManager {
 	}
 	
 	public void run() {
-		if (worker.getNode().getPort() != 20000) return;
+		//if (worker.getNode().getPort() != 20000) return;
 		
 		while (true) {
 			// Check if there are any not finished jobs
 			HashTableValue rootValue = worker.findValue(SEGMENT_TREE_ROOT_ID);
-			if (rootValue != null && !StatisticsUtils.isAllFinished(rootValue)) {				
+			if (rootValue != null && !StatisticsUtils.isAllFinished(rootValue)) {
 				// Access random task
 				int nextRandomTaskId = rnd.nextInt(rootValue.getValidTasks()) + rootValue.getTotalTasks();
 				System.out.println("Random task id: = " + nextRandomTaskId);
@@ -180,14 +180,27 @@ public class KademliaNodeTaskManager {
 
 	private HashTableValue findParentWithNonFinishedTasksNotInProgress(HashTableValue value) {
 		HashTableValue current = value;
+		int depth = 0;
 		while (true) {
-			KademliaId parentId = current.getSegmentTreeNode().getParentId();
+			KademliaId parentId = null;
+			if (current.getSegmentTreeNode().hasParentId()) {
+				parentId = current.getSegmentTreeNode().getParentId();
+			}
+			
 			if (parentId == null) {
 				return null;
 			}
+			
 			HashTableValue parent = worker.findValue(parentId);
+			
 			if (StatisticsUtils.hasNonFinishedTasksNotInProgress(parent)) {
 				return parent;
+			}			
+			
+			current = parent;
+			
+			if (depth++ > 1000) {
+				throw new RuntimeException("Something is wrong or it's just too big image: " + depth);
 			}
 		}
 	}
