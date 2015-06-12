@@ -223,6 +223,10 @@ public class KademliaNodeWorker {
 	public void addToKBuckets(KademliaNode node) {
 		kbuckets.add(node);
 	}
+	
+	public void addAliveToKBuckets(KademliaNode node) {
+		kbuckets.add(node, true);
+	}
 
 	public KBuckets getKbuckets() {
 		return kbuckets;

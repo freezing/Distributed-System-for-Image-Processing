@@ -31,7 +31,7 @@ public class FindValueRequestListener implements MessageListener {
 			throw new RuntimeException(e);
 		}
 		
-		worker.addToKBuckets(sender);
+		worker.addAliveToKBuckets(sender);
 		FindValueResponse response;		
 		HashTableValue value = worker.getFromLocalHashMap(request.getSearchId());
 		if (value != null) {

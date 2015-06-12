@@ -2,8 +2,9 @@ package buckets;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
@@ -13,6 +14,8 @@ import utils.KademliaUtils;
 public class KBuckets {
 	private KademliaId id;
 	private SingleKBucket[] buckets;
+	
+	Map<KademliaNode, Long> lastSeen = new HashMap<KademliaNode, Long>();
 	
 	public KBuckets(KademliaId id, List<KademliaNode> nodes) {
 		this.id = id;
@@ -25,7 +28,15 @@ public class KBuckets {
 		}
 	}
 	
-	public synchronized void add(KademliaNode node) {
+	public void add(KademliaNode node) {
+		add(node, false);
+	}
+	
+	public synchronized void add(KademliaNode node, boolean alive) {
+		if (alive) {
+			lastSeen.put(node, System.currentTimeMillis());
+		}
+		
 		int idx = KademliaUtils.xorDistance(id, node.getId());
 		buckets[idx].updateLastModified();
 		
@@ -35,8 +46,25 @@ public class KBuckets {
 		} else if (buckets[idx].getNodes().size() < Constants.K) {
 			buckets[idx].getNodes().add(node);
 		} else {
-			buckets[idx].getNodes().remove(0);
-			buckets[idx].getNodes().add(node);			
+			Long newNodeTime = lastSeen.get(node);
+			if (newNodeTime != null) {
+				KademliaNode toRemove = null;
+				long diff = 0;
+				for (KademliaNode oldNode: buckets[idx].getNodes()) {
+					Long oldNodeTime = lastSeen.get(oldNode);
+					
+					if ((oldNodeTime != null) && (oldNodeTime < newNodeTime)) {
+						if (newNodeTime-oldNodeTime > diff) {
+							toRemove = oldNode;
+							diff = newNodeTime-oldNodeTime;
+						}
+					}
+				}
+				if (toRemove != null) {
+					buckets[idx].getNodes().remove(toRemove);
+					buckets[idx].getNodes().add(node);
+				}
+			}
 		}
 	}
 
