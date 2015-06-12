@@ -156,10 +156,8 @@ public class KademliaNodeWorker {
 	}
 
 	public HashTableValue findValue(KademliaId id) {
-		/*
-		 * try { throw new Exception(); }catch (Exception e) {
-		 * e.printStackTrace(); }
-		 */
+		if (localHashMap.containsKey(id)) return getFromLocalHashMap(id);
+		
 		FindValueRequest request = FindValueRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node,
 				request);
@@ -175,6 +173,8 @@ public class KademliaNodeWorker {
 		}
 
 		findValueResponseListener.removeValueExpectation(id);
+		
+		putToLocalHashMap(id, result);
 		return result;
 	}
 
