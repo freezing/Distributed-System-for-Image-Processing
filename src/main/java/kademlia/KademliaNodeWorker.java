@@ -81,7 +81,7 @@ public class KademliaNodeWorker {
 	public void run() {
 		//System.out.println(KademliaUtils.idToString(node.getId()));
 		new Thread(new KademliaRepublisher(this)).start();
-		//taskManager.run();
+		taskManager.run();
 	}
 
 	public void testStore(int id, String val) {
@@ -107,6 +107,7 @@ public class KademliaNodeWorker {
 		int remaining = Constants.ALPHA;
 		for (KademliaNode receiver : nodes) {
 			if (remaining == 0) break;
+		//	System.out.println("Sending to: " + KademliaUtils.idToString(receiver.getId()));
 			messageManager.sendMessage(receiver, message);
 			visited.add(receiver.getId());
 			remaining--;
@@ -139,7 +140,7 @@ public class KademliaNodeWorker {
 		FindValueRequest request = FindValueRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node, request);
 		findValueResponseListener.addValueExpectation(id);
-		findNodeOrValue(id, findValueResponseListener, message);		
+		findNodeOrValue(id, findValueResponseListener, message);
 		HashTableValue result = findValueResponseListener.getValue(id);
 		KademliaNode node = findValueResponseListener.getClosestNodeIfNotStored(id);
 		if ((result != null) && (node != null)) {

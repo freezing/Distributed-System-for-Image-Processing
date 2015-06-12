@@ -6,7 +6,6 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -22,7 +21,7 @@ public class MessageManager {
 	private HashMap<Integer, List<MessageListener>> listeners;
 	private DatagramSocket serverSocket;
 
-	public MessageManager(int port) {
+	public MessageManager(final int port) {
 		listeners = new HashMap<Integer, List<MessageListener>>(
 				MessageType.values().length);
 
@@ -57,7 +56,11 @@ public class MessageManager {
 					} catch (InvalidProtocolBufferException e) {
 						throw new RuntimeException(e);
 					}
-					
+					if (message.getType() == 6 && message.getSender().getPort() == 20000) {
+				//		System.out.println("Message received: " + MessageType.values()[message.getType()]);
+					} else if (message.getType() == 7 || port == 20000) {
+				//		System.out.println("Message received: " + MessageType.values()[message.getType()]);
+					}
 					List<MessageListener> listenerList = listeners
 							.get(message.getType());
 					if (listenerList != null) {

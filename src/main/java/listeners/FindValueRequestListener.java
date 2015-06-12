@@ -9,6 +9,7 @@ import protos.KademliaProtos.FindValueResponse;
 import protos.KademliaProtos.HashTableValue;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
+import utils.KademliaUtils;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 

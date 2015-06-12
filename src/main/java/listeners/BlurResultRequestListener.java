@@ -20,25 +20,32 @@ public class BlurResultRequestListener implements MessageListener {
 		this.taskManager = taskManager;
 	}
 
-	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
+	public void messageReceived(String ip, final KademliaNode sender, byte[] message) {
 		try {
+			System.out.println("BlurResultRequest listener");
 			// Request is empty, it's just the type that is important
 			BlurResultRequest.parseFrom(message);
-			HashTableValue rootValue = taskManager.findRootValue();
-
-			ImageProto image = null;
-
-			if (StatisticsUtils.isAllFinished(rootValue)) {
-				// All is finished, get image
-				image = taskManager.assembleImage(rootValue.getTotalTasks(), rootValue.getValidTasks(),
-						rootValue.getUnitTask().getWholeImageHeight(),
-						rootValue.getUnitTask().getWholeImageWidth());
-			}
-
-			BlurResultResponse response = BlurResultResponseFactory.make(
-					StatisticsUtils.calculatePercentage(rootValue), image);
-
-			taskManager.sendMessageToNode(sender, response);
+			
+			new Thread(new Runnable() {
+				
+				public void run() {
+					HashTableValue rootValue = taskManager.findRootValue();
+					
+					ImageProto image = null;
+					
+					if (StatisticsUtils.isAllFinished(rootValue)) {
+						// All is finished, get image
+						image = taskManager.assembleImage(rootValue.getTotalTasks(), rootValue.getValidTasks(),
+								rootValue.getUnitTask().getWholeImageHeight(),
+								rootValue.getUnitTask().getWholeImageWidth());
+					}
+					
+					BlurResultResponse response = BlurResultResponseFactory.make(
+							StatisticsUtils.calculatePercentage(rootValue), image);
+					
+					taskManager.sendMessageToNode(sender, response);
+				}
+			}).start();;
 
 		} catch (InvalidProtocolBufferException e) {
 			throw new RuntimeException(e);

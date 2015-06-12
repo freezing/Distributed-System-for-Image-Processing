@@ -15,6 +15,7 @@ public class BlurResultResponseListener implements MessageListener {
 	}
 	
 	public void messageReceived(String ip, KademliaNode sender, byte[] message) {
+		System.out.println("Got response");
 		BlurResultResponse response = BlurResultResponseFactory.make(message);
 		
 		if (response.hasImage()) {
