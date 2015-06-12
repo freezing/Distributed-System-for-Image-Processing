@@ -10,6 +10,7 @@ import listeners.BootstrapConnectResponseListener;
 import listeners.PingResponseListener;
 import network.MessageManager;
 import network.MessageType;
+import network.TCPMessageManager;
 import protos.KademliaProtos.BootstrapConnectRequest;
 import protos.KademliaProtos.BootstrapConnectResponse;
 import protos.KademliaProtos.DeadNodeReportRequest;
@@ -20,9 +21,11 @@ import utils.KademliaUtils;
 import factories.MessageContainerFactory;
 
 public class KademliaNodeStarter implements Runnable {
-	private Random rnd = new Random();
-	
 	private MessageManager messageManager;
+	private TCPMessageManager tcpMessageManager;
+	
+	private static final Random rnd = new Random();
+
 	private BootstrapConnectResponse bootstrapResponse = null;
 	private BootstrapConnectResponseListener bootstrapListener;
 	private KademliaNode bootstrapNode;
@@ -33,6 +36,7 @@ public class KademliaNodeStarter implements Runnable {
 		this.myPort = myPort;
 		bootstrapNode = KademliaNode.newBuilder().setAddress(bootstrapIp).setPort(bootstrapPort).build();
 		messageManager = new MessageManager(myPort);
+		tcpMessageManager = new TCPMessageManager(myPort);
 		registerListeners();
 	}
 	
@@ -48,8 +52,9 @@ public class KademliaNodeStarter implements Runnable {
 	
 	public void run() {
 		messageManager.startListening();
+		tcpMessageManager.startListening();
 		List<KademliaNode> aliveNodes = new ArrayList<KademliaNode>();
-		
+
 		int attempts = 5;
 		while (attempts > 0) {
 			attempts--;
@@ -105,7 +110,7 @@ public class KademliaNodeStarter implements Runnable {
 			}
 		}
 		
-		worker = new KademliaNodeWorker(bootstrapResponse.getYou(), aliveNodes, messageManager);
+		worker = new KademliaNodeWorker(bootstrapResponse.getYou(), aliveNodes, messageManager, tcpMessageManager);
 		worker.findNode(worker.getNode().getId());
 		worker.findNode(KademliaUtils.randomId());
 		worker.findNode(KademliaUtils.randomId());

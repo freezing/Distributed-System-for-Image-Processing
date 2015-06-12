@@ -10,6 +10,7 @@ import javax.imageio.ImageIO;
 import listeners.BlurResultResponseListener;
 import network.MessageManager;
 import network.MessageType;
+import network.TCPMessageManager;
 import protos.KademliaProtos.BlurImageRequest;
 import protos.KademliaProtos.BlurResultRequest;
 import protos.KademliaProtos.ImageProto;
@@ -22,6 +23,7 @@ import factories.MessageContainerFactory;
 
 public class Client {
 	private MessageManager messageManager;
+	private TCPMessageManager tcpMessageManager;
 	
 	private File imageFile;
 	private int radius;
@@ -33,9 +35,12 @@ public class Client {
 	public Client(String imagePath, int radius, int port, KademliaNode receiver) throws IOException {
 		this.clientNode = KademliaNode.newBuilder().setAddress("localhost").setPort(port).build();
 		messageManager = new MessageManager(port);
-		messageManager.startListening();
+		tcpMessageManager = new TCPMessageManager(port);
 		
-		messageManager.registerListener(MessageType.BLUR_RESULT_RESPONSE, new BlurResultResponseListener(this));
+		messageManager.startListening();
+		tcpMessageManager.startListening();
+		
+		tcpMessageManager.registerListener(MessageType.BLUR_RESULT_RESPONSE, new BlurResultResponseListener(this));
 		
 		this.imageFile = new File(imagePath);
 		this.radius = radius;
@@ -47,7 +52,7 @@ public class Client {
 		ImageProto imageProto = makeImageProto(image);
 		BlurImageRequest blurImageRequest = BlurImageRequestFactory.make(imageProto, radius);
 		MessageContainer message = MessageContainerFactory.make(receiver, blurImageRequest);
-		messageManager.sendMessage(receiver, message);
+		tcpMessageManager.sendMessage(receiver, message);
 
 		while (true) {
 			if (bluredImage != null) {
@@ -106,7 +111,7 @@ public class Client {
 				.setAddress("localhost")
 				.setPort(20000)
 				.build();
-		Client client = new Client("/home/nikola/Pictures/1.bmp", 5, 22000, node);
+		Client client = new Client("/home/nikola/Pictures/10644715_779768412073282_6335973577924657285_o.jpg", 3, 22000, node);
 		client.run();
 	}
 }

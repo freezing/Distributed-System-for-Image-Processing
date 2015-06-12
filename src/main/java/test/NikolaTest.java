@@ -1,13 +1,12 @@
 package test;
 
 import java.io.IOException;
-import java.util.Random;
 
 import kademlia.KademliaNodeStarter;
 
 public class NikolaTest {
 	public static void main(String[] args) throws InterruptedException, IOException {
-		final int N = 20;
+		final int N = 2000;
 		
 		final KademliaNodeStarter nodes[] = new KademliaNodeStarter[N];
 		

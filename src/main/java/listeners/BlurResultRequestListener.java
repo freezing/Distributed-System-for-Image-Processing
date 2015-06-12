@@ -50,7 +50,7 @@ public class BlurResultRequestListener implements MessageListener {
 					BlurResultResponse response = BlurResultResponseFactory.make(
 							StatisticsUtils.calculatePercentage(rootValue), image);
 					
-					taskManager.sendMessageToNode(sender, response);
+					taskManager.sendTcpMessageToNode(sender, response);
 				}
 			}).start();;
 
