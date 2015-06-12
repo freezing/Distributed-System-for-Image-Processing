@@ -32,6 +32,10 @@ public class KademliaNodeStarter implements Runnable {
 	private int myPort;
 	KademliaNodeWorker worker;
 	
+	public KademliaNodeWorker getWorker() {
+		return worker;
+	}
+	
 	public KademliaNodeStarter(int myPort, String bootstrapIp, int bootstrapPort) {
 		this.myPort = myPort;
 		bootstrapNode = KademliaNode.newBuilder().setAddress(bootstrapIp).setPort(bootstrapPort).build();

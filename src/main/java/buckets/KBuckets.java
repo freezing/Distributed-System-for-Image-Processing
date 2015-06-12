@@ -2,8 +2,9 @@ package buckets;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
@@ -13,6 +14,9 @@ import utils.KademliaUtils;
 public class KBuckets {
 	private KademliaId id;
 	private SingleKBucket[] buckets;
+	
+	private Map<KademliaNode, Long> timestamp = new HashMap<>();
+	private Map<KademliaNode, Long> refresh = new HashMap<>();
 	
 	public KBuckets(KademliaId id, List<KademliaNode> nodes) {
 		this.id = id;
@@ -25,7 +29,30 @@ public class KBuckets {
 		}
 	}
 	
+	public synchronized void refresh(KademliaNode node) {
+		long currTime = System.currentTimeMillis();
+		if (refresh.containsKey(node)) {
+			// Check that it didn't get reply for a long time
+			// Assume it won't break too early (don't check if it exists in the map)
+			long lastReply = timestamp.get(node);
+			long elapsedTime = currTime - lastReply;
+			if (elapsedTime > 3000) {
+				// Remove it
+				for (SingleKBucket bucket : buckets) {
+					bucket.remove(node);
+				}
+			} else {
+				refresh.put(node, currTime);
+			}
+		} else {
+			refresh.put(node, currTime);
+		}
+	}
+	
 	public synchronized void add(KademliaNode node) {
+		long currTime = System.currentTimeMillis();
+		timestamp.put(node, currTime);
+		
 		int idx = KademliaUtils.xorDistance(id, node.getId());
 		buckets[idx].updateLastModified();
 		

@@ -2,6 +2,7 @@ package test;
 
 import java.io.IOException;
 
+import utils.KademliaUtils;
 import kademlia.KademliaNodeStarter;
 
 public class NikolaTest {
@@ -14,9 +15,10 @@ public class NikolaTest {
 		long a = System.currentTimeMillis();
 		int i = 0;
 		for (; i<N; i++) {
-			nodes[i] = new KademliaNodeStarter(20000+i, "localhost", 19803);
+			nodes[i] = new KademliaNodeStarter(34000+i, "localhost", 19803);
 			final int k = i;
 			nodes[i].run();
+			System.out.println(KademliaUtils.idToString(nodes[i].getWorker().getNode().getId()));
 			/*
 			new Thread(new Runnable() {
 				
