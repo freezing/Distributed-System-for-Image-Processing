@@ -61,10 +61,10 @@ public class KBuckets {
 		} else if (buckets[idx].getNodes().size() < Constants.K) {
 			buckets[idx].getNodes().add(node);
 		} else {
-			removeOldNodes(buckets[idx].getNodes());
-			if (buckets[idx].getNodes().size() == Constants.K) {
+			//removeOldNodes(buckets[idx].getNodes());
+			//if (buckets[idx].getNodes().size() == Constants.K) {
 				buckets[idx].getNodes().remove(0);
-			}
+			//}
 			buckets[idx].getNodes().add(node);
 			//Long newNodeTime = lastSeen.get(node);
 			/*if (newNodeTime != null) {
