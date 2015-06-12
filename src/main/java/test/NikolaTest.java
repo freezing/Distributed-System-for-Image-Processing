@@ -6,7 +6,8 @@ import kademlia.KademliaNodeStarter;
 
 public class NikolaTest {
 	public static void main(String[] args) throws InterruptedException, IOException {
-		final int N = 2000;
+		final int N = 200;
+		System.out.println(N);
 		
 		final KademliaNodeStarter nodes[] = new KademliaNodeStarter[N];
 		

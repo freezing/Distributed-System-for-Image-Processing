@@ -111,7 +111,7 @@ public class Client {
 				.setAddress("localhost")
 				.setPort(20000)
 				.build();
-		Client client = new Client("/home/nikola/Pictures/10644715_779768412073282_6335973577924657285_o.jpg", 3, 22000, node);
+		Client client = new Client("/home/nikola/Pictures/10934705_10204577366728415_598875387_n.jpg", 3, 22000, node);
 		client.run();
 	}
 }
