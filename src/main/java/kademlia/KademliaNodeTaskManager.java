@@ -32,8 +32,6 @@ public class KademliaNodeTaskManager {
 	}
 	
 	public void run() {
-		//if (worker.getNode().getPort() != 20000) return;
-		
 		while (true) {
 			// Check if there are any not finished jobs
 			HashTableValue rootValue = worker.findValue(SEGMENT_TREE_ROOT_ID);
@@ -77,7 +75,7 @@ public class KademliaNodeTaskManager {
 				System.out.println("Not found");
 			}
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(100);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -306,6 +304,12 @@ public class KademliaNodeTaskManager {
 		}
 		
 		return ImageProtoUtils.assembleImage(imageParts, height, width);
+	}
+	
+	public void sendTcpMessageToNode(KademliaNode target, Object msg) {
+		MessageContainer messageContainer = MessageContainerFactory.make(
+				worker.getNode(), msg);
+		worker.sendMessageTCP(target, messageContainer);
 	}
 	
 	public void sendMessageToNode(KademliaNode target, Object msg) {
