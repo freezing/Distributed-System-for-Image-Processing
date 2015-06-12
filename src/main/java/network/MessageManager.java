@@ -54,7 +54,8 @@ public class MessageManager {
 					try {
 						message = MessageContainer.parseFrom(receiveDataTrimmed);
 					} catch (InvalidProtocolBufferException e) {
-						throw new RuntimeException(e);
+					//	throw new RuntimeException(e);
+						continue;
 					}
 					if (message.getType() == 6 && message.getSender().getPort() == 20000) {
 				//		System.out.println("Message received: " + MessageType.values()[message.getType()]);

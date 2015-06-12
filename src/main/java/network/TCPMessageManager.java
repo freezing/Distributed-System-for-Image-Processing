@@ -67,7 +67,8 @@ public class TCPMessageManager {
 						try {
 							message = MessageContainer.parseFrom(receiveData);
 						} catch (InvalidProtocolBufferException e) {
-							throw new RuntimeException(e);
+							//throw new RuntimeException(e);
+							continue;
 						}
 						
 						ArrayList<MessageListener> listenerList = listeners
