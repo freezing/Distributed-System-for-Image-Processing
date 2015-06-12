@@ -128,6 +128,7 @@ public class KademliaNodeTaskManager {
 				// Find the first parent that has jobs that are not in progress
 				// and not finished
 				HashTableValue parentWithNonFinishedTasks = findParentWithNonFinishedTasksNotInProgress(potentialValue);
+				System.out.println("Parent with non-finished found");
 				if (parentWithNonFinishedTasks != null) {
 					return findNonFinishedTaskInTree(parentWithNonFinishedTasks);
 				} else {
@@ -142,6 +143,7 @@ public class KademliaNodeTaskManager {
 	private HashTableValue findNonFinishedTaskInTree(
 			HashTableValue value) {
 		HashTableValue current = value;
+		int depth = 0;
 		while (true) {
 			if (StatisticsUtils.isNonTakenTask(current)) {
 				return current;
@@ -172,6 +174,10 @@ public class KademliaNodeTaskManager {
 						return null;
 					}
 				}
+			}
+			depth++;
+			if (depth > 1000) {
+				throw new RuntimeException("Went too deep");
 			}
 		}
 	}

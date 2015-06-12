@@ -24,7 +24,6 @@ public class BlurResultRequestListener implements MessageListener {
 
 	public void messageReceived(String ip, final KademliaNode sender, byte[] message) {
 		try {
-			System.out.println("BlurResultRequest listener");
 			// Request is empty, it's just the type that is important
 			BlurResultRequest.parseFrom(message);
 			

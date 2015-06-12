@@ -201,7 +201,11 @@ public class KademliaNodeWorker {
 			sendMessageToNodes(closestExcluded, message, visited);
 
 			try {
+				System.out.println("WAITING");
+				long t1 = System.currentTimeMillis();
 				latch.await(Constants.LATCH_TIMEOUT, TimeUnit.SECONDS);
+				float seconds = (float)(System.currentTimeMillis() - t1) / 1000.0f;
+				System.out.println("LATCH FINISHED for " + seconds);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
