@@ -57,6 +57,18 @@ message StoreResponse {
 	optional string status = 1;
 }
 
+message PingRequest {
+	optional int32 state = 1;
+}
+
+message PingResponse {
+	optional int32 state = 1;
+}
+
+message DeadNodeReportRequest {
+	repeated KademliaNode deadNodes = 1;
+}
+
 message HashTableValue {
 	optional SegmentTreeNode segmentTreeNode = 1;
 	optional ImageTask unitTask = 2;

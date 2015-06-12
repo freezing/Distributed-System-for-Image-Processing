@@ -17,12 +17,12 @@ import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
 import listeners.FindValueRequestListener;
 import listeners.FindValueResponseListener;
+import listeners.PingRequestListener;
 import listeners.StoreRequestListener;
 import listeners.StoreResponseListener;
 import network.MessageManager;
 import network.MessageType;
 import network.TCPMessageManager;
-import protos.KademliaProtos.BootstrapConnectResponse;
 import protos.KademliaProtos.FindNodeRequest;
 import protos.KademliaProtos.FindValueRequest;
 import protos.KademliaProtos.HashTableValue;
@@ -53,11 +53,9 @@ public class KademliaNodeWorker {
 	private StoreRequestListener storeRequestListener;
 	private TCPMessageManager tcpMessageManager;
 
-	public KademliaNodeWorker(BootstrapConnectResponse bootstrapResponse,
-			MessageManager messageManager, TCPMessageManager tcpMessageManager) {
-		this.node = bootstrapResponse.getYou();
-		this.kbuckets = new KBuckets(node.getId(),
-				bootstrapResponse.getOthersList());
+	public KademliaNodeWorker(KademliaNode you, List<KademliaNode> others, MessageManager messageManager, TCPMessageManager tcpMessageManager) {
+		this.node = you;
+		this.kbuckets = new KBuckets(node.getId(), others);
 		this.kbuckets.add(node);
 		this.messageManager = messageManager;
 		this.tcpMessageManager = tcpMessageManager;
@@ -71,6 +69,8 @@ public class KademliaNodeWorker {
 		findValueResponseListener = new FindValueResponseListener(this);
 		storeRequestListener = new StoreRequestListener(this);
 
+		messageManager.registerListener(MessageType.NODE_PING_REQUEST,
+				new PingRequestListener(this));
 		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST,
 				new FindNodeRequestListener(this));
 		messageManager.registerListener(MessageType.NODE_FIND_NODE_RESPONSE,
@@ -96,8 +96,8 @@ public class KademliaNodeWorker {
 
 	public void run() {
 		// System.out.println(KademliaUtils.idToString(node.getId()));
-		new Thread(new KademliaRepublisher(this)).start();
-		taskManager.run();
+		//new Thread(new KademliaRepublisher(this)).start();
+		//taskManager.run();
 	}
 
 	public void testStore(int id, String val) {
