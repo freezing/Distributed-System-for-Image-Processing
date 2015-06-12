@@ -1,16 +1,20 @@
 package factories;
 
+import listeners.PingResponseListener;
 import network.MessageType;
 import protos.KademliaProtos.BlurImageRequest;
 import protos.KademliaProtos.BlurResultRequest;
 import protos.KademliaProtos.BlurResultResponse;
 import protos.KademliaProtos.BootstrapConnectRequest;
+import protos.KademliaProtos.DeadNodeReportRequest;
 import protos.KademliaProtos.FindNodeRequest;
 import protos.KademliaProtos.FindNodeResponse;
 import protos.KademliaProtos.FindValueRequest;
 import protos.KademliaProtos.FindValueResponse;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
+import protos.KademliaProtos.PingRequest;
+import protos.KademliaProtos.PingResponse;
 import protos.KademliaProtos.StoreRequest;
 import protos.KademliaProtos.StoreResponse;
 
@@ -30,7 +34,15 @@ public class MessageContainerFactory {
 			builder.setSender(sender);
 		}
 
-		if (obj instanceof FindNodeRequest) {
+		if (obj instanceof PingRequest) {
+			PingRequest request = (PingRequest) obj;
+			builder.setType(MessageType.NODE_PING_REQUEST.getValue())
+					.setData(request.toByteString());
+		} else if (obj instanceof PingResponse) {
+			PingResponse response = (PingResponse) obj;
+			builder.setType(MessageType.NODE_PING_RESPONSE.getValue())
+					.setData(response.toByteString());
+		} else if (obj instanceof FindNodeRequest) {
 			FindNodeRequest request = (FindNodeRequest) obj;
 			builder.setType(MessageType.NODE_FIND_NODE_REQUEST.getValue())
 					.setData(request.toByteString());
@@ -69,6 +81,10 @@ public class MessageContainerFactory {
 		} else if (obj instanceof BlurResultResponse) {
 			BlurResultResponse response = (BlurResultResponse) obj;
 			builder.setType(MessageType.BLUR_RESULT_RESPONSE.getValue())
+					.setData(response.toByteString());
+		} else if (obj instanceof DeadNodeReportRequest) {
+			DeadNodeReportRequest response = (DeadNodeReportRequest) obj;
+			builder.setType(MessageType.BOOTSTRAP_DEAD_NODES.getValue())
 					.setData(response.toByteString());
 		} else {
 			throw new IllegalArgumentException(obj.toString());

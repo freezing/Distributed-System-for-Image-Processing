@@ -12,12 +12,12 @@ import java.util.concurrent.TimeUnit;
 
 import listeners.BlurImageRequestListener;
 import listeners.BlurResultRequestListener;
-import listeners.BlurResultResponseListener;
 import listeners.FindAnythingResponseListener;
 import listeners.FindNodeRequestListener;
 import listeners.FindNodeResponseListener;
 import listeners.FindValueRequestListener;
 import listeners.FindValueResponseListener;
+import listeners.PingRequestListener;
 import listeners.StoreRequestListener;
 import listeners.StoreResponseListener;
 import network.MessageManager;
@@ -29,6 +29,7 @@ import protos.KademliaProtos.HashTableValue;
 import protos.KademliaProtos.KademliaId;
 import protos.KademliaProtos.KademliaNode;
 import protos.KademliaProtos.MessageContainer;
+import protos.KademliaProtos.PingResponse;
 import protos.KademliaProtos.StoreRequest;
 import test.Debug;
 import util.Constants;
@@ -52,9 +53,9 @@ public class KademliaNodeWorker {
 	private FindValueResponseListener findValueResponseListener;
 	private StoreRequestListener storeRequestListener;
 	
-	public KademliaNodeWorker(BootstrapConnectResponse bootstrapResponse, MessageManager messageManager) {
-		this.node = bootstrapResponse.getYou();
-		this.kbuckets = new KBuckets(node.getId(), bootstrapResponse.getOthersList());
+	public KademliaNodeWorker(KademliaNode you, List<KademliaNode> others, MessageManager messageManager) {
+		this.node = you;
+		this.kbuckets = new KBuckets(node.getId(), others);
 		this.kbuckets.add(node);
 		this.messageManager = messageManager;
 		this.localHashMap = new ConcurrentHashMap<KademliaId, HashTableValueWrapper>();
@@ -67,6 +68,7 @@ public class KademliaNodeWorker {
 		findValueResponseListener = new FindValueResponseListener(this);
 		storeRequestListener = new StoreRequestListener(this);
 		
+		messageManager.registerListener(MessageType.NODE_PING_REQUEST, new PingRequestListener(this));
 		messageManager.registerListener(MessageType.NODE_FIND_NODE_REQUEST, new FindNodeRequestListener(this));
 		messageManager.registerListener(MessageType.NODE_FIND_NODE_RESPONSE, findNodeResponseListener);
 		messageManager.registerListener(MessageType.NODE_FIND_VALUE_RESPONSE, findValueResponseListener);
@@ -80,8 +82,8 @@ public class KademliaNodeWorker {
 
 	public void run() {
 		//System.out.println(KademliaUtils.idToString(node.getId()));
-		new Thread(new KademliaRepublisher(this)).start();
-		taskManager.run();
+		//new Thread(new KademliaRepublisher(this)).start();
+		//taskManager.run();
 	}
 
 	public void testStore(int id, String val) {

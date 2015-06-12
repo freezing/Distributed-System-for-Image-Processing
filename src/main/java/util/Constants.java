@@ -13,4 +13,5 @@ public final class Constants {
 	public static final int REPUBLISH_PERIOD_S = 20;
 	public static final long HASHTABLEVALUE_FRESH_DURATION_S = 15;
 	public static final long KBUCKET_FRESH_DURATION_S = 600;
+	public static final long PING_TIMEOUT_S = 10;
 }

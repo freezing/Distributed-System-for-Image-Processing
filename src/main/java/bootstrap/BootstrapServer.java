@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import listeners.BootstrapConnectRequestListener;
+import listeners.BootstrapDeadNodesListener;
 import network.MessageManager;
 import network.MessageType;
 import protos.KademliaProtos.KademliaId;
@@ -27,6 +28,7 @@ public class BootstrapServer {
 	
 	private void registerListeners() {
 		messageManager.registerListener(MessageType.BOOTSTRAP_CONNECT_REQUEST, new BootstrapConnectRequestListener(this));
+		messageManager.registerListener(MessageType.BOOTSTRAP_DEAD_NODES, new BootstrapDeadNodesListener(this));
 	}
 
 	public KademliaId getNextId() {

@@ -12,8 +12,8 @@ public class KademliaNodeTester {
 		//starter.run();
 		
 		//for (int i=5000; i<6000; i++) {
-		for (int i=1; i<=15; i++) {
-			starter.worker.testStore(i, (i-5000)+"");
+		for (int i=1; i<=150; i++) {
+			starter.worker.testStore(i, (i+5000)+"");
 		}
 //		worker.testStore(10, "ABC");
 //		worker.testStore(100, "DADSD");
@@ -55,14 +55,14 @@ public class KademliaNodeTester {
 		for (int i=0; i<howMany; i++) {
 			new KademliaNodeRunner(20000+whereFrom+i, "localhost", 19803).run();
 		}*/
-		new BootstrapServer(19803).run();
+		//new BootstrapServer(19803).run();
 		KademliaNodeStarter first = new KademliaNodeStarter(20000, "localhost", 19803);
 		first.run();
-		for (int i=1; i<20; i++) {
+		for (int i=1; i<100; i++) {
 			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
 		}
 		testStore(first);
-		Thread.sleep(10000);
+		Thread.sleep(1000);
 		testGet(first);
 		
 		
