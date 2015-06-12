@@ -7,7 +7,7 @@ import kademlia.KademliaNodeStarter;
 
 public class NikolaTest {
 	public static void main(String[] args) throws InterruptedException, IOException {
-		final int N = 200;
+		final int N = 2;
 		System.out.println(N);
 		
 		final KademliaNodeStarter nodes[] = new KademliaNodeStarter[N];
@@ -15,7 +15,7 @@ public class NikolaTest {
 		long a = System.currentTimeMillis();
 		int i = 0;
 		for (; i<N; i++) {
-			nodes[i] = new KademliaNodeStarter(34000+i, "localhost", 19803);
+			nodes[i] = new KademliaNodeStarter(21000+i, "localhost", 19803);
 			final int k = i;
 			nodes[i].run();
 			System.out.println(KademliaUtils.idToString(nodes[i].getWorker().getNode().getId()));

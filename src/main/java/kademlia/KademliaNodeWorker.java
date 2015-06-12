@@ -96,7 +96,7 @@ public class KademliaNodeWorker {
 
 	public void run() {
 		// System.out.println(KademliaUtils.idToString(node.getId()));
-		//new Thread(new KademliaRepublisher(this)).start();
+		new Thread(new KademliaRepublisher(this)).start();
 		taskManager.run();
 	}
 
@@ -202,11 +202,9 @@ public class KademliaNodeWorker {
 			sendMessageToNodes(closestExcluded, message, visited);
 
 			try {
-				System.out.println("WAITING");
-				long t1 = System.currentTimeMillis();
+				//long t1 = System.currentTimeMillis();
 				latch.await(Constants.LATCH_TIMEOUT, TimeUnit.SECONDS);
-				float seconds = (float)(System.currentTimeMillis() - t1) / 1000.0f;
-				System.out.println("LATCH FINISHED for " + seconds);
+				//float seconds = (float)(System.currentTimeMillis() - t1) / 1000.0f;
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
