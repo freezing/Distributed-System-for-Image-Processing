@@ -27,11 +27,7 @@ public class KademliaNodeTester {
 		/*for (int i = 5000; i < 6000; i++) {
 			worker.testGet(i);
 		}*/
-<<<<<<< HEAD
 		int i = 30;
-=======
-		int i = 20;
->>>>>>> parent of a6fb44b... Not sure what's gonna happen
 		while (i > 0) {
 			i--;
 			Random rand = new Random();
@@ -62,7 +58,6 @@ public class KademliaNodeTester {
 		//new BootstrapServer(19803).run();
 		KademliaNodeStarter first = new KademliaNodeStarter(20000, "localhost", 19803);
 		first.run();
-<<<<<<< HEAD
 		KademliaNodeStarter t = first;
 		for (int i=1; i<100; i++) {
 			KademliaNodeStarter s = new KademliaNodeStarter(20000+i, "localhost", 19803);
@@ -70,12 +65,6 @@ public class KademliaNodeTester {
 			if (Math.random() > 0.1) t = s;
 		}
 		testStore(t);
-=======
-		for (int i=1; i<100; i++) {
-			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
-		}
-		testStore(first);
->>>>>>> parent of a6fb44b... Not sure what's gonna happen
 		Thread.sleep(1000);
 		testGet(first);
 		
