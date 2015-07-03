@@ -96,8 +96,12 @@ public class KademliaNodeWorker {
 
 	public void run() {
 		// System.out.println(KademliaUtils.idToString(node.getId()));
-		new Thread(new KademliaRepublisher(this)).start();
-		taskManager.run();
+	//	new Thread(new KademliaRepublisher(this)).start();
+		new Thread(new Runnable(){
+			public void run() {
+				taskManager.run();
+			}
+		}).start();
 	}
 
 	public void testStore(int id, String val) {
@@ -130,7 +134,7 @@ public class KademliaNodeWorker {
 			// System.out.println("Sending to: " +
 			// KademliaUtils.idToString(receiver.getId()));
 			messageManager.sendMessage(receiver, message);
-			kbuckets.refresh(receiver);
+			//kbuckets.refresh(receiver);
 			visited.add(receiver.getId());
 			remaining--;
 		}

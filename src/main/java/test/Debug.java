@@ -1,6 +1,7 @@
 package test;
 
 import java.io.PrintStream;
+import java.util.Arrays;
 import java.util.Locale;
 
 public final class Debug {
@@ -13,6 +14,8 @@ public final class Debug {
 		enabled[103] = true;
 		enabled[104] = true;
 		enabled[1000] = true;
+		
+		Arrays.fill(enabled, false);
 	}
 
 	public static void flush(int type) {

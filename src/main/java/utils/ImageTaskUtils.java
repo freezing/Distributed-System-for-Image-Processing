@@ -14,7 +14,7 @@ public class ImageTaskUtils {
 
 	public static List<ImageTask> makeUnitTasks(ImageProto imageProto,
 			int radius) {
-		System.out.println("Image proto height = " + imageProto.getHeight());
+	//	System.out.println("Image proto height = " + imageProto.getHeight());
 		List<ImageTask> tasks = new ArrayList<ImageTask>();
 		for (int y = 0; y < imageProto.getHeight(); y += Constants.UNIT_TASK_IMAGE_HEIGHT) {
 			for (int x = 0; x < imageProto.getWidth(); x += Constants.UNIT_TASK_IMAGE_WIDTH) {
@@ -28,7 +28,7 @@ public class ImageTaskUtils {
 				ImageTask unitTask = makeUnitTask(imageProto,
 						wholeImageBlurArea, radius, imageProto.getHeight(),
 						imageProto.getWidth());
-				System.out.println("Unit task whole image height = " + unitTask.getWholeImageHeight());
+			//	System.out.println("Unit task whole image height = " + unitTask.getWholeImageHeight());
 				tasks.add(unitTask);
 			}
 		}
@@ -37,7 +37,7 @@ public class ImageTaskUtils {
 
 	private static ImageTask makeUnitTask(ImageProto imageProto,
 			BlurArea wholeImageBlurArea, int radius, int height, int width) {
-		System.out.println("Make unit task height = " + height);
+	//	System.out.println("Make unit task height = " + height);
 		int top = Math.max(0, wholeImageBlurArea.getTop() - radius);
 		int left = Math.max(0, wholeImageBlurArea.getLeft() - radius);
 		int bottom = Math.min(imageProto.getHeight(),

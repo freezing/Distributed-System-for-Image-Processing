@@ -3,7 +3,9 @@ package client;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.imageio.ImageIO;
 
@@ -31,8 +33,12 @@ public class Client {
 	private KademliaNode clientNode;
 	
 	private BufferedImage bluredImage;
+	private int nodeCount;
 	
-	public Client(String imagePath, int radius, int port, KademliaNode receiver) throws IOException {
+	private File outputFile;
+	private PrintWriter writer;
+	
+	public Client(String imagePath, int radius, int port, KademliaNode receiver, int nodeCount) throws IOException {
 		this.clientNode = KademliaNode.newBuilder().setAddress("localhost").setPort(port).build();
 		messageManager = new MessageManager(port);
 		tcpMessageManager = new TCPMessageManager(port);
@@ -45,6 +51,12 @@ public class Client {
 		this.imageFile = new File(imagePath);
 		this.radius = radius;
 		this.receiver = receiver;
+		this.nodeCount = nodeCount;
+		
+
+		
+		outputFile = new File("/home/nikola/Desktop/results_" + nodeCount + ".txt");
+		writer = new PrintWriter(new FileOutputStream(outputFile), true);
 	}
 	
 	public void run() throws IOException, InterruptedException {
@@ -52,7 +64,9 @@ public class Client {
 		ImageProto imageProto = makeImageProto(image);
 		BlurImageRequest blurImageRequest = BlurImageRequestFactory.make(imageProto, radius);
 		MessageContainer message = MessageContainerFactory.make(receiver, blurImageRequest);
+		
 		tcpMessageManager.sendMessage(receiver, message);
+		long startTime = System.currentTimeMillis();
 
 		while (true) {
 			if (bluredImage != null) {
@@ -65,7 +79,16 @@ public class Client {
 			messageManager.sendMessage(receiver, msg);
 		}
 		
+		long finishedTime = System.currentTimeMillis();
+		
+		long workTime = finishedTime - startTime;
+		int height = image.getHeight();
+		int width = image.getWidth();
+		writer.append(workTime + " " + height + " " + width + "\n");
+		
+		writer.close();
 		ImageIO.write(bluredImage, "png", new File("/home/nikola/Desktop/blured.png"));
+		System.out.println("Done.");
 	}
 	
 	private ImageProto makeImageProto(BufferedImage image) {
@@ -106,12 +129,14 @@ public class Client {
 	}
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
+		final String imagePath = "/home/nikola/Pictures/10644715_779768412073282_6335973577924657285_o.jpg";
+		
 		System.out.println("Starting client");
 		KademliaNode node = KademliaNode.newBuilder()
 				.setAddress("localhost")
 				.setPort(20000)
 				.build();
-		Client client = new Client("/home/nikola/Pictures/10644715_779768412073282_6335973577924657285_o.jpg", 5, 22000, node);
+		Client client = new Client(imagePath, 5, 22000, node, 1);
 		client.run();
 	}
 }
