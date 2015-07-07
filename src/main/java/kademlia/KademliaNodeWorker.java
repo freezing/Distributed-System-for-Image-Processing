@@ -160,12 +160,13 @@ public class KademliaNodeWorker {
 		return findNodeOrValue(id, findNodeResponseListener, message);
 	}
 
-	public HashTableValue findValue(KademliaId id) {
+	public synchronized HashTableValue findValue(KademliaId id) {
 		/*
 		 * try { throw new Exception(); }catch (Exception e) {
 		 * e.printStackTrace(); }
 		 */
-		FindValueRequest request = FindValueRequestFactory.make(id);
+		return MockKademlia.getInstance().findValue(id);
+		/*FindValueRequest request = FindValueRequestFactory.make(id);
 		MessageContainer message = MessageContainerFactory.make(this.node,
 				request);
 		findValueResponseListener.addValueExpectation(id);
@@ -180,7 +181,8 @@ public class KademliaNodeWorker {
 		}
 
 		findValueResponseListener.removeValueExpectation(id);
-		return result;
+		if (result == null) result = MockKademlia.getInstance().findValue(id);
+		return result;*/
 	}
 
 	private synchronized List<KademliaNode> findNodeOrValue(KademliaId id,
@@ -243,11 +245,12 @@ public class KademliaNodeWorker {
 		tcpMessageManager.sendMessage(receiver, message);
 	}
 
-	public void store(KademliaId key, HashTableValue value) {
+	public synchronized void store(KademliaId key, HashTableValue value) {
+		MockKademlia.getInstance().store(key, value);
 		store(key, value, false);
 	}
 
-	public void store(KademliaId key, HashTableValue value,
+	public synchronized void store(KademliaId key, HashTableValue value,
 			boolean checkDistance) {
 		List<KademliaNode> closest = findNode(key);
 		for (KademliaNode node : closest) {

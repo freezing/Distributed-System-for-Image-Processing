@@ -50,19 +50,19 @@ public class KademliaNodeTaskManager {
 					
 					// Store it in the DHT
 					long ttt = worker.findValue(taskValue.getSegmentTreeNode().getMyId()).getLastTimeTaken();
-					System.out.println("last time taken = " + ttt);
+			//		System.out.println("last time taken1(" + nextRandomTaskId + ") = " + ttt);
 					worker.store(taskValue.getSegmentTreeNode().getMyId(), taskValueBuilder.build());
 					ttt = worker.findValue(taskValue.getSegmentTreeNode().getMyId()).getLastTimeTaken();
-					System.out.println(ttt);
+			//		System.out.println("last time taken2(" + nextRandomTaskId + ") = " + ttt);
 		//			System.out.println("Updated task timestamp");
 					updateSegmentTreeParent(taskValue.getSegmentTreeNode().getParentId());
 		//			System.out.println("Updated parents");
 					
 					// Start work on the task
 		//			System.out.println("Bluring task....");
-					System.out.println("Node: " + worker.getNode().getPort() + "   processing:");
+		//			System.out.println("Node: " + worker.getNode().getPort() + "   processing:");
 				//	System.out.println(taskValue.getUnitTask().getBlurArea());
-					System.out.println();
+		//			System.out.println();
 					TaskResult result = processTask(taskValue);
 		//			System.out.println("Finished bluring");
 					
@@ -121,7 +121,7 @@ public class KademliaNodeTaskManager {
 		}
 	}
 
-	private HashTableValue getTask(int nextRandomTaskId) {
+	private synchronized HashTableValue getTask(int nextRandomTaskId) {
 		KademliaId randomId = KademliaUtils.generateId(nextRandomTaskId);
 		System.out.println("Getting: " + nextRandomTaskId);
 		// Try to find task that is not taken
@@ -129,7 +129,10 @@ public class KademliaNodeTaskManager {
 		//	System.out.println("Finding potential value...");
 			HashTableValue potentialValue = worker.findValue(randomId);
 			if (potentialValue == null) {
+				//this.worker.getKbuckets().
 				System.out.println("Ovo je null, ne bi trebalo!!!");
+				System.out.println(MockKademlia.getInstance().findValue(randomId));
+				System.out.println("Finding (" + nextRandomTaskId + ") by "+KademliaUtils.crackSha(worker.getNode().getId()));
 			}
 		//	System.out.println("Found potential value");
 			if (StatisticsUtils.isNonTakenTask(potentialValue)) {
@@ -239,6 +242,17 @@ public class KademliaNodeTaskManager {
 
 		// Then create parent nodes
 		createParentNodes(id, values);
+		
+		System.out.println("Values size = " + values.length);
+		for (int i = values.length - 1; i > 0; i--) {
+			worker.store(values[i].getSegmentTreeNode().getMyId(), values[i]);
+		}
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	private void createParentNodes(int id, HashTableValue[] values) {
@@ -265,8 +279,8 @@ public class KademliaNodeTaskManager {
 			HashTableValue value = HashTableValueFactory.make(myId, parentId,
 					leftChildId, rightChildId, pendingTasks, totalTasks);
 
-			// Insert value in DHT
-			worker.store(value.getSegmentTreeNode().getMyId(), value);
+			// Insert value in DHT (TODO)
+			
 			
 			values[id] = value;
 			// Update next id
@@ -291,9 +305,8 @@ public class KademliaNodeTaskManager {
 					KademliaUtils.generateId(id),
 					KademliaUtils.generateId(parentId));
 
-			// Insert value in DHT
-			System.out.println("Creating: " + id);
-			worker.store(value.getSegmentTreeNode().getMyId(), value);
+			// Insert value in DHT TODO
+			//worker.store(value.getSegmentTreeNode().getMyId(), value);
 
 			// And store in the values array
 			values[id] = value;

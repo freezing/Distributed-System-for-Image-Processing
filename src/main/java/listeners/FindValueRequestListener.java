@@ -37,6 +37,7 @@ public class FindValueRequestListener implements MessageListener {
 		if (value != null) {
 			response = FindValueResponse.newBuilder().setValueResult(value)
 					.setSearchId(request.getSearchId()).build();
+			//System.out.println("Found (" + request.getSearchId() + ") at " + "(" + worker.getNode().getId() + ")");
 		} else {
 			List<KademliaNode> nodes = worker.getKbuckets().getKClosest(request.getSearchId());
 			

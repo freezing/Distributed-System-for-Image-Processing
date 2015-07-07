@@ -10,7 +10,7 @@ import kademlia.KademliaNodeStarter;
 public class Runner {
 
 	private static final int SERVER_PORT = 19803;
-	private static final int N = 3;
+	private static final int N = 40;
 
 	public static void main(String[] args) throws IOException, InterruptedException {
 		new Thread(new Runnable(){
@@ -37,7 +37,7 @@ public class Runner {
 			}
 		}}).start();
 		
-		Thread.sleep(2000);
+		Thread.sleep(15000);
 		
 		new Thread(new Runnable() {
 			public void run() {
@@ -49,7 +49,7 @@ public class Runner {
 			
 				Client client;
 				try {
-					client = new Client("/home/nikola/Desktop/kids/80x40.png", 5, 23000, node, N);
+					client = new Client("/home/nikola/Desktop/kids/1000x1000.png", 5, 23000, node, N);
 					client.run();
 				} catch (IOException | InterruptedException e) {
 					// TODO Auto-generated catch block
