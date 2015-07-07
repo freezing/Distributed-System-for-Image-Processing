@@ -15,8 +15,8 @@ public class KBuckets {
 	private KademliaId id;
 	private SingleKBucket[] buckets;
 	
-	private Map<KademliaNode, Long> timestamp = new HashMap<>();
-	private Map<KademliaNode, Long> refresh = new HashMap<>();
+	private Map<KademliaNode, Long> timestamp = new HashMap<KademliaNode, Long>();
+	private Map<KademliaNode, Long> refresh = new HashMap<KademliaNode, Long>();
 	
 	public KBuckets(KademliaId id, List<KademliaNode> nodes) {
 		this.id = id;

@@ -27,7 +27,7 @@ public class KademliaNodeTester {
 		/*for (int i = 5000; i < 6000; i++) {
 			worker.testGet(i);
 		}*/
-		int i = 20;
+		int i = 30;
 		while (i > 0) {
 			i--;
 			Random rand = new Random();
@@ -58,10 +58,13 @@ public class KademliaNodeTester {
 		//new BootstrapServer(19803).run();
 		KademliaNodeStarter first = new KademliaNodeStarter(20000, "localhost", 19803);
 		first.run();
+		KademliaNodeStarter t = first;
 		for (int i=1; i<100; i++) {
-			new KademliaNodeStarter(20000+i, "localhost", 19803).run();
+			KademliaNodeStarter s = new KademliaNodeStarter(20000+i, "localhost", 19803);
+			s.run();
+			if (Math.random() > 0.1) t = s;
 		}
-		testStore(first);
+		testStore(t);
 		Thread.sleep(1000);
 		testGet(first);
 		
